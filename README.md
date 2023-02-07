@@ -26,7 +26,7 @@
 #### Kmarket/cs/index
 #### Kmarket/cs/notice/list
 #### Kmarket/cs/notice/view
-### Kmarket/cs/faq/list
+#### Kmarket/cs/faq/list
 #### Kmarket/cs/faq/view
 #### Kmarket/cs/qna/list
 #### Kmarket/cs/qna/view
