@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>케이마켓</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div id="wrap">
+        <header>
+            <div class="user">
+                <a href="#">로그인</a>
+                <a href="#">회원가입</a>
+                <a href="#">마이페이지</a>
+                <a href="#">장바구니</a>
+            </div>
+            <div class="logo">
+                <div>
+                    <a href="#"><img src="./img/logo.png" alt="고객센터">고객센터</a>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="list_nav">
+                <div>
+                    <p>홈 > 문의하기</p>
+                </div>
+            </div>
+            <div class="list">
+                <article>
+                    <p>문의하기</p>
+                    <ul>
+                        <li><a href="#" class="list_current">전체</a></li>
+                        <li><a href="#">회원</a></li>
+                        <li><a href="#">쿠폰/이벤트</a></li>
+                        <li><a href="#">주문/결제</a></li>
+                        <li><a href="#">배송</a></li>
+                        <li><a href="#">취소/반품/교환</a></li>
+                        <li><a href="#">여행/숙박/항공</a></li>
+                        <li><a href="#">안전거래</a></li>
+                    </ul>
+                </article>
+                <div>
+                    <form action="#">
+                        <table class="qna_write">
+                            <tr>
+                                <td>문의유형</td>
+                                <td>
+                                    <select name="type" id="csType">
+                                        <option value="0">선택</option>
+                                        <option value="1">가입</option>
+                                        <option value="2">탈퇴</option>
+                                        <option value="3">회원정보</option>
+                                        <option value="4">로그인</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>문의제목</td>
+                                <td>
+                                    <input type="text" name="title" placeholder="제목을 입력하세요.">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>문의내용</td>
+                                <td>
+                                    <textarea name="content" id="content" placeholder="내용을 입력하세요."></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <a href="#" class="goList">목록보기</a>
+                    <input type="submit" class="writeForm" value="등록하기"/>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <div>
+                <a href="#">| 회사소개 </a>
+                <a href="#">| 서비스이용약관 </a>
+                <a href="#">| 개인정보이용방침 </a>
+                <a href="#">| 전자금융거래약관 |</a>
+            </div>
+            <div class="footerlogo">
+                <img src="./img/footer_logo.png" alt="FooterLogo">
+                <div>
+                    <span>(주)KMARKET</span>
+                    <p>부산시 강남구 테헤란로 152 (역삼동 강남파이낸스센터)</p><br/>
+                    <p>대표이사 : 홍길동</p><br/>
+                    <p>사업자등록번호 : 220-81-83676 사업자정보확인</p><br/>
+                    <p>통신판매업신고 : 강남 10620호 Fax : 02-589-8842</p><br/>
+                </div>
+                <div>
+                    <span>고객센터</span>
+                    <p>Tel : 1234-5678 (평일 09:00~18:00)</p><br/>
+                    <p>스마일클럽/SVIP 전용 : 1522-5700 (365일 09:00~18:00)</p><br/>
+                    <p>경기도 부천시 원미구 부일로 223(상동) 투나빌딩 6층</p><br/>
+                    <p>Fax : 051-123-4567 | Mail : Kamrket@Kmarket.co.kr</p><br/>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
