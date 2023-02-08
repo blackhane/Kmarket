@@ -1,0 +1,63 @@
+<th:block th:fragment="cs_noticeCate">
+	<article>
+		<p>공지사항</p>
+		<ul>
+			<li><a th:href="@{/cs/notice/list(group=all)}"
+				th:class="${group == 'all'? 'list_current' : 'off'}">전체보기</a></li>
+			<li><a th:href="@{/cs/notice/list(group=service)}"
+				th:class="${group == 'service'? 'list_current' : 'off'}">고객서비스</a></li>
+			<li><a th:href="@{/cs/notice/list(group=safe)}"
+				th:class="${group == 'safe'? 'list_current' : 'off'}">안전거래</a></li>
+			<li><a th:href="@{/cs/notice/list(group=danger)}"
+				th:class="${group == 'danger'? 'list_current' : 'off'}">위해상품</a></li>
+			<li><a th:href="@{/cs/notice/list(group=event)}"
+				th:class="${group == 'event'? 'list_current' : 'off'}">이벤트당첨</a></li>
+		</ul>
+	</article>
+</th:block>
+
+<th:block th:fragment="cs_qnaCate">
+	<article>
+		<p>문의하기</p>
+		<ul>
+			<li><a th:href="@{/cs/qna/list(group=all)}"
+				th:class="${group == 'all'? 'list_current' : 'off'}">전체보기</a></li>
+			<li><a th:href="@{/cs/qna/list(group='회원')}"
+				th:class="${group == '회원'? 'list_current' : 'off'}">회원</a></li>
+			<li><a th:href="@{/cs/qna/list(group='쿠폰/이벤트')}"
+				th:class="${group == '쿠폰/이벤트'? 'list_current' : 'off'}">쿠폰/이벤트</a></li>
+			<li><a th:href="@{/cs/qna/list(group='주문/결제')}"
+				th:class="${group == '주문/결제'? 'list_current' : 'off'}">주문/결제</a></li>
+			<li><a th:href="@{/cs/qna/list(group='배송')}"
+				th:class="${group == '배송'? 'list_current' : 'off'}">배송</a></li>
+			<li><a th:href="@{/cs/qna/list(group='취소/반품/교환')}"
+				th:class="${group == '취소/반품/교환'? 'list_current' : 'off'}">취소/반품/교환</a></li>
+			<li><a th:href="@{/cs/qna/list(group='여행/숙박/항공')}"
+				th:class="${group == '여행/숙박/항공'? 'list_current' : 'off'}">여행/숙박/항공</a></li>
+			<li><a th:href="@{/cs/qna/list(group='안전거래')}"
+				th:class="${group == '안전거래'? 'list_current' : 'off'}">안전거래</a></li>
+		</ul>
+	</article>
+</th:block>
+
+<th:block th:fragment="cs_faqCate">
+	<article>
+		<p>자주묻는질문</p>
+		<ul>
+			<li><a th:href="@{/cs/faq/list(group='회원')}"
+				th:class="${group == '회원'? 'list_current' : 'off'}">회원</a></li>
+			<li><a th:href="@{/cs/faq/list(group='쿠폰/이벤트')}"
+				th:class="${group == '쿠폰/이벤트'? 'list_current' : 'off'}">쿠폰/이벤트</a></li>
+			<li><a th:href="@{/cs/faq/list(group='주문/결제')}"
+				th:class="${group == '주문/결제'? 'list_current' : 'off'}">주문/결제</a></li>
+			<li><a th:href="@{/cs/faq/list(group='배송')}"
+				th:class="${group == '배송'? 'list_current' : 'off'}">배송</a></li>
+			<li><a th:href="@{/cs/faq/list(group='취소/반품/교환')}"
+				th:class="${group == '취소/반품/교환'? 'list_current' : 'off'}">취소/반품/교환</a></li>
+			<li><a th:href="@{/cs/faq/list(group='여행/숙박/항공')}"
+				th:class="${group == '여행/숙박/항공'? 'list_current' : 'off'}">여행/숙박/항공</a></li>
+			<li><a th:href="@{/cs/faq/list(group='안전거래')}"
+				th:class="${group == '안전거래'? 'list_current' : 'off'}">안전거래</a></li>
+		</ul>
+	</article>
+</th:block>

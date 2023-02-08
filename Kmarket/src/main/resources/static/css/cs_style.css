@@ -69,7 +69,7 @@ article:first-child{border-top: none;}
 .all > a::after{
     content: '';
     display: inline-block;
-    background: url('../img/cs_sprites.png') no-repeat;
+    background: url('../img/cs/cs_sprites.png') no-repeat;
     background-position: -230px -276px;;
     background-size: 750px auto;
     width: 18px;
@@ -118,7 +118,7 @@ article > table  tr > td:last-child > span {color: #000;}
     text-align: center;
 }
 .navi {
-    background: url('../img/cs_sprites.png') no-repeat;
+    background: url('../img/cs/cs_sprites.png') no-repeat;
     background-size: 750px auto;
     width: 90px;
     height: 90px;
@@ -136,11 +136,11 @@ article > table  tr > td:last-child > span {color: #000;}
 .navi7 {background-position: -644px 0;}
 
 .navi1:hover {background-position: 0 -92px;}
-.navi2:hover {background-position: -184px -192px;}
+.navi2:hover {background-position: -184px -92px;}
 .navi3:hover {background-position: -92px -92px;}
 .navi4:hover {background-position: -276px -92px;}
 .navi5:hover {background-position: -368px -92px;}
-.navi6:hover {background-position: -92px -572px;}
+.navi6:hover {background-position: -92px -577px;}
 .navi7:hover {background-position: -644px -92px;}
 
 article.consult > div {
@@ -228,6 +228,7 @@ div.consult > div > a {font-size: 24px;font-weight: bold;}
 .list > div > span {
     display: inline-block;
     font-size: 20px;
+    margin-top: 6px;
     margin-bottom: 25px;
 }
 .list > div > table {
@@ -241,7 +242,7 @@ div.consult > div > a {font-size: 24px;font-weight: bold;}
     border-bottom: 1px solid #cccccc;
 }
 .list > div > table tr:hover {background: #f8f8f8;}
-.list > div > table tr > td:last-child {width: 5%;text-align: right;font-size: 14px;}
+.list > div > table tr > td:last-child {width: 10%;text-align: right;font-size: 14px;}
 .page {
     text-align: center;
     padding-top: 20px;
@@ -265,14 +266,14 @@ div.consult > div > a {font-size: 24px;font-weight: bold;}
     display: inline-block;
     width: 35px;
     height: 35px;
-    background: url('../img/cs_sprites.png') no-repeat -706px -652px;
+    background: url('../img/cs/cs_sprites.png') no-repeat -706px -652px;
     vertical-align: bottom;
 }
 .next {
     display: inline-block;
     width: 35px;
     height: 35px;
-    background: url('../img/cs_sprites.png') no-repeat -628px -652px;
+    background: url('../img/cs/cs_sprites.png') no-repeat -628px -652px;
     vertical-align: bottom;
 }
 /*고객센터 공지사항 뷰*/
@@ -346,7 +347,6 @@ div.title > span {
     border-collapse: collapse;
     margin-bottom: 16px;
 }
-.qna_write tr {}
 .qna_write tr > td {
     border-bottom: 1px solid #cccccc;
     padding: 24px 16px;
@@ -355,7 +355,7 @@ div.title > span {
     width: 15%;
 }
 .qna_write tr > td > select {
-    width: 100px;
+    width: auto;
     height: 40px;
     font-size: 16px;
 }
