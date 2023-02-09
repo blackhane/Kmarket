@@ -14,32 +14,11 @@
                 <p><span>케이마켓</span>이 도와드릴게요!</p>
             </article>
             <article class="notice">
-                <p class="title">공지사항</p><p class="all"><a th:href="@{/cs/notice/list(group=all)}">전체보기</a></p>
+                <p class="title">공지사항</p><p class="all"><a th:href="@{/cs/notice/list(group=all, pg=1)}">전체보기</a></p>
                 <table>
-                    <tr>
-                        <td>[안내]</td>
-                        <td>해외결제 사칭 문자 주의</td>
-                        <td>23.02.07</td>
-                    </tr>
-                    <tr>
-                        <td>[안내]</td>
-                        <td>해외결제 사칭 문자 주의</td>
-                        <td>23.02.07</td>
-                    </tr>
-                    <tr>
-                        <td>[안내]</td>
-                        <td>해외결제 사칭 문자 주의</td>
-                        <td>23.02.07</td>
-                    </tr>
-                    <tr>
-                        <td>[안내]</td>
-                        <td>해외결제 사칭 문자 주의</td>
-                        <td>23.02.07</td>
-                    </tr>
-                    <tr>
-                        <td>[안내]</td>
-                        <td>해외결제 사칭 문자 주의</td>
-                        <td>23.02.07</td>
+                    <tr th:each="article : ${vo1}">
+                        <td><a th:href="@{/cs/notice/view(group=${article.group}, no=${article.no}, pg=1)}">[[${article.title}]]</a></td>
+                        <td>[[${article.rdate}]]</td>
                     </tr>
                 </table>
             </article>
@@ -56,36 +35,16 @@
                 </div>
             </article>
             <article class="qna">
-                <p class="title">문의하기</p><p class="all"><a th:href="@{/cs/qna/list(group=all)}">전체보기</a></p>
+                <p class="title">문의하기</p><p class="all"><a th:href="@{/cs/qna/list(group=all, pg=1)}">전체보기</a></p>
                 <table>
-                    <tr>
-                        <td>[회원]</td>
-                        <td>개인회원과 법인회원에 차이가 있나요?</td>
-                        <td><span>ID*****</span>&nbsp;23.02.07</td>
-                    </tr>
-                    <tr>
-                        <td>[회원]</td>
-                        <td>개인회원과 법인회원에 차이가 있나요?</td>
-                        <td><span>ID*****</span>&nbsp;23.02.07</td>
-                    </tr>
-                    <tr>
-                        <td>[회원]</td>
-                        <td>개인회원과 법인회원에 차이가 있나요?</td>
-                        <td><span>ID*****</span>&nbsp;23.02.07</td>
-                    </tr>
-                    <tr>
-                        <td>[회원]</td>
-                        <td>개인회원과 법인회원에 차이가 있나요?</td>
-                        <td><span>ID*****</span>&nbsp;23.02.07</td>
-                    </tr>
-                    <tr>
-                        <td>[회원]</td>
-                        <td>개인회원과 법인회원에 차이가 있나요?</td>
-                        <td><span>ID*****</span>&nbsp;23.02.07</td>
+                    <tr th:each="article : ${vo2}" class="index">
+                        <td><a th:href="@{/cs/qna/view(group=${article.group}, no=${article.no}, pg=1)}">&#91;[[${article.cate}]]&#93; [[${article.title}]]</a></td>
+                        <td>[[${article.uidMask}]]</td>
+                        <td>[[${article.rdate}]]</td>
                     </tr>
                 </table>
                 <div>
-                    <a th:href="@{/cs/qna/write(group=all)}" class="write">문의글 작성 ></a>
+                    <a th:href="@{/cs/qna/write(group=all, pg=1)}" class="write">문의글 작성 ></a>
                 </div>
             </article>
             <article class="consult">

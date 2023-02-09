@@ -16,21 +16,21 @@
                 </div>
             </div>
             <div class="list">
-                <th:block th:replace="cs/_cate.html  :: cs_qnaCate"></th:block>
+                <th:block th:replace="cs/_cate.html  :: cs_qnaGroup"></th:block>
                 <div>
                     <div class="title">
-                        <p>[가입] 가입 문의내용</p>
-                        <span>12345*** 2023.02.08</span>
+                        <p>&#91;[[${vo.cate}]]&#93; [[${vo.title}]]</p>
+                        <span>[[${vo.uid}]] [[${vo.rdate}]]</span>
                     </div>
                     <div class="content">
                         <p>
-                            문의사항 출력칸입니다.<br/>
+                        	[[${vo.content}]]
                         </p>
                     </div>
-                    <div class="content comment">
-                        <span>☞[답변] 가입 문의내용</span>
+                    <div class="content comment" th:if="${vo.comment > 0}">
+                        <span>☞[답변] [[${vo.title}]]</span>
                         <p>
-                            답변 출력칸입니다.<br/>
+                        	[[${comment.content}]]
                         </p>
                     </div>
                     <a th:href="@{/cs/qna/list(group=${group})}" class="goList">목록보기</a>

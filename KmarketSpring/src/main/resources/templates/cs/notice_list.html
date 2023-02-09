@@ -16,47 +16,25 @@
                 </div>
             </div>
             <div class="list">
-                <th:block th:replace="cs/_cate.html  :: cs_noticeCate"></th:block>
+                <th:block th:replace="cs/_cate.html  :: cs_noticeGroup"></th:block>
                 <div>
-                	<th:block th:if="${group == 'all'}">
-                		<p>전체보기</p>
-                    	<span>공지사항 전체 내용입니다.</span>
-                	</th:block>
-                	<th:block th:if="${group == 'service'}">
-                		<p>고객서비스</p>
-                    	<span>고객서비스 전체 내용입니다.</span>
-                	</th:block>
-                	<th:block th:if="${group == 'safe'}">
-                		<p>안전거래</p>
-                    	<span>안전거래 전체 내용입니다.</span>
-                	</th:block>
-                	<th:block th:if="${group == 'danger'}">
-                		<p>위해상품</p>
-                    	<span>위해상품 전체 내용입니다.</span>
-                	</th:block>
-                	<th:block th:if="${group == 'event'}">
-                		<p>이벤트당첨</p>
-                    	<span>이벤트당첨 전체 내용입니다.</span>
-                	</th:block>
+                	<th:block th:replace="cs/_cate.html  :: cs_noticeCate"></th:block>
                     <table>
                         <tr th:each="article : ${articles}">
-                            <td><a th:href="@{/cs/notice/view(group=${group})}">[[${article.title}]]</a></td>
+                            <td><a th:href="@{/cs/notice/view(group=${group}, no=${article.no}, pg=${pg})}">[[${article.title}]]</a></td>
                             <td>[[${article.rdate}]]</td>
                         </tr>
                     </table>
                     <div class="page">
-                        <a href="#" class="prev"></a>
-                        <a href="#" class="num current">1</a>
-                        <a href="#" class="num">2</a>
-                        <a href="#" class="num">3</a>
-                        <a href="#" class="num">4</a>
-                        <a href="#" class="num">5</a>
-                        <a href="#" class="num">6</a>
-                        <a href="#" class="num">7</a>
-                        <a href="#" class="num">8</a>
-                        <a href="#" class="num">9</a>
-                        <a href="#" class="num">10</a>
-                        <a href="#" class="next"></a>
+                    	<th:block th:if="${page[0] > 1}">
+                        	<a th:href="@{/cs/notice/list(group=${group}, pg=${page[0]-1})}" class="prev"></a>
+                        </th:block>
+                        <th:block th:each="cnt:${#numbers.sequence(page[0], page[1])}">
+                        	<a th:href="@{/cs/notice/list(group=${group}, pg=${cnt})}" th:class="${cnt} == ${pg} ? 'num current' : 'num off'">[[${cnt}]]</a>
+                        </th:block>
+                        <th:block th:if="${page[1] < page[2]}">
+                        	<a th:href="@{/cs/notice/list(group=${group}, pg=${page[1]+1})}" class="next"></a>
+                        </th:block>
                     </div>
                 </div>
             </div>

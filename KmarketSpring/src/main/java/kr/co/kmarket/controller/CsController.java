@@ -2,11 +2,14 @@ package kr.co.kmarket.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.co.kmarket.service.CsService;
 import kr.co.kmarket.vo.CsVO;
@@ -26,46 +29,73 @@ public class CsController {
 	
 	//고객센터 메인
 	@GetMapping("cs")
-	public String index() {
+	public String index(Model model) {
+		List<CsVO> notice = service.selectNoticeMain();
+		List<CsVO> qna = service.selectQnaMain();
+		model.addAttribute("vo1", notice);
+		model.addAttribute("vo2", qna);
 		return "cs/index";
 	}
 	//공지사항 리스트
 	@GetMapping("cs/notice/list")
-	public String noticeList(Model model, String group) {
-		List<CsVO> articles = service.selectNotice(group);
+	public String noticeList(Model model, String group, int pg) {
+		List<CsVO> articles = service.selectNotice(group, pg);
+		//페이징
+		int lastPageNum = service.countNotice(group);
+		int[] page= service.currentPage(pg, lastPageNum);
+		
 		model.addAttribute("articles", articles);
+		model.addAttribute("page", page);
 		model.addAttribute("group", group);
+		model.addAttribute("pg", pg);
 		return "cs/notice_list";
 	}
 	//공지사항 상세보기
 	@GetMapping("cs/notice/view")
-	public String noticeView(Model model, String group) {
+	public String noticeView(Model model, String group, int no, int pg) {
+		CsVO vo = service.selectNoticeArticle(no);
+		model.addAttribute("vo", vo);
 		model.addAttribute("group", group);
+		model.addAttribute("pg", pg);
 		return "cs/notice_view";
 	}
 	//자주묻는질문 리스트
 	@GetMapping("cs/faq/list")
 	public String faqList(Model model, String group) {
+		List<CsVO> articles = service.selectFaq(group);
+		List<CsVO> cate = service.selectFaqCate(group);
+		model.addAttribute("articles", articles);
 		model.addAttribute("group", group);
+		model.addAttribute("cate", cate);
 		return "cs/faq_list";
 	}
 	//자주묻는질문 상세보기
 	@GetMapping("cs/faq/view")
-	public String faqView(Model model, String group) {
+	public String faqView(Model model, String group, int no) {
+		CsVO vo = service.selectFaqArticle(no);
+		model.addAttribute("vo", vo);
 		model.addAttribute("group", group);
 		return "cs/faq_view";
 	}
 	//문의하기 리스트
 	@GetMapping("cs/qna/list")
-	public String qnaList(Model model, String group) {
-		List<CsVO> articles = service.selectQna();
+	public String qnaList(Model model, String group, int pg) {
+		List<CsVO> articles = service.selectQna(group, pg);
+		//페이징
+		int lastPageNum = service.countQna(group);
+		int[] page= service.currentPage(pg, lastPageNum);
+		
 		model.addAttribute("articles", articles);
+		model.addAttribute("page", page);
 		model.addAttribute("group", group);
+		model.addAttribute("pg", pg);
 		return "cs/qna_list";
 	}
 	//문의하기 상세보기
 	@GetMapping("cs/qna/view")
-	public String qnaView(Model model, String group) {
+	public String qnaView(Model model, String group, int no) {
+		CsVO vo = service.selectQnaArticle(no);
+		model.addAttribute("vo", vo);
 		model.addAttribute("group", group);
 		return "cs/qna_view";
 	}
@@ -74,6 +104,12 @@ public class CsController {
 	public String qnaWrite(Model model, String group) {
 		model.addAttribute("group", group);
 		return "cs/qna_write";
+	}
+	@PostMapping("cs/qna/write")
+	public String qnaWrite(Model model, CsVO vo, HttpServletRequest req) {
+		vo.setRegip(req.getRemoteAddr());
+		service.insertQna(vo);
+		return "redirect:/cs/qna/list?group=all";
 	}
 	
 }
