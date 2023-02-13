@@ -27,7 +27,7 @@ public class SecurityUserService implements UserDetailsService {
 		}
 		
 		UserDetails userDts = MyUserDetails.builder()
-								.user(user)
+								.member(user)
 								.build();
 
 		return userDts;

@@ -3,13 +3,19 @@ package kr.co.kmarket.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.kmarket.dao.MemberDAO;
+import kr.co.kmarket.repository.MemberRepo;
 import kr.co.kmarket.vo.MemberVO;
 import kr.co.kmarket.vo.TermsVO;
 
 @Service
 public class MemberService {
+	
+	@Autowired
+	private MemberRepo repo;
 	
 	@Autowired
 	private MemberDAO dao;
@@ -32,6 +38,13 @@ public class MemberService {
 		
 		int result = dao.insertSeller(vo);
 		return result;
+	}
+	
+	// Id 중복체크
+	@ResponseBody
+	@GetMapping("/member/checkUid")
+	public int countMember(String uid) {
+		return repo.countByuid(uid);
 	}
 	
 	// 약관

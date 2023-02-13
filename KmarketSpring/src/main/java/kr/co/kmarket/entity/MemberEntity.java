@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name= "java1_kmarket")
+@Table(name= "km_member")
 public class MemberEntity {
 	@Id
 	private String uid;
