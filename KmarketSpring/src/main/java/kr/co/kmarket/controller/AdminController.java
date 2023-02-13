@@ -52,7 +52,7 @@ public class AdminController {
 	@ResponseBody
 	@GetMapping("")
 	public String selectCate2(int cate1) {
-		return "";
+		return "1";
 	}
 	
 	//상품등록
