@@ -1,11 +1,14 @@
 <th:block th:fragment="cs_header">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 	<header>
-	    <div class="user">
-	        <a href="#">로그인</a>
-	        <a href="#">회원가입</a>
-	        <a href="#">마이페이지</a>
-	        <a href="#">장바구니</a>
-	    </div>
+	    <div class="top">
+                <div>
+                    <a href="#">로그인</a>
+                    <a href="#">회원가입</a>
+                    <a href="#">마이페이지</a>
+                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp;장바구니</a>
+                </div>
+            </div>
 	    <div class="logo">
 	        <div>
 	            <a th:href="@{/cs}"><img th:src="@{/img/cs/logo.png}" alt="고객센터">고객센터</a>

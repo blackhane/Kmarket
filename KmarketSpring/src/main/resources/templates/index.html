@@ -125,7 +125,7 @@
             <article th:each="hp:${hitProduct}">
                 <a href="#">
                 <div class="thumb">
-                    <img th:src="${hp.thumb1}">
+                    <img th:src="@{/image/}+${hp.thumb2}"></img>
                 </div>
                 <h2>[[${hp.prodName}]]</h2>
                 <p>[[${hp.descript}]]</p>
@@ -146,7 +146,7 @@
             <article th:each="rp:${recommendProduct}">
             	<a href="#">
                 <div class="thumb">
-                    <img th:src="${rp.thumb1}">
+                    <img th:src="@{/image/}+${rp.thumb2}"></img>
                 </div>
                 <h2>[[${rp.prodName}]]</h2>
                 <p>[[${rp.descript}]]</p>
