@@ -917,6 +917,7 @@ footer {
     height: auto;
     background-color: #f8f8f8;
     border-top: 1px solid #e9e9e9;
+    margin-bottom: 20px;
 }
 footer > div {
     width: 1200px;
@@ -987,7 +988,8 @@ main > aside > .best > ol > li{
     margin-bottom: 15px;
 }
 main > aside > .best > ol > li > a{}
-main > aside > .best > ol > li > a > .thumb{}
+main > aside > .best > ol > li > a > .thumb{
+}
 main > aside > .best > ol > li:first-child > a > .thumb > i{
     position: absolute;
     z-index: 1;
@@ -999,7 +1001,12 @@ main > aside > .best > ol > li:first-child > a > .thumb > i{
     box-sizing: border-box;
 }
 main > aside > .best > ol > li:first-child > a > .thumb > img{
-    width: 100%;
+	width: 100%;
+	height: auto;
+}
+main > aside > .best > ol > li > a > .thumb > img{
+    width: 50px;
+    height: auto;
 }
 main > aside > .best > ol > li > a > .thumb > i{
     position: absolute;
@@ -1064,10 +1071,16 @@ main > section > section > h3 > span{
 main > section > section > article{
     float: left;
     margin: 0 10px 20px 0;
+	display: inline-block;
+	width: 230px;
 }
 main > section > section > article > a{}
-main > section > section > article > a > .thumb{}
-main > section > section > article > a > .thumb > img{}
+main > section > section > article > a > .thumb{
+}
+main > section > section > article > a > .thumb > img{
+	width: 230px;
+	height: 230px;
+}
 main > section > section > article > a > h2{
     text-align: center;
     font-size: 15px;

@@ -73,7 +73,7 @@
                 <a href="#">
                 <div class="thumb">
                     <i>1</i>
-                    <img th:src="${bp.thumb1}">
+                    <img th:src="@{/image/}+${bp.thumb2}"></img>
                 </div>
                 <h2>[[${bp.prodName}]]</h2>
                 <div class="org_price">
@@ -167,7 +167,7 @@
             <article th:each="np:${newProduct}">
                 <a href="#">
                 <div class="thumb">
-                    <img th:src="${np.thumb1}">
+                    <img th:src="@{/image/}+${np.thumb2}"></img>
                 </div>
                 <h2>[[${np.prodName}]]</h2>
                 <p>[[${np.descript}]]</p>
@@ -188,7 +188,7 @@
             <article th:each="dp:${discountProduct}">
                 <a href="#">
                 <div class="thumb">
-                    <img th:src="${dp.thumb1}">
+                    <img th:src="@{/image/}+${dp.thumb2}"></img>
                 </div>
                 <h2>[[${dp.prodName}]]</h2>
                 <p>[[${dp.descript}]]</p>

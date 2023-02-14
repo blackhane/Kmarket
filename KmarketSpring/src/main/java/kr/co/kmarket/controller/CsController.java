@@ -17,8 +17,8 @@ import kr.co.kmarket.vo.CsVO;
 /*
  * 담당 : 박진휘
  * 내용기록
- * 2023-02-28
- * 컨트롤러,서비스,통합구현 기본
+ * 2023-02-09
+ * 고객센터 기능구현 작업완료
 */
 @Controller
 @MapperScan("kr.co.kmarket.dao")
