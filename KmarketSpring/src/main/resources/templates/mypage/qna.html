@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>케이마켓</title>
@@ -9,69 +10,12 @@
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="../css/mypage_style.css">
+    <link rel="stylesheet" th:href="@{/css/mypage_style.css}">
 </head>
 <body>
     <div id="wrap">
-        <header>
-            <div class="top">
-                <div>
-                    <a href="#">로그인</a>
-                    <a href="#">회원가입</a>
-                    <a href="#">마이페이지</a>
-                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp;장바구니</a>
-                </div>
-            </div>
-            <div class="logo">
-                <div>
-                    <a href="#"><img src="../img/myPage/header_logo.png" alt="로고"></a>
-                    <form action="#">
-                        <input type="text" name="keyword">
-                        <button><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
-            </div>
-        </header>
-        <main>
-            <div class="info">
-                <div>
-                    <a href="./home.html">
-                        <img src="../img/myPage/my_logo.jpg" alt="마이페이지">
-                    </a>
-                    <ul>
-                        <li>주문·배송
-                            <img class="deli" src="../img/myPage/ico_delivery.png" alt="주문배송">
-                            <span>100</span>
-                        </li>
-                        <li>할인쿠폰
-                            <img class="coupon" src="../img/myPage/ico_coupon.jpg" alt="할인쿠폰">
-                            <span>10</span>
-                        </li>
-                        <li>포인트
-                            <img class="point" src="../img/myPage/ico_point.jpg" alt="포인트">
-                            <span>1,000</span>
-                        </li>
-                        <li>문의내역
-                            <img class="qna" src="../img/myPage/ico_qna.png" alt="문의내역">
-                            <span>6</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="home">
-                <article class="navi">
-                    <div class="sprite"></div>
-                    <ul>
-                        <li><a href="./ordered.html">전체주문내역</a></li>
-                        <li><a href="./point.html">포인트내역</a></li>
-                        <li><a href="./coupon.html">쿠폰</a></li>
-                        <li><a href="./review.html">나의리뷰</a></li>
-                        <li><a href="./qna.html">문의하기</a></li>
-                        <li><a href="./info.html">나의설정</a></li>
-                    </ul>
-                </article>
-                <section>
-                    <img src="../img/myPage/my_banner2.png" alt="배너">
+        <th:block th:replace="mypage/_header.html  :: mypage_header"></th:block>
+                    <img th:src="@{/img/myPage/my_banner2.jpg}" alt="배너">
                     <div>
                         <p>문의하기</p>
                         <table class="lastQna">
@@ -110,31 +54,7 @@
                     </div>
             </section>
         </main>
-        <footer>
-            <div>
-                <a href="#">| 회사소개 </a>
-                <a href="#">| 서비스이용약관 </a>
-                <a href="#">| 개인정보이용방침 </a>
-                <a href="#">| 전자금융거래약관 |</a>
-            </div>
-            <div class="footerlogo">
-                <img src="../img/myPage/footer_logo.png" alt="FooterLogo">
-                <div>
-                    <span>(주)KMARKET</span>
-                    <p>부산시 강남구 테헤란로 152 (역삼동 강남파이낸스센터)</p><br/>
-                    <p>대표이사 : 홍길동</p><br/>
-                    <p>사업자등록번호 : 220-81-83676 사업자정보확인</p><br/>
-                    <p>통신판매업신고 : 강남 10620호 Fax : 02-589-8842</p><br/>
-                </div>
-                <div>
-                    <span>고객센터</span>
-                    <p>Tel : 1234-5678 (평일 09:00~18:00)</p><br/>
-                    <p>스마일클럽/SVIP 전용 : 1522-5700 (365일 09:00~18:00)</p><br/>
-                    <p>경기도 부천시 원미구 부일로 223(상동) 투나빌딩 6층</p><br/>
-                    <p>Fax : 051-123-4567 | Mail : Kamrket@Kmarket.co.kr</p><br/>
-                </div>
-            </div>
-        </footer>
+        <th:block th:replace="mypage/_header.html  :: mypage_footer"></th:block>
     </div>
 </body>
 </html>

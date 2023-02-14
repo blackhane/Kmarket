@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>케이마켓::대한민국 1등 온라인 쇼핑몰</title>
     <link rel="shortcut icon" type="image/x-icon" href="./img/favicon.ico" />
+    <link rel="stylesheet" href="../css/product.css"/>
     <link rel="stylesheet" href="../css/termsPolicy_style.css"/>
     <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
     <script>
@@ -107,60 +109,6 @@
         margin-top: -55px;
         margin-right: 95px;
     }
-    main > div {
-        height: auto;
-        padding: 20px;
-        overflow: hidden;
-    }
-    main > div > h1 {
-        font-size: 20px;
-        font-weight: bold;
-        float: left;
-    }
-    main > div > ul {
-        overflow: hidden;
-        float: right;
-    }
-    main > div > ul > li {
-        float: left;
-        margin-left: 20px;
-        width: 112px;
-        height: 90px;
-        background: url('../img/termsPolicy/terms_sprites.png') no-repeat
-    }
-    main > div > ul > li:nth-child(1) {background-position: 0 -150px;}
-    main > div > ul > li:nth-child(2) {background-position: -130px -150px;}
-    main > div > ul > li:nth-child(3) {background-position: -260px -150px;}
-    main > div > ul > li:nth-child(4) {background-position: -390px -150px;}
-    main > div > ul > li:nth-child(5) {background-position: -520px -150px;}
-    main > div > ul > li:nth-child(1).current {background-position: 0 -250px;}
-    main > div > ul > li:nth-child(2).current {background-position: -130px -250px;}
-    main > div > ul > li:nth-child(3).current {background-position: -260px -250px;}
-    main > div > ul > li:nth-child(4).current {background-position: -390px -250px;}
-    main > div > ul > li:nth-child(5).current {background-position: -520px -250px;}
-    main > div > ul > li > a {
-        display: inline-block;
-        width: 85%;
-        height: 100%;
-    }
-    main > div > article {
-        clear: both;
-        padding-top: 30px;
-    }
-    main > div > article > h3 {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    main > div > article > h4 {
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    main > div > article > p {
-        font: 12px normal '돋움';
-        color: #888;
-    }
     </style>
 </head>
 <body>
@@ -247,11 +195,11 @@
             <div class="policy">
                 <h1>KMARKET 서비스 이용약관</h1>
                 <ul>
-                    <li class="current"><a href="./buyer.html"></a></li>
-                    <li class="off"><a href="./seller.html"></a></li>
-                    <li class="off"><a href="./finance.html"></a></li>
-                    <li class="off"><a href="./location.html"></a></li>
-                    <li class="off"><a href="./privacy.html"></a></li>
+                    <li class="current"><a th:href="@{/termsPolicy/buyer}"></a></li>
+                    <li class="off"><a th:href="@{/termsPolicy/seller}"></a></li>
+                    <li class="off"><a th:href="@{/termsPolicy/finance}"></a></li>
+                    <li class="off"><a th:href="@{/termsPolicy/location}"></a></li>
+                    <li class="off"><a th:href="@{/termsPolicy/privacy}"></a></li>
                 </ul>
                 <article>
                     <h3>구매회원 이용약관</h3>
@@ -565,31 +513,4 @@
                 </article>
             </div>
         </main>
-        <footer>
-            <div>
-                <a href="#">| 회사소개 </a>
-                <a href="#">| 서비스이용약관 </a>
-                <a href="#">| 개인정보이용방침 </a>
-                <a href="#">| 전자금융거래약관 |</a>
-            </div>
-            <div class="footerlogo">
-                <img src="../img/myPage/footer_logo.png" alt="FooterLogo">
-                <div>
-                    <span>(주)KMARKET</span>
-                    <p>부산시 강남구 테헤란로 152 (역삼동 강남파이낸스센터)</p><br/>
-                    <p>대표이사 : 홍길동</p><br/>
-                    <p>사업자등록번호 : 220-81-83676 사업자정보확인</p><br/>
-                    <p>통신판매업신고 : 강남 10620호 Fax : 02-589-8842</p><br/>
-                </div>
-                <div>
-                    <span>고객센터</span>
-                    <p>Tel : 1234-5678 (평일 09:00~18:00)</p><br/>
-                    <p>스마일클럽/SVIP 전용 : 1522-5700 (365일 09:00~18:00)</p><br/>
-                    <p>경기도 부천시 원미구 부일로 223(상동) 투나빌딩 6층</p><br/>
-                    <p>Fax : 051-123-4567 | Mail : Kamrket@Kmarket.co.kr</p><br/>
-                </div>
-            </div>
-        </footer>
-    </div>
-</body>
-</html>
+<th:block th:include="@{product/_footer.html}"/>

@@ -1,12 +1,12 @@
         <footer>
             <div>
-                <a href="#">| 회사소개 </a>
-                <a href="#">| 서비스이용약관 </a>
-                <a href="#">| 개인정보이용방침 </a>
-                <a href="#">| 전자금융거래약관 |</a>
+                <a th:href="@{/company/index}" target="_blank">| 회사소개 </a>
+                <a th:href="@{/termsPolicy/buyer}">| 서비스이용약관 </a>
+                <a th:href="@{/termsPolicy/privacy}">| 개인정보이용방침 </a>
+                <a th:href="@{/termsPolicy/finance}">| 전자금융거래약관 |</a>
             </div>
             <div class="footerlogo">
-                <img src="./img/footer_logo.png" alt="FooterLogo">
+                <img th:src="@{/img/myPage/footer_logo.png}" alt="FooterLogo">
                 <div>
                     <span>(주)KMARKET</span>
                     <p>부산시 강남구 테헤란로 152 (역삼동 강남파이낸스센터)</p><br/>
