@@ -82,4 +82,8 @@ public class MemberController {
 		
 		return map;
 	}
+=======
+public class MemberController {
+
+>>>>>>> f73414507a6370d18f87bf2a723bd0b7af55ab34
 }

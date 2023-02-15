@@ -12,16 +12,29 @@ a {text-decoration: none;color: black;}
     height: auto;
 }
 /*Header*/
-.user {
+header > .top{
+    height: 35px;
+    border-bottom: 1px solid #e9e9e9;
+}
+header > .top > div{
     width: 1200px;
+    height: 100%;
     margin: 0 auto;
     text-align: right;
-    line-height: 35px;
 }
-.user > a {
+header > .top > div > a {
+    display: inline-block;
+    height: 100%;
+    line-height: 35px;
+    border-left: 1px solid #e9e9e9;
+    padding: 0 10px;
+    color: #646464;
     font-size: 12px;
-    color: #555;
-    margin-left: 6px;
+}
+header > .top > div > a:last-child{    border-right: 1px solid #e9e9e9;}
+header > .top > div > a:hover{
+    color: #333;
+    border-bottom: 1px solid #444;
 }
 .logo {
     width: 100%;

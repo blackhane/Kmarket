@@ -1,5 +1,6 @@
 package kr.co.kmarket.service;
 
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -57,4 +58,8 @@ public class MemberService {
 		
 	}
 	
+=======
+public class MemberService {
+
+>>>>>>> f73414507a6370d18f87bf2a723bd0b7af55ab34
 }

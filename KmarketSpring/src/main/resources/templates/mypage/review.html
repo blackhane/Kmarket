@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>케이마켓</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/mypage_style.css}">
+</head>
+<body>
+    <div id="wrap">
+        <th:block th:replace="mypage/_header.html  :: mypage_header"></th:block>
+                    <img th:src="@{/img/myPage/my_banner2.jpg}" alt="배너">
+                    <div>
+                        <p>나의리뷰</p>
+                        <table class="lastComment">
+                            <tr>
+                                <th>번호</th>
+                                <th>상품명</th>
+                                <th>내용</th>
+                                <th>평점</th>
+                                <th>작성일</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>상품명</td>
+                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                                <td><span class="star1"></span></td>
+                                <td>2022-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>상품명</td>
+                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                                <td><span class="star2"></span></td>
+                                <td>2022-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>상품명</td>
+                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                                <td><span class="star3"></span></td>
+                                <td>2022-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>상품명</td>
+                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                                <td><span class="star4"></span></td>
+                                <td>2022-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>상품명</td>
+                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
+                                <td><span class="star5"></span></td>
+                                <td>2022-12-10</td>
+                            </tr>
+                        </table>
+                        <div class="page">
+                            <a href="#" class="prev"></a>
+                            <a href="#" class="num current">1</a>
+                            <a href="#" class="num">2</a>
+                            <a href="#" class="num">3</a>
+                            <a href="#" class="next"></a>
+                        </div>
+                    </div>
+            </section>
+        </main>
+        <th:block th:replace="mypage/_header.html  :: mypage_footer"></th:block>
+    </div>
+</body>
+</html>
