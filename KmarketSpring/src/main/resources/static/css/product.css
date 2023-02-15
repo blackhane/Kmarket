@@ -147,6 +147,11 @@ main > aside > .category > li{
     box-sizing: border-box;
     font-size: 13px;
 }
+
+main > aside > .category > li:hover > ol{
+	display: block;
+	z-index: 10000;
+}
 main > aside > .category > li i{
     margin-right: 15px;
     font-size: 16px;
@@ -157,9 +162,9 @@ main > aside > .category > li > a{
 }
 main > aside > .category > li > ol{
     display: none;
-    position: absolute;
-    left: 200px;
-    top: 0;
+    position: fixed;
+    left: 230px;
+    top: 181px;
     border: 1px solid black;
     width: 200px;
     height: 398px;
@@ -223,14 +228,19 @@ main > aside > .category > li > ol > li > a{
 #product > section > table tr > td:first-child{
     float: left;
     margin-right: 70px;
+    margin-right: 50px;
 }
 #product > section > table tr > td:nth-child(2){
     float: left;
+}
+#product > .list > table tr > td:nth-child(3){
+    width: 10%;
 }
 #product > .list table tr td:last-child{
     color: black;
     font-weight: 100;
     text-align: left;
+    width: 10%;
 }
 #product > section > table tr > td > .name{
     font-size: 16px;
@@ -987,6 +997,9 @@ main > aside > .best > ol > li{
 }
 main > aside > .best > ol > li > a{}
 main > aside > .best > ol > li > a > .thumb{}
+main > aside > .best > ol > li > a > .thumb{
+	float: left;
+}
 main > aside > .best > ol > li:first-child > a > .thumb > i{
     position: absolute;
     z-index: 1;

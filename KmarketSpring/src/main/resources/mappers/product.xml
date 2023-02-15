@@ -6,9 +6,9 @@
 <mapper namespace="kr.co.kmarket.dao.ProductDAO">
 
 	<select id="selectProduct" resultType="kr.co.kmarket.vo.ProductVO">
-		SELECT * FROM `km_product` ORDER BY #{param} DESC LIMIT 8;
+		SELECT * FROM `km_product` ORDER BY `hit` DESC LIMIT 8;
 	</select>
-	<select id="selectProducts" resultType="kr.co.kmarket.vo.ProductVO" >
+	<select id="selectProducts" resultType="kr.co.kmarket.vo.ProductVO">
 		SELECT * FROM `km_product` WHERE `cate1`=#{arg0} AND `cate2`=#{arg1} ORDER BY `sold` DESC;
 	</select>
 </mapper>

@@ -72,13 +72,13 @@
             <li th:each="bp,i:${bestProduct}" th:if="${i.index} < 5">
                 <a href="#">
                 <div class="thumb">
-                    <i>1</i>
+                    <i th:text="${i.index+1}"></i>
                     <img th:src="@{/image/}+${bp.thumb2}"></img>
                 </div>
                 <h2>[[${bp.prodName}]]</h2>
-                <div class="org_price">
+                <div class="org_price" th:if="${bp.discount} == '0'" style="display:none;">
                     <del>30,000</del>
-                    <span>[[${bp.discount}]]</span>
+                    <span>[[${bp.discount}]]%</span>
                 </div>
                 <div class="dis_price">
                     <ins>[[${bp.price}]]</ins>
@@ -129,11 +129,11 @@
                 </div>
                 <h2>[[${hp.prodName}]]</h2>
                 <p>[[${hp.descript}]]</p>
-                <div class="org_price">
+                <div class="org_price" th:style="${hp.discount} == '0'? 'display:none;' : ''">
                     <del>30,000</del>
-                    <span>[[${hp.discount}]]</span>
+                    <span>[[${hp.discount}]]%</span>
                 </div>
-                <div class="dis_price">
+                <div class="dis_price" data-th-text="${#numbers.formatInteger(hp.price, 3, 'COMMA') + '원'}">
                     <ins>[[${hp.price}]]</ins>
                     <span class="free">무료배송</span>
                 </div>
@@ -152,7 +152,7 @@
                 <p>[[${rp.descript}]]</p>
                 <div class="org_price">
                     <del>30,000</del>
-                    <span>[[${rp.discount}]]</span>
+                    <span>[[${rp.discount}]]%</span>
                 </div>
                 <div class="dis_price">
                     <ins>[[${rp.price}]]</ins>
@@ -173,7 +173,7 @@
                 <p>[[${np.descript}]]</p>
                 <div class="org_price">
                     <del>30,000</del>
-                    <span>[[${np.discount}]]</span>
+                    <span>[[${np.discount}]]%</span>
                 </div>
                 <div class="dis_price">
                     <ins>[[${np.price}]]</ins>
@@ -194,7 +194,7 @@
                 <p>[[${dp.descript}]]</p>
                 <div class="org_price">
                     <del>30,000</del>
-                    <span>[[${dp.discount}]]</span>
+                    <span>[[${dp.discount}]]%</span>
                 </div>
                 <div class="dis_price">
                     <ins>[[${dp.price}]]</ins>
