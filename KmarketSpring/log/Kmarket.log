@@ -547,3 +547,63 @@ org.thymeleaf.exceptions.TemplateInputException: Error resolving template [index
 2023-02-13 13:52:38.226  INFO 4540 --- [RMI TCP Connection(346)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-02-13 13:52:38.227  INFO 4540 --- [RMI TCP Connection(346)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Shutdown initiated...
 2023-02-13 13:52:38.228  INFO 4540 --- [RMI TCP Connection(346)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Shutdown completed.
+2023-02-15 13:21:04.100  INFO 3516 --- [restartedMain] kr.co.kmarket.KmarketSpringApplication   : Starting KmarketSpringApplication using Java 17.0.5 on DESKTOP-QOTDKI5 with PID 3516 (C:\Users\java1\Desktop\Kmarket\KmarketSpring\bin\main started by java1 in C:\Users\java1\Desktop\Kmarket\KmarketSpring)
+2023-02-15 13:21:04.100  INFO 3516 --- [restartedMain] kr.co.kmarket.KmarketSpringApplication   : No active profile set, falling back to 1 default profile: "default"
+2023-02-15 13:21:04.241  INFO 3516 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-02-15 13:21:04.256  INFO 3516 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 1 JPA repository interfaces.
+2023-02-15 13:21:04.327  INFO 3516 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-02-15 13:21:04.328  INFO 3516 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-02-15 13:21:04.328  INFO 3516 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.71]
+2023-02-15 13:21:04.343  INFO 3516 --- [restartedMain] o.a.c.c.C.[.[localhost].[/Kmarket]       : Initializing Spring embedded WebApplicationContext
+2023-02-15 13:21:04.343  INFO 3516 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 241 ms
+2023-02-15 13:21:04.370  INFO 3516 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-02-15 13:21:04.374  INFO 3516 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-63 - Starting...
+2023-02-15 13:21:04.472  INFO 3516 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-63 - Start completed.
+2023-02-15 13:21:04.472  INFO 3516 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2023-02-15 13:21:04.672  INFO 3516 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-02-15 13:21:04.672  INFO 3516 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-02-15 13:21:04.688  WARN 3516 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-02-15 13:21:04.771  INFO 3516 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4b396ffd, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7248c29d, org.springframework.security.web.context.SecurityContextPersistenceFilter@72e0e154, org.springframework.security.web.header.HeaderWriterFilter@350ea3e2, org.springframework.security.web.csrf.CsrfFilter@3a5f1770, org.springframework.security.web.authentication.logout.LogoutFilter@297d91f0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@18d434c5, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5805958e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2610c8aa, org.springframework.security.web.session.SessionManagementFilter@304694bb, org.springframework.security.web.access.ExceptionTranslationFilter@4c74c548, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6c785eae]
+2023-02-15 13:21:04.845  INFO 3516 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-02-15 13:21:04.853  INFO 3516 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path '/Kmarket'
+2023-02-15 13:21:04.861  INFO 3516 --- [restartedMain] kr.co.kmarket.KmarketSpringApplication   : Started KmarketSpringApplication in 0.786 seconds (JVM running for 13244.234)
+2023-02-15 13:21:04.866  INFO 3516 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   UserDetailsServiceAutoConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.authentication.AuthenticationManagerResolver,org.springframework.security.oauth2.jwt.JwtDecoder,org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector,org.springframework.security.oauth2.client.registration.ClientRegistrationRepository,org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository; SearchStrategy: all) found beans of type 'org.springframework.security.core.userdetails.UserDetailsService' securityUserService (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.security.authentication.AuthenticationManager' (OnClassCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2023-02-15 13:21:04.869  INFO 3516 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[localhost].[/Kmarket]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-02-15 13:21:04.869  INFO 3516 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-02-15 13:21:04.870  INFO 3516 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
