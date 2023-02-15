@@ -1,11 +1,7 @@
 // registerSeller
 let regCompany = /^[(주)]+[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{1,10}$/; //회사명
 let regCeo  = /^[가-힣]{2,4}$/; //대표자명
-<<<<<<< Updated upstream
-let regBiz	 = /^\d{3}-\d{2}-\d{5}$/; //사업자 등록번호
-=======
 let regBiz	 = /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/; //사업자 등록번호
->>>>>>> Stashed changes
 let regCom = /^[가-힣0-9-]{7,100}$/; //통신판매업신고번호
 let regTel = /^(070|02|031|032|033|041|042|043|051|052|053|054|055|061|062|063|064)-\d{3,4}-\d{4}$/u; //전화
 let regFax = /^\d{3,4}-\d{3}-\d{4}$/;//팩스
@@ -23,14 +19,11 @@ $(function(){
 	$('input[name=company]').focusout(function(){
 		let company = $('input[name=company]').val();
 		
-<<<<<<< Updated upstream
-=======
 		if(company == ''){
 			$('.msgCompany').css('color', 'red').text('필수 정보입니다.');
 			return;
 		}
 		
->>>>>>> Stashed changes
 		if(!company.match(regCompany)){
 			isCompanyOk = false;
 			$('.msgCompany').css('color','red').text('(주)포함 입력하여 입력해주세요.');
@@ -41,11 +34,6 @@ $(function(){
 		
 	});
 	
-<<<<<<< Updated upstream
-	//담당자 이름
-	$('input[name=manager]').focusout(function(){
-		let name = $(this).val();
-=======
 	//대표자
 	$('input[name=ceo]').focusout(function(){
 		let ceo = $('input[name=ceo]').val();
@@ -136,6 +124,7 @@ $(function(){
 		}
 	});
 	
+	
 	//담당자 이름
 	$('input[name=manager]').focusout(function(){
 		let name = $(this).val();
@@ -145,7 +134,6 @@ $(function(){
 			return;
 		}
 		
->>>>>>> Stashed changes
 		if(!name.match(regName)){
 			isNameOK = false;
 			$('.manager').css('color','red').text('이름은 한글 2자 이상 이어야 합니다.');			
@@ -160,14 +148,11 @@ $(function(){
 	$('input[name=managerHp]').focusout(function(){
 		let hp = $(this).val();
 		
-<<<<<<< Updated upstream
-=======
 		if(hp == ''){
 			$('.mgHp').css('color', 'red').text('필수 정보입니다.');
 			return;
 		}
 		
->>>>>>> Stashed changes
 		if(!hp.match(regHp)){
 			isHpOK = false;
 			$('.mgHp').css('color', 'red').text('휴대폰이 유효하지 않습니다.');

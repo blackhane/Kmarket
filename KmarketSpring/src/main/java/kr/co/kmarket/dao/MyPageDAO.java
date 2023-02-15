@@ -6,9 +6,6 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface MyPageDAO {
-<<<<<<< Updated upstream
 
-=======
 	public int countOrder();
->>>>>>> Stashed changes
 }
