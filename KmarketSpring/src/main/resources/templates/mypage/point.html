@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>케이마켓</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/mypage_style.css}">
+</head>
+<body>
+    <div id="wrap">
+        <th:block th:replace="mypage/_header.html  :: mypage_header"></th:block>
+                    <img th:src="@{/img/myPage/my_banner2.jpg}" alt="배너">
+                    <div>
+                        <p>포인트내역</p>
+                        <div class="day">
+                            <span></span>
+                            <ul>
+                                <li><a href="#"><span>1</span>주일</a></li>
+                                <li><a href="#" class="current"><span>15</span>일</a></li>
+                                <li><a href="#"><span>1</span>개월</a></li>
+                            </ul>
+                            <ul>
+                                <li><a href="#"><span>11</span>월</a></li>
+                                <li><a href="#"><span>10</span>월</a></li>
+                                <li><a href="#"><span>9</span>월</a></li>
+                                <li><a href="#"><span>8</span>월</a></li>
+                                <li><a href="#"><span>7</span>월</a></li>
+                            </ul>
+                            <p>
+                                <input type="date">~<input type="date">
+                            </p>
+                            <button>조회하기</button>
+                        </div>
+                        <table class="lastPoint">
+                            <tr>
+                                <th>날짜</th>
+                                <th>구분</th>
+                                <th>주문번호</th>
+                                <th>적립금액</th>
+                                <th>비고</th>
+                                <th>유효기간</th>
+                            </tr>
+                            <tr>
+                                <td>2023-02-10</td>
+                                <td>적립</td>
+                                <td>2022121001</td>
+                                <td>340</td>
+                                <td>상품 구매확정</td>
+                                <td>2024-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>2023-02-10</td>
+                                <td>적립</td>
+                                <td>2022121001</td>
+                                <td>340</td>
+                                <td>상품 구매확정</td>
+                                <td>2024-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>2023-02-10</td>
+                                <td>적립</td>
+                                <td>2022121001</td>
+                                <td>340</td>
+                                <td>상품 구매확정</td>
+                                <td>2024-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>2023-02-10</td>
+                                <td>적립</td>
+                                <td>2022121001</td>
+                                <td>340</td>
+                                <td>상품 구매확정</td>
+                                <td>2024-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>2023-02-10</td>
+                                <td>적립</td>
+                                <td>2022121001</td>
+                                <td>340</td>
+                                <td>상품 구매확정</td>
+                                <td>2024-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>2023-02-10</td>
+                                <td>적립</td>
+                                <td>2022121001</td>
+                                <td>340</td>
+                                <td>상품 구매확정</td>
+                                <td>2024-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>2023-02-10</td>
+                                <td>적립</td>
+                                <td>2022121001</td>
+                                <td>340</td>
+                                <td>상품 구매확정</td>
+                                <td>2024-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>2023-02-10</td>
+                                <td>적립</td>
+                                <td>2022121001</td>
+                                <td>340</td>
+                                <td>상품 구매확정</td>
+                                <td>2024-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>2023-02-10</td>
+                                <td>적립</td>
+                                <td>2022121001</td>
+                                <td>340</td>
+                                <td>상품 구매확정</td>
+                                <td>2024-12-10</td>
+                            </tr>
+                            <tr>
+                                <td>2023-02-10</td>
+                                <td>적립</td>
+                                <td>2022121001</td>
+                                <td>340</td>
+                                <td>상품 구매확정</td>
+                                <td>2024-12-10</td>
+                            </tr>
+                        </table>
+                        <div class="page">
+                            <a href="#" class="prev"></a>
+                            <a href="#" class="num current">1</a>
+                            <a href="#" class="num">2</a>
+                            <a href="#" class="num">3</a>
+                            <a href="#" class="next"></a>
+                        </div>
+                    </div>
+            </section>
+        </main>
+        <th:block th:replace="mypage/_header.html  :: mypage_footer"></th:block>
+    </div>
+</body>
+</html>

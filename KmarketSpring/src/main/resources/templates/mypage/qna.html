@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>케이마켓</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/mypage_style.css}">
+</head>
+<body>
+    <div id="wrap">
+        <th:block th:replace="mypage/_header.html  :: mypage_header"></th:block>
+                    <img th:src="@{/img/myPage/my_banner2.jpg}" alt="배너">
+                    <div>
+                        <p>문의하기</p>
+                        <table class="lastQna">
+                            <tr>
+                                <th>번호</th>
+                                <th>문의채널</th>
+                                <th>문의유형</th>
+                                <th>제목</th>
+                                <th>작성일</th>
+                                <th>상태</th>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>판매자게시판</td>
+                                <td>배송</td>
+                                <td><span class="prodName">상품명</span><br/>배송기간이 보통 얼마나 걸리나요?</td>
+                                <td>2022-12-10</td>
+                                <td class="wait">검토중</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>고객센터</td>
+                                <td>주문/결제</td>
+                                <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요?</td>
+                                <td>2022-12-10</td>
+                                <td class="ok">답변완료</td>
+                            </tr>
+                        </table>
+                        <div class="page">
+                            <a href="#" class="prev"></a>
+                            <a href="#" class="num current">1</a>
+                            <a href="#" class="num">2</a>
+                            <a href="#" class="num">3</a>
+                            <a href="#" class="next"></a>
+                        </div>
+                    </div>
+            </section>
+        </main>
+        <th:block th:replace="mypage/_header.html  :: mypage_footer"></th:block>
+    </div>
+</body>
+</html>

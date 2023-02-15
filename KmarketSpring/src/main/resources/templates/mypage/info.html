@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>케이마켓</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/mypage_style.css}">
+</head>
+<body>
+    <div id="wrap">
+        <th:block th:replace="mypage/_header.html  :: mypage_header"></th:block>
+                    <img th:src="@{/img/myPage/my_banner2.jpg}" alt="배너">
+                    <div>
+                        <p>회원정보 설정</p>
+                        <div class="settingInfo">
+                            <form action="#">
+                                <table>
+                                    <tr>
+                                        <td>사용자 ID</td>
+                                        <td>java****</td>
+                                    </tr>
+                                    <tr>
+                                        <td>비밀번호</td>
+                                        <td><a href="#">비밀번호 수정</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>이름</td>
+                                        <td>마*킹</td>
+                                    </tr>
+                                    <tr>
+                                        <td>E-mail</td>
+                                        <td>
+                                            <input type="text" name="mail1"> @ <input type="text" name="mail2">
+                                            <select name="mail3" id="mail">
+                                                <option value="1">직접입력</option>
+                                                <option value="2">naver.com</option>
+                                                <option value="3">daum.net</option>
+                                                <option value="4">gmail.com</option>
+                                                <option value="5">nate.com</option>
+                                                <option value="6">outlook.com</option>
+                                            </select>
+                                            <button>수정하기</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>휴대폰</td>
+                                        <td>
+                                            <input type="text" name="phone1"> - <input type="text" name="phone2"> - <input type="text" name="phone3"> <button>수정하기</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>주소</td>
+                                        <td>
+                                            <input type="text" name="zip"> <button>주소검색</button><br/>
+                                            <input type="text" name="addr1"><br/>
+                                            <input type="text" name="addr2">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>회원탈퇴</td>
+                                        <td>
+                                            <button class="delete">탈퇴하기</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div>
+                                    <input type="submit" value="수정하기">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </section>
+        </main>
+        <th:block th:replace="mypage/_header.html  :: mypage_footer"></th:block>
+    </div>
+</body>
+</html>
