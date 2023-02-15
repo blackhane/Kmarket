@@ -222,7 +222,7 @@ main > aside > .category > li > ol > li > a{
 #product > section > table tr{border-bottom: 1px solid #dfdfdf;}
 #product > section > table tr > td:first-child{
     float: left;
-    margin-right: 100px;
+    margin-right: 70px;
 }
 #product > section > table tr > td:nth-child(2){
     float: left;
