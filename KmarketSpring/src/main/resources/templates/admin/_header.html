@@ -17,23 +17,6 @@
         $('#gnb > li > a').click(function(){
             $(this).next().slideToggle();
         });
-        
-        
-        $('select[name=cate1]').change(function(){
-        	var cate1 = $(this).val();
-        	
-        	let jsonData = {'cate1' : cate1};
-        	
-        	$.ajax({
-        		url : '/Kmarket/selectCate2',
-        		method : 'GET',
-        		data : jsonData ,
-        		dataType : 'json',
-        		success : function(data){
-        			
-        		}
-        	});
-        });
     });
 
 </script>

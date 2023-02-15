@@ -3,6 +3,8 @@ package kr.co.kmarket.vo;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +19,7 @@ import lombok.ToString;
 @ToString
 public class ProductVO {
 	@Id
-	private int proNo;
+	private int prodNo;
 	
 	private int cate1;
 	private int cate2;
@@ -34,10 +36,17 @@ public class ProductVO {
 	private int hit;
 	private int score;
 	private int review;
+	
+	private MultipartFile file1;
+	private MultipartFile file2;
+	private MultipartFile file3;
+	private MultipartFile file4;
+	
 	private String thumb1;
 	private String thumb2;
 	private String thumb3;
 	private String detail;
+	
 	private String status;
 	private String duty;
 	private String receipt;
