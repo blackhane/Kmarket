@@ -1,21 +1,19 @@
 package kr.co.kmarket.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.kmarket.dao.ProductDAO;
+import kr.co.kmarket.dao.MyPageDAO;
 import kr.co.kmarket.vo.ProductVO;
 
 @Service
-public class ProductService {
-
-	@Autowired
-	private ProductDAO dao;
+public class MyPageService {
 	
-	public List<ProductVO> selectProduct(String arg0) {
-		return dao.selectProduct(arg0);
+	@Autowired
+	private MyPageDAO dao;
+	
+	public int countOrder() {
+		return dao.countOrder();
 	}
 	
 }

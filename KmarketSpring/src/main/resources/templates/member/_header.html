@@ -25,13 +25,13 @@
                 <div>
                     <a th:href="@{/member/login}">로그인</a>      
                     <a th:href="@{/member/join}">회원가입</a>
-                    <a href="#">마이페이지</a>
-                    <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
+                    <a th:href="@{/mypage/home}">마이페이지</a>
+                    <a th:href="@{/product/cart}"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;장바구니</a>
                 </div>
             </div>
             <div class="logo">
                 <div>
-                    <a href="#"><img th:src="@{/img/member/header_logo.png}" alt="로고"></a>
+                    <a th:href="@{/index}"><img th:src="@{/img/member/header_logo.png}" alt="로고"></a>
                 </div>
             </div>
         </header>

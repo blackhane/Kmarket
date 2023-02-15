@@ -54,5 +54,7 @@ public class ProductVO {
 	// join 추가
 	private String c1Name;
 	private String c2Name;
+	private int ordNo;
+	private String ordUid;
 	
 }

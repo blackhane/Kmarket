@@ -1,7 +1,12 @@
 package kr.co.kmarket.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import kr.co.kmarket.service.MyPageService;
+import kr.co.kmarket.vo.ProductVO;
 
 /*
  * 담당 : 박진휘
@@ -11,6 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class MypageController {
+	
+	@Autowired
+	private MyPageService service;
 	
 	@GetMapping("mypage/home")
 	public String home() {
@@ -46,5 +54,17 @@ public class MypageController {
 	public String info() {
 		return "mypage/info";
 	}
+	
+	// mypage 요약정보
+	
+	public String order(Model model, ProductVO vo) {
+		
+		
+		return "mypage/home";
+	}
+	
+	
+	
+	
 	
 }

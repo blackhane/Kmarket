@@ -6,7 +6,16 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
 @Entity
 @Table(name= "km_member")
 public class MemberEntity {

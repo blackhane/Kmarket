@@ -2,12 +2,22 @@
 	<header>
             <div class="top">
                 <div>
-                    <a th:href="@{/member/login}">로그인</a>
-                    <a th:href="@{/member/join}">회원가입</a>
+                    <th:block sec:authorize="!isAuthenticated()">
+	                    <a th:href="@{/member/login}">로그인</a>
+	                    <a th:href="@{/member/join}">회원가입</a>
+                	</th:block>
+                	<th:block sec:authorize="isAuthenticated()">
+                		<!-- <span sec:authentication="principal.name"><strong>님 환영합니다. |</strong></span> -->
+	                    <a th:href="@{/member/logout}">로그아웃</a>
+	                    <th:block sec:authorize="hasAnyRole('4','5')">
+	                    	<a th:href="@{/admin/index}">관리자</a>
+	                    </th:block>
+                	</th:block>
                     <a th:href="@{/mypage/home}">마이페이지</a>
                     <a th:href="@{/product/cart}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp;장바구니</a>
                 </div>
             </div>
+            
             <div class="logo">
                 <div>
                     <a th:href="@{/index}"><img src="../img/myPage/header_logo.png" alt="로고"></a>
@@ -27,7 +37,7 @@
                     <ul>
                         <li>주문·배송
                             <img class="deli" th:src="@{/img/myPage/ico_delivery.png}" alt="주문배송">
-                            <span>100</span>
+                            <span>10</span>
                         </li>
                         <li>할인쿠폰
                             <img class="coupon" th:src="@{/img/myPage/ico_coupon.jpg}" alt="할인쿠폰">

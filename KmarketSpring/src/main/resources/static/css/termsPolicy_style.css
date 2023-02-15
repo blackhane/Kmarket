@@ -51,4 +51,7 @@ main > div > article > h4 {
 main > div > article > p {
     font: 12px normal '돋움';
     color: #888;
+    white-space: pre-wrap;
+    margin-bottom: 30px;
+    
 }

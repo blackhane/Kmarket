@@ -124,6 +124,7 @@ $(function(){
 		}
 	});
 	
+	
 	//담당자 이름
 	$('input[name=manager]').focusout(function(){
 		let name = $(this).val();
