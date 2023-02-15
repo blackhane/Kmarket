@@ -1,5 +1,6 @@
 package kr.co.kmarket.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class MainController {
 	private ProductService service;
 	
 	@GetMapping(value = {"", "index"})
-	public String index(Model model) {
+	public String index(Model model, Principal principal) {
 		List<ProductVO> hitProduct = service.selectProduct("hit");
 		List<ProductVO> recommendProduct = service.selectProduct("score");
 		List<ProductVO> discountProduct = service.selectProduct("discount");

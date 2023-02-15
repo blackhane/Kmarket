@@ -12,7 +12,11 @@ public class MyPageService {
 	@Autowired
 	private MyPageDAO dao;
 	
+<<<<<<< Updated upstream
 	public int countOrder(ProductVO vo) {
+=======
+	public int countOrder() {
+>>>>>>> Stashed changes
 		return dao.countOrder();
 	}
 	

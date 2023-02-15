@@ -154,7 +154,11 @@ $(function(){
 	//휴대폰 끝
 	
 	// 폼 전송이 시작될 때 실행되는 폼 이벤트(폼 전송 버튼을 클릭했을 때) 
+<<<<<<< Updated upstream
 	$('form').submit(function(){
+=======
+	$('.register > form').submit(function(){
+>>>>>>> Stashed changes
 		// 성별 검증
 		if(!isGenderOk){
 			let gender = $('input[name=gender]').is(':checked');
