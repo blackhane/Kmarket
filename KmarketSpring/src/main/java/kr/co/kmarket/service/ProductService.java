@@ -14,8 +14,8 @@ public class ProductService {
 	@Autowired
 	private ProductDAO dao;
 	
-	public List<ProductVO> selectProduct(String param) {
-		return dao.selectProduct(param);
+	public List<ProductVO> selectProduct(String arg0) {
+		return dao.selectProduct(arg0);
 	}
 	
 }

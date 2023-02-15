@@ -2,6 +2,7 @@ package kr.co.kmarket.controller;
 
 import java.util.List;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import kr.co.kmarket.service.ProductService;
 import kr.co.kmarket.vo.ProductVO;
 
 @Controller
+@MapperScan("kr.co.kmarket.dao")
 public class MainController {
 	
 	@Autowired

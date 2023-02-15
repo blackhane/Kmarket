@@ -10,7 +10,7 @@ import kr.co.kmarket.vo.ProductVO;
 @Mapper
 @Repository
 public interface ProductDAO {
-	public List<ProductVO> selectProduct(String param);
+	public List<ProductVO> selectProduct(String arg0);
 
 	
 }
