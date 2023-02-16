@@ -1,10 +1,45 @@
 <th:block th:include="/admin/_header.html"/>
 <script>
 	$(document).ready(function(){
-		$('input[name=check]').click(function(){
-			let arr
+		$("#btnProductDelete").click(function(){
+			let prodNo = [];
+			let check = $('input[name=check]:checked');
+			let length = $('input:checkbox[name=check]:checked').length;
+			
+			if(length == 0){
+				alert('체크 확인 요망');
+			}else{
+				
+				$(check).each(function(){
+					prodNo.push($(this).val());
+				});
+				
+				//alert('prodNo : ' + prodNo);
+				
+				let jsonData = {"prodNo" : prodNo};
+				
+				$.ajax({
+					url : '/Kmarket/admin/productDelete',
+					method : 'GET',
+					traditional : true,
+					data : jsonData,
+					dataType : 'json',
+					success : function(data){
+						if(data.result > 0){
+							$('input[name=check]:checked').parent().parent().remove();
+							alert(data.result + "건이 삭제되었습니다.");
+							location.href="/Kmarket/admin/product/list";
+						}
+					}
+				});
+			} //else 끝
+		});
+		
+		$('#btnProductRegister').click(function(){
+			location.href="/Kmarket/admin/product/register";
 		});
 	});
+	
 </script>
 <article class="article_product_list">
     <nav>
@@ -50,7 +85,7 @@
                  	[[${article.prodNo}]]
                  </td>
                  <td>
-                 	<p style="border: 0px">
+                 	<p style="border: 0px; width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                  		[[${article.prodName}]]
                  	</p>
                  </td>
@@ -66,11 +101,11 @@
                  </td>
              </tr>
             </table>
-            <div class="list_button">
-                <input type="button" value="선택삭제">
-                <input type="button" value="상품등록">
+            <div class="list_button" style="z-index: 3; margin-bottom: 50px">
+                <input type="button" id="btnProductDelete" value="선택삭제" onclick="btnProductDelete()">
+                <input type="button" id="btnProductRegister" value="상품등록">
             </div>
-            <div class="list_page">
+            <div class="list_page" style="z-index: 0; margin-top: 30px;">
                 <span class="prev" th:if="${groups[0]>=1}">
                     <a th:href="@{/admin/product/list(pg=${groups[0]})}">< 이전</a>
                 </span>

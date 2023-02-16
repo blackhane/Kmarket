@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.kmarket.vo.Cate1VO;
 import kr.co.kmarket.vo.Cate2VO;
+import kr.co.kmarket.vo.CsVO;
 import kr.co.kmarket.vo.ProductVO;
 
 /*
@@ -36,6 +38,12 @@ public interface AdminDAO {
 	
 	//관리자 상품 목록
 	public List<ProductVO> selectAdminProductList(int start);
+	
+	//관리자 상품 삭제
+	public int productDelete(@RequestParam("prodNo") int no);
+	
+	//관리자 공지사항 목록
+	public List<CsVO> selectNoticeList();
 	
 	public void updateAdmin();
 	public void deleteAdmin();

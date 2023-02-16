@@ -51,4 +51,12 @@
 	<select id="selectCountTotal" resultType="int">
 		select COUNT(`prodNo`) from `km_product`; 
 	</select>
+	
+	<delete id="productDelete">
+		DELETE FROM `km_product` WHERE `prodNo` = #{prodNo};
+	</delete>
+	
+	<select id="selectNoticeList" resultType="kr.co.kmarket.vo.CsVO">
+		SELECT * FROM `km_cs_notice` ORDER BY `no` DESC LIMIT 10;
+	</select>
 </mapper>

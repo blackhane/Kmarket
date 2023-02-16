@@ -8,11 +8,13 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.kmarket.dao.AdminDAO;
 import kr.co.kmarket.vo.Cate1VO;
 import kr.co.kmarket.vo.Cate2VO;
+import kr.co.kmarket.vo.CsVO;
 import kr.co.kmarket.vo.ProductVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,7 +61,16 @@ public class AdminService {
 	}
 	
 	public void updateAdmin() {}
-	public void deleteAdmin() {}
+	
+	//관리자 상품 삭제
+	public int productDelete(int no) {
+		return dao.productDelete(no);
+	}
+	
+	//관리자 상품 목록
+	public List<CsVO> selectNoticeList(){
+		return dao.selectNoticeList();
+	}
 	
 	//파일 업로드
 	@Value("${spring.servlet.multipart.location}")

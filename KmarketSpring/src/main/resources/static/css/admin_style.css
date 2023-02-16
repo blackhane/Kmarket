@@ -218,6 +218,10 @@ footer > div > p {
     float: left;
 }
 
+.index_notice a:hover {
+	text-decoration: underline;
+}
+
 .index_notice > div:nth-of-type(2) {
     float: right;
 }
