@@ -1,4 +1,32 @@
 <th:block th:include="@{admin/_header.html}"/>
+<script>
+
+	$(document).ready(function(){
+		$('select[name=cate1]').change(function(){
+			var cate1 = $(this).val();
+			
+			//alert('cate1 : ' + cate1);
+			
+			let jsonData = {'cate1' : cate1};
+			
+			$.ajax({
+				url : '/Kmarket/admin/selectCate2',
+				method : 'GET',
+				data : jsonData ,
+				dataType : 'json',
+				success : function(data){
+					$('select[name=cate2]').empty();
+		               for(var value of data.result){
+		                  let tag = "<option value='"+ value.cate2+"'>" + value.c2Name + "</option>";
+		                  $('select[name=cate2]').append(tag);
+		               }
+				}
+			});
+		});
+	});
+			
+
+</script>
 <section class="register_section">
     <nav>
         <h3>상품등록</h3>
@@ -7,7 +35,7 @@
         </p>
     </nav> 
     <article class="register_article">
-        <form th:action="@{/admin/product/register}" method="post" >
+        <form th:action="@{/admin/product/register}" method="post" enctype="multipart/form-data">
             <section class="register_form_section">
                 <nav>
                     <h4>
@@ -101,20 +129,20 @@
                         <td>상품 이미지</td>
                         <td>
                             
-                            <input type="file" name="thumb1" style="display: block;">
+                            <input type="file" name="file1" style="display: block;">
                            <span>크기 190x190 상품 목록에 출력될 이미지입니다.</span>
 
-                           <input type="file" name="thumb2" style="display: block;">
+                           <input type="file" name="file2" style="display: block;">
                            <span>크기 190x190 상품 목록에 출력될 이미지입니다.</span>
 
-                           <input type="file" name="thumb3" style="display: block;">
+                           <input type="file" name="file3" style="display: block;">
                                 <span>크기 190x190 상품 목록에 출력될 이미지입니다.</span>
                             </td>
                         </tr>
                         <tr>
                             <td>상품 상세정보</td>
                             <td>
-                                <input type="file" name="detail">
+                                <input type="file" name="file4">
                                 <span>크기 가로 940x 높이 제약없음 크기 최대 1MB</span>
                             </td>
                         </tr>

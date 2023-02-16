@@ -1,6 +1,8 @@
 package kr.co.kmarket.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.kmarket.service.AdminService;
 import kr.co.kmarket.vo.Cate1VO;
+import kr.co.kmarket.vo.Cate2VO;
 import kr.co.kmarket.vo.ProductVO;
+import lombok.extern.slf4j.Slf4j;
 
 /*
  * 담당 : 이민혁
@@ -23,6 +27,7 @@ import kr.co.kmarket.vo.ProductVO;
  * 
  */
 
+@Slf4j
 @Controller
 public class AdminController {
 	
@@ -35,7 +40,29 @@ public class AdminController {
 	}
 	
 	@GetMapping("admin/product/list")
-	public String list() {
+	public String list(Model model, String pg) {
+		
+		int currentPage = service.getCurrentPage(pg);
+		int start = service.getLimitStart(currentPage);
+		
+		int total = service.selectCountTotal();
+		int lastPageNum = service.getLastPageNum(total);
+		int pageStartNum = service.getPageStartNum(total, start);
+		int groups[] = service.getPageGroup(currentPage, lastPageNum);
+		
+		List<ProductVO> article = service.selectAdminProductList(start);
+		
+		model.addAttribute("article", article);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPageNum", lastPageNum);
+		model.addAttribute("pageStartNum", pageStartNum);
+		model.addAttribute("groups", groups);
+		
+		/*System.out.println("currentPage : " + currentPage);
+		System.out.println("lastPageNum : " + lastPageNum);
+		System.out.println("pageStartNum : " + pageStartNum);
+		System.out.println("groups[0] : " + groups[0]);*/
+		
 		return "admin/product/list";
 	}
 	
@@ -50,9 +77,18 @@ public class AdminController {
 	}
 	
 	@ResponseBody
-	@GetMapping("")
-	public String selectCate2(int cate1) {
-		return "1";
+	@GetMapping("admin/selectCate2")
+	public Map<String, List<Cate2VO>> selectCate2(int cate1) {
+		
+		List<Cate2VO> cate2s = service.selectProductCate2s(cate1);
+		
+		Map<String, List<Cate2VO>> map = new HashMap<>();
+		
+		map.put("result", cate2s);
+		
+		System.out.println("cate2 : " + cate2s);
+		
+		return map;
 	}
 	
 	//상품등록
@@ -67,7 +103,4 @@ public class AdminController {
 		return "redirect:/admin/product/list";
 		
 	}
-	
-	
-
 }
