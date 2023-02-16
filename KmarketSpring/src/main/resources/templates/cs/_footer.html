@@ -1,10 +1,10 @@
 <th:block th:fragment="cs_footer">
 	<footer>
 	    <div>
-	        <a href="#">| 회사소개 </a>
-	        <a href="#">| 서비스이용약관 </a>
-	        <a href="#">| 개인정보이용방침 </a>
-	        <a href="#">| 전자금융거래약관 |</a>
+	        <a th:href="@{/company/index}" target="_blank">| 회사소개 </a>
+            <a th:href="@{/termsPolicy/buyer}">| 서비스이용약관 </a>
+            <a th:href="@{/termsPolicy/privacy}">| 개인정보이용방침 </a>
+            <a th:href="@{/termsPolicy/finance}">| 전자금융거래약관 |</a>
 	    </div>
 	    <div class="footerlogo">
 	        <img th:src="@{/img/cs/footer_logo.png}" alt="FooterLogo">

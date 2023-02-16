@@ -20,6 +20,9 @@
                 <div>
                     <th:block th:replace="cs/_cate.html  :: cs_qnaCate"></th:block>
                     <table>
+                    	<tr th:if="${#lists.size(articles) == 0}">
+                    		<th colspan="5" style="padding: 16px">등록된 문의사항이 없습니다.</th>
+                    	</tr>
                         <tr th:each="article : ${articles}">
                             <td><a th:href="@{/cs/qna/view(group=${group}, no=${article.no})}">&#91;[[${article.cate}]]&#93; [[${article.title}]]</a></td>
                             <td class="que ok" th:if="${article.comment > 0}">답변완료</td>
