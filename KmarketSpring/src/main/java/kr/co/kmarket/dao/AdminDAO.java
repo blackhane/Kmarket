@@ -31,8 +31,12 @@ public interface AdminDAO {
 	//관리자 상품등록 Cate1 로 Cate2를 조회
 	public List<Cate2VO> selectProductCate2s(int cate1);
 	
-	public void selectAdmin();
-	public void selectAdmins();
+	//상품 목록 페이징 작업
+	public int selectCountTotal();
+	
+	//관리자 상품 목록
+	public List<ProductVO> selectAdminProductList(int start);
+	
 	public void updateAdmin();
 	public void deleteAdmin();
 	

@@ -39,4 +39,16 @@
 	<select id="selectProductCate2s" resultType="kr.co.kmarket.vo.Cate2VO">
 		SELECT * FROM `km_product_cate2` WHERE `cate1` = #{cate1};
 	</select>
+	
+	<select id="selectAdminProductList" resultType="kr.co.kmarket.vo.ProductVO">
+		select * from `km_product` order by `rdate` desc limit #{start}, 10;
+	</select>
+	
+	<select id="selectAdminProductThumb" resultType="kr.co.kmarket.vo.ProductVO">
+		SELECT * from `km_product` WHERE `prodNo` = #{prodNo};
+	</select>
+	
+	<select id="selectCountTotal" resultType="int">
+		select COUNT(`prodNo`) from `km_product`; 
+	</select>
 </mapper>
