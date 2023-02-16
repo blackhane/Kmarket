@@ -1,11 +1,16 @@
 package kr.co.kmarket.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import kr.co.kmarket.entity.MyPageEntity;
 import kr.co.kmarket.service.MyPageService;
+import kr.co.kmarket.vo.MemberVO;
+import kr.co.kmarket.vo.OrderVO;
 import kr.co.kmarket.vo.ProductVO;
 
 /*
@@ -56,12 +61,18 @@ public class MypageController {
 	}
 	
 	// mypage 요약정보
-	
-	public String order(Model model, ProductVO vo) {
+	@GetMapping("mypage/home?uid=?")
+	public String order(Model model, HttpServletRequest req, MemberVO vo, OrderVO ov) {
+		String uid = vo.getUid();
+		req.setAttribute("uid", uid);
 		
+		int result = service.countOrder();
+		model.addAttribute("ov", ov);
 		
-		return "mypage/home";
+		return "mypage/home?uid=?";
 	}
+	
+	// 전체 주문 내역
 	
 	
 	
