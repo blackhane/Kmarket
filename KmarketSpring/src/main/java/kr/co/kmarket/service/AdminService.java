@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.kmarket.dao.AdminDAO;
 import kr.co.kmarket.vo.Cate1VO;
 import kr.co.kmarket.vo.Cate2VO;
+import kr.co.kmarket.vo.CsVO;
 import kr.co.kmarket.vo.ProductVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,15 +52,58 @@ public class AdminService {
 		return dao.selectCountTotal();
 	}
 	
-	public void selectAdmin() {}
-	public void selectAdmins() {}
+	public int selectCountNoticeTotal() {
+		return dao.selectCountNoticeTotal();
+	}
 	
 	public List<ProductVO> selectAdminProductList(int start) {
 		return dao.selectAdminProductList(start);
 	}
 	
-	public void updateAdmin() {}
-	public void deleteAdmin() {}
+	//관리자 Index 공지사항 list
+	public List<CsVO> selectIndexCsNoticeList() {
+		return dao.selectIndexCsNoticeList();
+	};
+	
+	//관리자 Index 문의하기 list
+	public List<CsVO> selectCsQnaList(){
+		return dao.selectCsQnaList();
+	};
+	
+	//관리자 공지사항 게시글 list
+	public List<CsVO> selectCsNoticeList(int start){
+		return dao.selectCsNoticeList(start);
+	}
+	
+	//관리자 공지사항 게시글 View
+	public CsVO selectNoticeArticle(int no) {
+		return dao.selectNoticeArticle(no);
+	}
+	
+	//관리자 공지사항 게시글 Modify
+	public void updateNoticeArticle(CsVO vo) {
+		dao.updateNoticeArticle(vo);
+	}
+	
+	//관리자 공지사항 게시글 Delete
+	public void deleteNoticeArticle(int no) {
+		dao.deleteNoticeArticle(no);
+	}
+	
+	//관리자 문의하기 게시글 list
+	public List<CsVO> selectQnaArticles(){
+		return dao.selectQnaArticles();
+	}
+	
+	//관리자 문의하기 게시글 View
+	public CsVO selectQnaArticle(int no) {
+		return dao.selectQnaArticle(no);
+	};
+	
+	//관리자 상품 삭제
+	public int productDelete(int no) {
+		return dao.productDelete(no);
+	}
 	
 	//파일 업로드
 	@Value("${spring.servlet.multipart.location}")
