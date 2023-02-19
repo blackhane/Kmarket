@@ -1,0 +1,61 @@
+<th:block th:include="/admin/_header.html"/>
+<article class="article_list">
+    <nav>
+        <h3>문의하기 목록</h3>
+        <p>
+            HOME > 고객센터 > <strong>문의하기</strong>
+        </p>
+    </nav>
+    <section>
+        <select name="" id="" style="margin-right: 5px;">
+            <option value="">1차 선택</option>
+            <option value="">서비스</option>
+            <option value="">유형2</option>
+            <option value="">유형3</option>
+        </select>
+        <select name="" id="">
+            <option value="">2차 선택</option>
+            <option value="">유형1</option>
+            <option value="">유형2</option>
+            <option value="">유형3</option>
+        </select>
+        <table border="0">
+            <tr>
+                <th><input type="checkbox"></th>
+                <th>번호</th>
+                <th>유형</th>
+                <th>제목</th>
+                <th>조회</th>
+                <th>날짜</th>
+                <th>관리</th>
+            </tr>
+            <tr th:each="article:${articles}">
+                <td><input type="checkbox"></td>
+                <td>[[${article.no}]]</td>
+                <td>[[${article.cate}]]</td>
+                <td class="article_title">
+                	<p>
+						<a th:href="@{/admin/cs/qna/view(no=${article.no})}">[[${article.title}]]</a>
+					</p>		
+                </td>
+                <td>[[${article.hit}]]</td>
+                <td>[[${article.rdate}]]</td>
+                <td style="color: black;">
+                    검토완료
+                </td>
+            </tr>
+        </table>
+        <div class="button">
+            <a href=""><input type="button" value="선택삭제"></a>
+        </div>
+        <div class="page">
+            <a href="">이전</a>
+            <a href="">1</a>
+            <a href="">2</a>
+            <a href="">3</a>
+            <a href="">다음</a>
+        </div>
+    </section>
+    </article>
+</main>
+<th:block th:include="/admin/_footer.html"/>

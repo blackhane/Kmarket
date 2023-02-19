@@ -469,6 +469,15 @@ main table {
     box-sizing: border-box;
 }
 
+.article_list .article_title > p{
+	width: 250px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.article_list .article_title > p > a:hover { text-decoration: underline;}
+
 .article_list > nav {
     position: relative;
     width: 100%;
