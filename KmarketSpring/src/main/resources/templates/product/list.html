@@ -6,29 +6,29 @@
         <nav>
             <h1>상품목록</h1>
             <p>HOME > 
-            	<span th:if="${cate1} == '11'">패션·의류·뷰티</span>
-	            <span th:if="${cate1} == '15'">가전·디지털</span>
-	            <span th:if="${cate1} == '13'">식품·생필품</span>
-	            <span th:if="${cate1} == '14'">홈·문구·취미</span> > 
+            	<span th:if="${arg0} == '11'">패션·의류·뷰티</span>
+	            <span th:if="${arg0} == '15'">가전·디지털</span>
+	            <span th:if="${arg0} == '13'">식품·생필품</span>
+	            <span th:if="${arg0} == '14'">홈·문구·취미</span> > 
 
-	            <strong th:if="${cate1} == '11' and ${cate2} == '11'">남성의류</strong>
-	            <strong th:if="${cate1} == '11' and ${cate2} == '10'">여성의류</strong>
-	            <strong th:if="${cate1} == '11' and ${cate2} == '14'">잡화</strong>
-	            <strong th:if="${cate1} == '11' and ${cate2} == '16'">뷰티</strong>
+	            <strong th:if="${arg0} == '11' and ${arg1} == '11'">남성의류</strong>
+	            <strong th:if="${arg0} == '11' and ${arg1} == '10'">여성의류</strong>
+	            <strong th:if="${arg0} == '11' and ${arg1} == '14'">잡화</strong>
+	            <strong th:if="${arg0} == '11' and ${arg1} == '16'">뷰티</strong>
 
-	            <strong th:if="${cate1} == '15' and ${cate2} == '10'">노트북</strong>
-	            <strong th:if="${cate1} == '15' and ${cate2} == '16'">가전</strong>
-	            <strong th:if="${cate1} == '15' and ${cate2} == '13'">휴대폰</strong>
-	            <strong th:if="${cate1} == '15' and ${cate2} == '11'">기타</strong>
+	            <strong th:if="${arg0} == '15' and ${arg1} == '10'">노트북</strong>
+	            <strong th:if="${arg0} == '15' and ${arg1} == '16'">가전</strong>
+	            <strong th:if="${arg0} == '15' and ${arg1} == '13'">휴대폰</strong>
+	            <strong th:if="${arg0} == '15' and ${arg1} == '11'">기타</strong>
 
-	            <strong th:if="${cate1} == '13' and ${cate2} == '10'">신선식품</strong>
-	            <strong th:if="${cate1} == '13' and ${cate2} == '11'">가공식품</strong>
-	            <strong th:if="${cate1} == '13' and ${cate2} == '12'">건강식품</strong>
-	            <strong th:if="${cate1} == '13' and ${cate2} == '14'">생필품</strong>
+	            <strong th:if="${arg0} == '13' and ${arg1} == '10'">신선식품</strong>
+	            <strong th:if="${arg0} == '13' and ${arg1} == '11'">가공식품</strong>
+	            <strong th:if="${arg0} == '13' and ${arg1} == '12'">건강식품</strong>
+	            <strong th:if="${arg0} == '13' and ${arg1} == '14'">생필품</strong>
 
-	            <strong th:if="${cate1} == '14' and ${cate2} == '10'">가구</strong>
-	            <strong th:if="${cate1} == '14' and ${cate2} == '11'">침구·커튼</strong>
-	            <strong th:if="${cate1} == '14' and ${cate2} == '13'">생활용품</strong>
+	            <strong th:if="${arg0} == '14' and ${arg1} == '10'">가구</strong>
+	            <strong th:if="${arg0} == '14' and ${arg1} == '11'">침구·커튼</strong>
+	            <strong th:if="${arg0} == '14' and ${arg1} == '13'">생활용품</strong>
             </p>
         </nav>
 
@@ -48,12 +48,12 @@
                 <td><a href="#" class="thumb"><img th:src="@{/image/}+${product.thumb1}" alt="상품이미지"></a></td>
                 <td>
                     <h3 class="name">[[${product.prodName}]]</h3>
-                    <a href="#" class="desc">[[${product.descript}]]</a>
+                    <a th:href="@{view(arg0=${arg0},arg1=${arg1},arg2=${arg2},pg=${pg},param1=${product.prodNo})}" class="desc">[[${product.descript}]]</a>
                 </td>
                 <td>
-                    <ul><!-- data-th-text="${#numbers.formatInteger(product.price, 3, 'COMMA') + '원'}" -->
-                        <li><ins class="dis-price" th:text="${product.price - (product.price / 100 * product.discount)}"></ins></li>
-                        <li>
+                    <ul>
+                        <li><ins class="dis-price" th:with="price=${product.price *(100-product.discount)/100}" data-th-text="${#numbers.formatInteger(price, 3, 'COMMA') + '원'}"></ins></li>
+                        <li th:if="${product.discount} != null">
                             <del class="org-price" th:text=${product.price}></del>
                             <span class="discount">[[${product.discount}]]%</span>
                         </li>
@@ -75,19 +75,19 @@
         <div class="paging">
             <span class="prev">
             	<th:block th:if="${groups[0]>1}">
-                <a th:href="@{product/list(arg0=${arg0},arg1=${arg1},arg2=${arg2},pg=${group[0]-1})}"><&nbsp;이전</a>
+                <a th:href="@{list(arg0=${arg0},arg1=${arg1},arg2=${arg2},pg=${group[0]-1})}"><&nbsp;이전</a>
             	</th:block>
             </span>
             
             <span class="num">
                 <th:block th:each="num:${#numbers.sequence(groups[0],groups[1])}">
-                <a th:href="@{product/list(arg0=${arg0},arg1=${arg1},arg2=${arg2},pg=${num})}" th:class="${num==currentPage? 'on':''}">[[${num}]]</a>
+                <a th:href="@{list(arg0=${arg0},arg1=${arg1},arg2=${arg2},pg=${num})}" th:class="${num==currentPage? 'on':''}">[[${num}]]</a>
             	</th:block>
             </span>
             
             <span class="next">
             	<th:block th:if="${groups[1]<lastPageNum}">
-                <a th:href="@{product/list(arg0=${arg0},arg1=${arg1},arg2=${arg2},pg=${group[1]+1})}">다음&nbsp;></a>
+                <a th:href="@{list(arg0=${arg0},arg1=${arg1},arg2=${arg2},pg=${group[1]+1})}">다음&nbsp;></a>
             	</th:block>
             </span>
         </div>

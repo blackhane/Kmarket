@@ -311,6 +311,7 @@ main > aside > .category > li > ol > li > a{
     border-bottom: 1px solid #eaeaea;
     padding: 10px;
     box-sizing: border-box;
+    position: relative;
 }
 #product > .view > .info > .summary > nav > h1{
     font-size: 18px;

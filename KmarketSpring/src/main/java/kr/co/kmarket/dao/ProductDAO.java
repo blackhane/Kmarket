@@ -6,12 +6,15 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import kr.co.kmarket.vo.ProductVO;
+import kr.co.kmarket.vo.ReviewVO;
 
 @Mapper
 @Repository
 public interface ProductDAO {
-	public List<ProductVO> selectProduct(String param);
+	public List<ProductVO> selectProductByParam(String param);
 	public List<ProductVO> selectProducts(String arg0, String arg1,String arg2,int arg3);
 	public int selectCountTotal(String arg0, String arg1);
-	
+	public int selectReviewCountTotal(String param1,int param2);
+	public ProductVO selectProduct(String param1);
+	public List<ReviewVO> selectReviews(String param1);
 }

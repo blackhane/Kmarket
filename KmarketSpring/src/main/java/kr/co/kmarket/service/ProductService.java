@@ -7,15 +7,16 @@ import org.springframework.stereotype.Service;
 
 import kr.co.kmarket.dao.ProductDAO;
 import kr.co.kmarket.vo.ProductVO;
+import kr.co.kmarket.vo.ReviewVO;
 
 @Service
 public class ProductService {
 
 	@Autowired
 	private ProductDAO dao;
-
-	public List<ProductVO> selectProduct(String param) {
-		return dao.selectProduct(param);
+	
+	public List<ProductVO> selectProductByParam(String param) {
+		return dao.selectProductByParam(param);
 	}
 	public List<ProductVO> selectProducts(String arg0, String arg1, String arg2,int arg3) {
 		return dao.selectProducts(arg0,arg1,arg2,arg3);
@@ -23,6 +24,15 @@ public class ProductService {
 	public int selectCountTotal(String arg0, String arg1){
         return dao.selectCountTotal(arg0,arg1);
     }
+	public int selectReviewCountTotal(String param1,int param2){
+		return dao.selectReviewCountTotal(param1,param2);
+	}
+	public ProductVO selectProduct(String param1) {
+		return dao.selectProduct(param1);
+	}
+	public List<ReviewVO> selectReviews(String param1) {
+		return dao.selectReviews(param1);
+	}
 
 	//현재 페이지 번호
     public int getCurrentPage(String pg){
