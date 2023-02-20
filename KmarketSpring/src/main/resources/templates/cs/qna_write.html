@@ -83,7 +83,7 @@
                 <th:block th:replace="cs/_cate.html  :: cs_qnaGroup"></th:block>
                 <div>
                     <form th:action="@{/cs/qna/write}" method="post">
-                    <input type="hidden" name="uid" value="임시아이디"/>
+                    <input type="hidden" name="uid" th:value="${#authentication.name}"/>
                         <table class="qna_write">
                             <tr>
                                 <td>문의유형</td>

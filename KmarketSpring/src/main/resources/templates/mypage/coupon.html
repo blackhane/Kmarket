@@ -21,9 +21,16 @@
                         <div class="coupon">
                             <p>고객님께서 보유하고 있는 할인쿠폰을 확인하세요! 상품구매 시 더욱 저렴하게 구매할 수 있습니다.</p>
                             <div>
-                                <p>· 나의 보유쿠폰 <span><strong>2</strong>장</span></p>
+                                <p>· 나의 보유쿠폰 <span><strong>[[${info.coupon}]]</strong>장</span></p>
                             </div>
                             <table>
+	                            <colgroup> 
+									<col width="10%">
+									<col width="10%">
+									<col width="20%">
+									<col width="10%">
+									<col width="10%">
+								</colgroup> 
                                 <tr>
                                     <th>쿠폰명</th>
                                     <th>할인금액</th>
@@ -31,19 +38,16 @@
                                     <th>유효기간</th>
                                     <th>상태</th>
                                 </tr>
-                                <tr>
-                                    <td>1만원 할인 중복쿠폰</td>
-                                    <td>5,000원</td>
-                                    <td>10,000원 이상 구매시</td>
-                                    <td>~12/29</td>
-                                    <td>사용가능</td>
+                                <tr th:if="${#lists.size(vo) == 0}">
+                                	<td colspan="5" align="center">보유한 쿠폰이 없습니다.</td>
                                 </tr>
-                                <tr>
-                                    <td>1만원 할인 중복쿠폰</td>
-                                    <td>5,000원</td>
-                                    <td>10,000원 이상 구매시</td>
-                                    <td>~12/29</td>
-                                    <td>사용가능</td>
+                                <tr th:each="coupon : ${vo}">
+                                    <td>[[${coupon.couponName}]]</td>
+                                    <td>[[${coupon.discount}]]</td>
+                                    <td>[[${coupon.descript}]]</td>
+                                    <td>[[${coupon.couponDate}]] ~ [[${coupon.endDate}]]</td>
+                                    <td th:if="${coupon.expire <= 0}" class="expire">기한만료</td>
+                                    <td th:unless="${coupon.expire <= 0}">사용가능</td>
                                 </tr>
                             </table>
                             <ul>

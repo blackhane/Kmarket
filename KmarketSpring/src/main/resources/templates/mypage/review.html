@@ -19,6 +19,13 @@
                     <div>
                         <p>나의리뷰</p>
                         <table class="lastComment">
+                        	<colgroup> 
+								<col width="10%">
+								<col width="30%">
+								<col width="40%">
+								<col width="15%">
+								<col width="10%">
+							</colgroup> 
                             <tr>
                                 <th>번호</th>
                                 <th>상품명</th>
@@ -26,40 +33,15 @@
                                 <th>평점</th>
                                 <th>작성일</th>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="star1"></span></td>
-                                <td>2022-12-10</td>
+                            <tr th:if="${#lists.size(vo) == 0}">
+                            	<td colspan="5" align="center">최근 남긴 상품평이 없습니다.</td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="star2"></span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="star3"></span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="star4"></span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="star5"></span></td>
-                                <td>2022-12-10</td>
+                            <tr th:each="review : ${vo}">
+                                <td th:text=${reviewStat.count}></td>
+                                <td class="title"><a href="#">[[${review.prodName}]]</a></td>
+                                <td class="title"><a href="#">[[${review.content}]]</a></td>
+                                <td><span th:class="star+${review.rating}|"></span></td>
+                                <td>[[${review.rdate}]]</td>
                             </tr>
                         </table>
                         <div class="page">

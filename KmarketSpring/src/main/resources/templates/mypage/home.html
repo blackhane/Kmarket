@@ -15,7 +15,7 @@
 <body>
     <div id="wrap">
         <th:block th:replace="mypage/_header.html  :: mypage_header"></th:block>
-                    <img th:src="@{/img/myPage/my_banner1.png}" alt="배너">
+                    <img th:src="@{/img/myPage/my_banner1.jpg}" alt="배너">
                     <div>
                         <p>최근주문내역</p>
                         <a href="#"></a>
@@ -26,99 +26,18 @@
                                 <th>상태</th>
                                 <th>확인/신청</th>
                             </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>
-                                    <img src="#" alt="상품이미지">
-                                    <div>
-                                        상호명 : <br/>
-                                        상품명 : <br/>
-                                        수량 : 1개 / 주문번호 :1012211341 <br/>
-                                        34,000원
-                                    </div>
-                                </td>
-                                <td>배송완료</td>
-                                <td>
-                                    <ul>
-                                        <li><a href="#">수취확인</a></li>
-                                        <li><a href="#">상품평쓰기</a></li>
-                                        <li><a href="#">반품신청</a></li>
-                                        <li><a href="#">교환신청</a></li>
-                                    </ul>
-                                </td>
+                            <tr th:if="${#lists.size(order) == 0}">
+                            	<td colspan="4" align="center">최근 구매한 내역이 없습니다.</td>
                             </tr>
-                            <tr>
-                                <td>2023-02-10</td>
+                            <tr th:each = "ord : ${order}">
+                                <td>[[${ord.rdate}]]</td>
                                 <td>
                                     <img src="#" alt="상품이미지">
                                     <div>
-                                        상호명 : <br/>
-                                        상품명 : <br/>
-                                        수량 : 1개 / 주문번호 :1012211341 <br/>
-                                        34,000원
-                                    </div>
-                                </td>
-                                <td>배송완료</td>
-                                <td>
-                                    <ul>
-                                        <li><a href="#">수취확인</a></li>
-                                        <li><a href="#">상품평쓰기</a></li>
-                                        <li><a href="#">반품신청</a></li>
-                                        <li><a href="#">교환신청</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>
-                                    <img src="#" alt="상품이미지">
-                                    <div>
-                                        상호명 : <br/>
-                                        상품명 : <br/>
-                                        수량 : 1개 / 주문번호 :1012211341 <br/>
-                                        34,000원
-                                    </div>
-                                </td>
-                                <td>배송완료</td>
-                                <td>
-                                    <ul>
-                                        <li><a href="#">수취확인</a></li>
-                                        <li><a href="#">상품평쓰기</a></li>
-                                        <li><a href="#">반품신청</a></li>
-                                        <li><a href="#">교환신청</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>
-                                    <img src="#" alt="상품이미지">
-                                    <div>
-                                        상호명 : <br/>
-                                        상품명 : <br/>
-                                        수량 : 1개 / 주문번호 :1012211341 <br/>
-                                        34,000원
-                                    </div>
-                                </td>
-                                <td>배송완료</td>
-                                <td>
-                                    <ul>
-                                        <li><a href="#">수취확인</a></li>
-                                        <li><a href="#">상품평쓰기</a></li>
-                                        <li><a href="#">반품신청</a></li>
-                                        <li><a href="#">교환신청</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>
-                                    <img src="#" alt="상품이미지">
-                                    <div>
-                                        상호명 : <br/>
-                                        상품명 : <br/>
-                                        수량 : 1개 / 주문번호 :1012211341 <br/>
-                                        34,000원
+                                        상호명 : [[${ord.company}]]<br/>
+                                        상품명 : [[${ord.prodName}]]<br/>
+                                        수량 : [[${ord.count}]]개 / 주문번호 :[[${ord.ordNo}]]<br/>
+                                        [[${ord.price}]]원
                                     </div>
                                 </td>
                                 <td>배송완료</td>
@@ -145,45 +64,16 @@
                                 <th>비고</th>
                                 <th>유효기간</th>
                             </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
-                                <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
+                            <tr th:if="${#lists.size(point) == 0}">
+                            	<td colspan="6" align="center">최근 적립된 내역이 없습니다.</td>
                             </tr>
-                            <tr>
-                                <td>2023-02-10</td>
+                            <tr th:each = "point : ${point}">
+                                <td>[[${point.pointDate}]]</td>
                                 <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
+                                <td>[[${point.ordNo}]]</td>
+                                <td>[[${point.point}]]</td>
                                 <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
-                                <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
-                                <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
-                                <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
+                                <td>[[${point.pointDateEnd}]]</td>
                             </tr>
                         </table>
                     </div>
@@ -191,6 +81,13 @@
                         <p>상품평</p>
                         <a href="#"></a>
                         <table class="lastComment">
+                        	<colgroup> 
+								<col width="10%">
+								<col width="30%">
+								<col width="40%">
+								<col width="15%">
+								<col width="10%">
+							</colgroup> 
                             <tr>
                                 <th>번호</th>
                                 <th>상품명</th>
@@ -198,48 +95,31 @@
                                 <th>평점</th>
                                 <th>작성일</th>
                             </tr>
-                            <tr>
+                            <tr th:if="${#lists.size(review) == 0}">
+                            	<td colspan="5" align="center">최근 남긴 상품평이 없습니다.</td>
+                            </tr>
+                            <tr th:each = "review : ${review}">
                                 <td>1</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="star1"></span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="star2"></span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="star3"></span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="star4"></span></td>
-                                <td>2022-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>상품명</td>
-                                <td>배송이 빠릅니다. 잘 사용하겠습니다.</td>
-                                <td><span class="star5"></span></td>
-                                <td>2022-12-10</td>
+                                <td class="title">[[${review.prodName}]]</td>
+                                <td class="title">[[${review.content}]]</td>
+                                <td><span th:class="star+${review.rating}|"></span></td>
+                                <td>[[${review.rdate}]]</td>
                             </tr>
                         </table>
                     </div>
                     <div>
                         <p>문의내역</p>
-                        <a href="#">
+                        <a th:href="@{/mypage/qna}">
                         </a>
                         <table class="lastQna">
+							<colgroup> 
+								<col width="10%">
+								<col width="10%">
+								<col width="10%">
+								<col width="50%">
+								<col width="10%">
+								<col width="10%">
+							</colgroup>   
                             <tr>
                                 <th>번호</th>
                                 <th>문의채널</th>
@@ -248,21 +128,17 @@
                                 <th>작성일</th>
                                 <th>상태</th>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>고객센터</td>
-                                <td>주문/결제</td>
-                                <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요?</td>
-                                <td>2022-12-10</td>
-                                <td class="wait">검토중</td>
+                            <tr th:if="${#lists.size(qna) == 0}">
+                            	<td colspan="6" align="center">최근 문의한 내역이 없습니다.</td>
                             </tr>
-                            <tr>
-                                <td>1</td>
+                            <tr th:each = "qna : ${qna}">
+                                <td th:text="${qnaStat.size - qnaStat.index}"></td>
                                 <td>고객센터</td>
-                                <td>주문/결제</td>
-                                <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요?</td>
-                                <td>2022-12-10</td>
-                                <td class="ok">답변완료</td>
+                                <td>[[${qna.group}]]</td>
+                                <td class="title"><a th:href="@{/cs/qna/view(group=${qna.group}, no=${qna.no}, pg=1)}">[[${qna.title}]]</a></td>
+                                <td>[[${qna.rdate}]]</td>
+                                <td th:if="${qna.comment == 0}" class="wait">검토중</td>
+                                <td th:unless="${qna.comment == 0}" class="ok">답변완료</td>
                             </tr>
                         </table>
                     </div>
@@ -272,22 +148,26 @@
                             <div>
                                 <span></span>
                                 <a href="#"></a>
-                                <p></p>
-                            </div>
-                            <div>
-                                <span></span>
-                                <a href="#"></a>
                                 <p>
-                                    abc123@gmail.com<br/>
-                                    (최종수정일 2021-12-10)
+                                	[[${info.zip}]]<br/>
+                                    [[${info.addr1}]]<br/>
+                                    [[${info.addr2}]]
                                 </p>
                             </div>
                             <div>
                                 <span></span>
                                 <a href="#"></a>
                                 <p>
-                                    000-1111-2222<br/>
-                                    (최종수정일 2021-12-10)
+                                    [[${info.email}]]<br/>
+                                    (최종수정일 [[${info.rdate}]])
+                                </p>
+                            </div>
+                            <div>
+                                <span></span>
+                                <a href="#"></a>
+                                <p>
+                                    [[${info.hp}]]<br/>
+                                    (최종수정일 [[${info.rdate}]])
                                 </p>
                             </div>
                         </div>

@@ -23,20 +23,20 @@
                                 <table>
                                     <tr>
                                         <td>사용자 ID</td>
-                                        <td>java****</td>
+                                        <td>[[${info.uid}]]</td>
                                     </tr>
                                     <tr>
                                         <td>비밀번호</td>
-                                        <td><a href="#">비밀번호 수정</a></td>
+                                        <td><button style="width:90px;">비밀번호 수정</button></td>
                                     </tr>
                                     <tr>
                                         <td>이름</td>
-                                        <td>마*킹</td>
+                                        <td>[[${info.maskName}]]</td>
                                     </tr>
                                     <tr>
                                         <td>E-mail</td>
                                         <td>
-                                            <input type="text" name="mail1"> @ <input type="text" name="mail2">
+                                            <input type="text" name="mail1" th:value="${info.email1}"> @ <input type="text" name="mail2" th:value="${info.email2}">
                                             <select name="mail3" id="mail">
                                                 <option value="1">직접입력</option>
                                                 <option value="2">naver.com</option>
@@ -51,15 +51,17 @@
                                     <tr>
                                         <td>휴대폰</td>
                                         <td>
-                                            <input type="text" name="phone1"> - <input type="text" name="phone2"> - <input type="text" name="phone3"> <button>수정하기</button>
+                                            <input type="text" name="phone1" th:value="${info.hp1}"> - 
+                                            <input type="text" name="phone2" th:value="${info.hp2}"> - 
+                                            <input type="text" name="phone3" th:value="${info.hp3}"> <button>수정하기</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>주소</td>
                                         <td>
-                                            <input type="text" name="zip"> <button>주소검색</button><br/>
-                                            <input type="text" name="addr1"><br/>
-                                            <input type="text" name="addr2">
+                                            <input type="text" name="zip" th:value="${info.zip}"> <button>주소검색</button><br/>
+                                            <input type="text" name="addr1" th:value="${info.addr1}"><br/>
+                                            <input type="text" name="addr2" th:value="${info.addr2}">
                                         </td>
                                     </tr>
                                     <tr>

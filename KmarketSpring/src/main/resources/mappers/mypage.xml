@@ -4,8 +4,39 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace = mapper파일의 아이디 값 -->
 <mapper namespace="kr.co.kmarket.dao.MyPageDAO">
-	<select id="countOrder" resultType="kr.co.kmarket.entity.MyPageEntity">
-		SELECT SUM(`ordCount`) AS `ordCount`  FROM `km_product_order` WHERE `ordUid` = #{param} order by `ordNo` desc;
+
+	<select id="selectUserinfo" resultType="kr.co.kmarket.vo.MemberVO">
+		SELECT * FROM `km_member` WHERE `uid`=#{uid};
+	</select>
+	<select id="selectLastOrder" resultType="kr.co.kmarket.vo.OrderVO">
+		SELECT * FROM `km_product_order_item` WHERE `uid`=#{uid} ORDER BY `ordNO` DESC LIMIT 5;
+	</select>
+	<select id="selectLastPoint" resultType="kr.co.kmarket.vo.PointVO">
+		SELECT * FROM `km_member_point` WHERE `uid`=#{uid} ORDER BY `pointNo` DESC LIMIT 5;
+	</select>
+	<select id="selectLastReview" resultType="kr.co.kmarket.vo.ReviewVO">
+		SELECT a.*,b.prodName  FROM `km_product_review` AS a JOIN `km_product` AS b
+		ON a.prodNo = b.prodNo WHERE `uid`=#{uid} ORDER BY `revNO` DESC LIMIT 5;
+	</select>
+	<select id="selectLastQna" resultType="kr.co.kmarket.vo.CsVO">
+		SELECT * FROM `km_cs_qna` WHERE `uid`=#{uid} ORDER BY `no` DESC LIMIT 5;
+	</select>
+	
+	<!-- 전체주문내역 -->
+	<!-- 포인트내역 -->
+	<!-- 쿠폰 -->
+	<select id="selectMyCoupon" resultType="kr.co.kmarket.vo.CouponVO">
+		SELECT b.*,a.couponDate,a.endDate FROM `km_member_coupon` AS a JOIN `km_coupon` AS b
+		ON a.coupon=b.`no` WHERE `uid`='tyranno93' ORDER BY `endDate` DESC;
+	</select>
+	<!-- 나의리뷰 -->
+	<select id="selectMyReview" resultType="kr.co.kmarket.vo.ReviewVO">
+		SELECT a.*,b.prodName  FROM `km_product_review` AS a JOIN `km_product` AS b
+		ON a.prodNo = b.prodNo WHERE `uid`=#{uid} ORDER BY `revNO` DESC;
+	</select>
+	<!-- 문의하기 -->
+	<select id="selectMyQna" resultType="kr.co.kmarket.vo.CsVO">
+		SELECT * FROM `km_cs_qna` WHERE `uid`=#{uid} ORDER BY `no` DESC;
 	</select>
 	
 </mapper>
