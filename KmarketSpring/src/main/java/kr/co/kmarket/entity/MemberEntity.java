@@ -47,4 +47,9 @@ public class MemberEntity {
 	private String rdate;
 	private String sessId;
 	private String sessLimitDate;
+	
+	//마이페이지
+	private int order;
+	private int coupon;
+	private int qna;
 }

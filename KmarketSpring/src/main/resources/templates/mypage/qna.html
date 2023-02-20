@@ -15,10 +15,18 @@
 <body>
     <div id="wrap">
         <th:block th:replace="mypage/_header.html  :: mypage_header"></th:block>
-                    <img th:src="@{/img/myPage/my_banner2.jpg}" alt="배너">
+                    <img th:src="@{/img/myPage/my_banner2.png}" alt="배너">
                     <div>
                         <p>문의하기</p>
                         <table class="lastQna">
+                        	<colgroup> 
+								<col width="10%">
+								<col width="10%">
+								<col width="10%">
+								<col width="50%">
+								<col width="10%">
+								<col width="10%">
+							</colgroup>  
                             <tr>
                                 <th>번호</th>
                                 <th>문의채널</th>
@@ -27,21 +35,17 @@
                                 <th>작성일</th>
                                 <th>상태</th>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>판매자게시판</td>
-                                <td>배송</td>
-                                <td><span class="prodName">상품명</span><br/>배송기간이 보통 얼마나 걸리나요?</td>
-                                <td>2022-12-10</td>
-                                <td class="wait">검토중</td>
+                            <tr th:if="${#lists.size(vo) == 0}">
+                            	<td colspan="6" align="center">최근 문의한 내역이 없습니다.</td>
                             </tr>
-                            <tr>
-                                <td>1</td>
+                            <tr th:each="qna : ${vo}">
+                                <td th:text="${qnaStat.count}"></td>
                                 <td>고객센터</td>
-                                <td>주문/결제</td>
-                                <td>신용카드 결제 중 오류가 난 경우 어떻게 하나요?</td>
-                                <td>2022-12-10</td>
-                                <td class="ok">답변완료</td>
+                                <td>[[${qna.group}]]</td>
+                                <td class="title"><a th:href="@{/cs/qna/view(group=${qna.group}, no=${qna.no}, pg=1)}">[[${qna.title}]]</a></td>
+                                <td>[[${qna.rdate}]]</td>
+                                <td th:if="${qna.comment == 0}" class="wait">검토중</td>
+                                <td th:unless="${qna.comment == 0}" class="ok">답변완료</td>
                             </tr>
                         </table>
                         <div class="page">
