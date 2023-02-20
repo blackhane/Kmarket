@@ -100,10 +100,20 @@ public class AdminService {
 		return dao.selectQnaArticle(no);
 	};
 	
+	//관리자 문의하기 게시글 Reply
+	public void insertQnaReply(CsVO vo) {
+		dao.insertQnaReply(vo);
+	};
+	
+	//관리자 문의하기 목록 답변보기
+	public CsVO selectQnaReply(int no) {
+		return dao.selectQnaReply(no);
+	};
+	
 	//관리자 상품 삭제
 	public int productDelete(int no) {
 		return dao.productDelete(no);
-	}
+	};
 	
 	//파일 업로드
 	@Value("${spring.servlet.multipart.location}")

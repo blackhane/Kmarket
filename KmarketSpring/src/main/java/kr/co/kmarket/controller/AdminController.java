@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -214,11 +215,34 @@ public class AdminController {
 	@GetMapping("admin/cs/qna/view")
 	public String qna(int no, Model model) {
 		
-		CsVO article = service.selectQnaArticle(no);
+		CsVO article = service.selectQnaReply(no);
 		
 		model.addAttribute("article", article);
 		
 		return "admin/cs/qna_view";
+	}
+	
+	//관리자 CS - Qna Reply
+	@GetMapping("admin/cs/qna/reply")
+	public String reply(Model model, int no) {
+		
+		CsVO article = service.selectQnaArticle(no);
+		
+		model.addAttribute("article", article);
+		
+		return "admin/cs/qna_reply";
+	}
+	
+	////관리자 CS - Qna Reply
+	@PostMapping("admin/cs/qna/reply")
+	public String reply(int no, CsVO vo,HttpServletRequest req) {
+		
+		String ip = req.getRemoteAddr();
+		vo.setRegip(ip);
+		
+		service.insertQnaReply(vo);
+		
+		return "redirect:/admin/cs/qna/list";
 	}
 	
 }

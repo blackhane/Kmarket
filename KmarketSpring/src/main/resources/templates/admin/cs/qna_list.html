@@ -25,23 +25,30 @@
                 <th>번호</th>
                 <th>유형</th>
                 <th>제목</th>
-                <th>조회</th>
                 <th>날짜</th>
                 <th>관리</th>
             </tr>
             <tr th:each="article:${articles}">
                 <td><input type="checkbox"></td>
-                <td>[[${article.no}]]</td>
+                <td>
+                	<input type="hidden" name="no" th:value="${article.no}">
+                	[[${article.no}]]
+                </td>
                 <td>[[${article.cate}]]</td>
                 <td class="article_title">
-                	<p>
+                	<p th:if="${article.status} == 1">
 						<a th:href="@{/admin/cs/qna/view(no=${article.no})}">[[${article.title}]]</a>
+					</p>
+					<p th:if="${article.status} == 0">
+						<a th:href="@{/admin/cs/qna/reply(no=${article.no})}">[[${article.title}]]</a>
 					</p>		
                 </td>
-                <td>[[${article.hit}]]</td>
                 <td>[[${article.rdate}]]</td>
-                <td style="color: black;">
-                    검토완료
+                <td th:if="${article.status == 0}">
+                    검토중
+                </td>
+                <td th:if="${article.status == 1}" style="color: blue; font-weight: bold">
+                    답변완료
                 </td>
             </tr>
         </table>

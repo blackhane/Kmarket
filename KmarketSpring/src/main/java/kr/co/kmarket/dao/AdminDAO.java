@@ -68,4 +68,10 @@ public interface AdminDAO {
 	
 	//관리자 문의하기 보기
 	public CsVO selectQnaArticle(int no);
+	
+	//관리자 문의하기 답변하기
+	public void insertQnaReply(CsVO vo);
+	
+	//관리자 문의하가ㅣ 답변보기
+	public CsVO selectQnaReply(int no);
 }

@@ -88,10 +88,29 @@
 	</delete>
 	
 	<select id="selectQnaArticles" resultType="kr.co.kmarket.vo.CsVO">
-		SELECT * FROM `km_cs_qna` ORDER BY `no` DESC LIMIT 10;
+		SELECT * FROM `km_cs_qna` where `parent` = 0 ORDER BY `no` DESC LIMIT 10;
+	</select>
+	
+	<select id="selectQnaReply" resultType="kr.co.kmarket.vo.CsVO">
+		SELECT a.`no`,a.`cate`,a.`title`,a.`content`,b.`content` as reply FROM `km_cs_qna` AS a JOIN `km_cs_qna` AS b
+		ON a.`no` = b.parent WHERE a.`status` = 1 and a.`no` = #{no};
 	</select>
 	
 	<select id="selectQnaArticle" resultType="kr.co.kmarket.vo.CsVO">
 		SELECT * FROM `km_cs_qna` WHERE `no` = #{no};
 	</select>
+	
+	<insert id="insertQnaReply">
+		INSERT INTO `km_cs_qna` SET 
+										`parent`  = #{no},
+										`comment`  = 1,
+										`content` = #{content},
+										`regip`   = #{regip} ,
+										`rdate`   = now();
+	</insert>
+	
+	<update id="updateQnaStatus">
+		UPDATE `km_cs_qna` SET `comment` = 1, `status` = 1
+		WHERE `no` = #{no};
+	</update>
 </mapper>

@@ -16,12 +16,14 @@ public class CsVO {
 	private int hit;
 	private String content;
 	private String uid;
+	private int status;
 	private String regip;
 	private String rdate;
 	
 	//추가필드
 	private int count;
 	private String uidMask;
+	private String reply;
 	
 	public String getRdate() {
 		return rdate.substring(2, 10);
