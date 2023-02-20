@@ -66,6 +66,8 @@ public class CsService {
 	
 	//문의하기
 	public List<CsVO> selectQna(String group, int pg){
+		pg = (pg-1) * 10;
+		
 		if(group.equals("all")) {
 			return dao.selectQna(pg);
 		}else {

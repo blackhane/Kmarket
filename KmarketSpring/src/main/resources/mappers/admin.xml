@@ -39,4 +39,59 @@
 	<select id="selectProductCate2s" resultType="kr.co.kmarket.vo.Cate2VO">
 		SELECT * FROM `km_product_cate2` WHERE `cate1` = #{cate1};
 	</select>
+	
+	<select id="selectAdminProductList" resultType="kr.co.kmarket.vo.ProductVO">
+		select * from `km_product` order by `rdate` desc limit #{start}, 10;
+	</select>
+	
+	<select id="selectAdminProductThumb" resultType="kr.co.kmarket.vo.ProductVO">
+		SELECT * from `km_product` WHERE `prodNo` = #{prodNo};
+	</select>
+	
+	<select id="selectCountTotal" resultType="int">
+		select COUNT(`prodNo`) from `km_product`; 
+	</select>
+	
+	<select id="selectCountNoticeTotal" resultType="int">
+		select COUNT(`no`) from `km_cs_notice`; 
+	</select>
+	
+	<delete id="productDelete">
+		DELETE FROM `km_product` WHERE `prodNo` = #{prodNo};
+	</delete>
+	
+	<select id="selectIndexCsNoticeList" resultType="kr.co.kmarket.vo.CsVO">
+		SELECT * FROM `km_cs_notice` ORDER BY `no` DESC LIMIT 10;
+	</select>
+	
+	<select id="selectCsQnaList" resultType="kr.co.kmarket.vo.CsVO">
+		SELECT * FROM `km_cs_qna` ORDER BY `no` DESC LIMIT 10;
+	</select>
+	
+	<select id="selectCsNoticeList" resultType="kr.co.kmarket.vo.CsVO">
+		SELECT * FROM `km_cs_notice` ORDER BY `no` DESC LIMIT #{start}, 10;
+	</select>
+	
+	<select id="selectNoticeArticle" resultType="kr.co.kmarket.vo.CsVO">
+		SELECT * FROM `km_cs_notice` WHERE `no` = #{no};
+	</select>
+	
+	<update id="updateNoticeArticle">
+							UPDATE `km_cs_notice` SET 
+									`title` = #{title} , 
+									`content` = #{content}
+							 where `no` = #{no};		
+	</update>
+	
+	<delete id="deleteNoticeArticle">
+		DELETE FROM `km_cs_notice` WHERE `no` = #{no};
+	</delete>
+	
+	<select id="selectQnaArticles" resultType="kr.co.kmarket.vo.CsVO">
+		SELECT * FROM `km_cs_qna` ORDER BY `no` DESC LIMIT 10;
+	</select>
+	
+	<select id="selectQnaArticle" resultType="kr.co.kmarket.vo.CsVO">
+		SELECT * FROM `km_cs_qna` WHERE `no` = #{no};
+	</select>
 </mapper>

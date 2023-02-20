@@ -20,6 +20,9 @@
                 <div>
                 	<th:block th:replace="cs/_cate.html  :: cs_noticeCate"></th:block>
                     <table>
+                    	<tr th:if="${#lists.size(articles) == 0}">
+                    		<th colspan="5" style="padding: 16px">등록된 공지사항이 없습니다.</th>
+                    	</tr>
                         <tr th:each="article : ${articles}">
                             <td><a th:href="@{/cs/notice/view(group=${group}, no=${article.no}, pg=${pg})}">[[${article.title}]]</a></td>
                             <td>[[${article.rdate}]]</td>

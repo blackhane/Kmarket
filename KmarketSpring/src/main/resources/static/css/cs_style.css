@@ -100,11 +100,16 @@ article:first-child{border-top: none;}
 article > table {
 	width: 100%;
     margin-top: 12px;
+    table-layout: fixed;
 }
 article > table  tr > td {
+	width: 80%;
     font-size: 18px;
     padding: 6px 4px;
     box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 article > table  tr > td:nth-child(2) {
     font-size: 18px;
@@ -237,7 +242,7 @@ div.consult > div > a {font-size: 24px;font-weight: bold;}
 }
 .list > div {
     float: left;
-    min-height: 500px;
+    min-height: 562px;
     padding: 24px;
     box-sizing: border-box;
     border-left: 1px solid #e9e9e9;
@@ -257,12 +262,18 @@ div.consult > div > a {font-size: 24px;font-weight: bold;}
     width: 920px;
     border-collapse: collapse;
     box-sizing: border-box;
+    table-layout: fixed;
 }
+.list > div > table tr > th {font-weight:normal; border-bottom: 1px solid #cccccc;}
 .list > div > table tr > td {
     padding: 16px;
     border-bottom: 1px solid #cccccc;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .list > div > table tr:hover {background: #f8f8f8;}
+.list > div > table tr > td:first-child {width: 70%;}
 .list > div > table tr > td:last-child {width: 10%;text-align: right;font-size: 14px;}
 .page {
     text-align: center;
@@ -321,6 +332,9 @@ div.title > span {
     padding: 20px;
     line-height: 30px;
     margin-bottom: 16px;
+}
+.content > p {
+    white-space: pre-wrap;
 }
 .goList {
     display: inline-block;
@@ -451,6 +465,7 @@ footer {
     height: auto;
     background-color: #f8f8f8;
     border-top: 1px solid #e9e9e9;
+    margin-bottom: 20px;
 }
 footer > div {
     width: 1200px;

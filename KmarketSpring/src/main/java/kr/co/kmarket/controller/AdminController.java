@@ -1,6 +1,8 @@
 package kr.co.kmarket.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,11 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.kmarket.service.AdminService;
 import kr.co.kmarket.vo.Cate1VO;
+import kr.co.kmarket.vo.Cate2VO;
+import kr.co.kmarket.vo.CsVO;
 import kr.co.kmarket.vo.ProductVO;
+import lombok.extern.slf4j.Slf4j;
 
 /*
  * 담당 : 이민혁
@@ -23,22 +29,74 @@ import kr.co.kmarket.vo.ProductVO;
  * 
  */
 
+@Slf4j
 @Controller
 public class AdminController {
 	
 	@Autowired
 	private AdminService service;
 	
+	//index
 	@GetMapping("admin")
-	public String index() {
+	public String index(Model model) {
+		
+		List<CsVO> noticeList = service.selectIndexCsNoticeList();
+		List<CsVO> qnaList = service.selectCsQnaList();
+		
+		model.addAttribute("notice", noticeList);
+		model.addAttribute("qna", qnaList);
+		
 		return "admin/index";
 	}
 	
+	//관리자 상품 목록 - 2023/02/15
 	@GetMapping("admin/product/list")
-	public String list() {
+	public String list(Model model, String pg) {
+		
+		int currentPage = service.getCurrentPage(pg);
+		int start = service.getLimitStart(currentPage);
+		
+		int total = service.selectCountTotal();
+		int lastPageNum = service.getLastPageNum(total);
+		int pageStartNum = service.getPageStartNum(total, start);
+		int groups[] = service.getPageGroup(currentPage, lastPageNum);
+		
+		List<ProductVO> article = service.selectAdminProductList(start);
+		
+		model.addAttribute("article", article);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPageNum", lastPageNum);
+		model.addAttribute("pageStartNum", pageStartNum);
+		model.addAttribute("groups", groups);
+		
+		/*System.out.println("currentPage : " + currentPage);
+		System.out.println("lastPageNum : " + lastPageNum);
+		System.out.println("pageStartNum : " + pageStartNum);
+		System.out.println("groups[0] : " + groups[0]);*/
+		
 		return "admin/product/list";
 	}
 	
+	//관리자 상품 삭제 - 2023/02/16
+	@ResponseBody
+	@GetMapping("admin/productDelete")
+	public Map<String, Integer> productDelete (@RequestParam("prodNo") List<Integer> prodNo) {
+		
+		for(int no : prodNo) {
+			service.productDelete(no);
+		}
+		
+		Map<String, Integer> resultMap = new HashMap<>();
+		
+		resultMap.put("result", prodNo.size());
+		
+		/*System.out.println("result : " + result);
+		System.out.println("resultMap : " + resultMap);*/
+		
+		return resultMap;
+	}
+	
+	//관리자 상품 등록 1차 카테고리 - 2023/02/15
 	@GetMapping("admin/product/register")
 	public String register(Model model) {
 		
@@ -49,13 +107,23 @@ public class AdminController {
 		return "admin/product/register";
 	}
 	
-	@ResponseBody
-	@GetMapping("")
-	public String selectCate2(int cate1) {
-		return "1";
+	//관리자 상품 등록 2차 카테고리 - 2023/02/15
+	@ResponseBody 
+	@GetMapping("admin/selectCate2")
+	public Map<String, List<Cate2VO>> selectCate2(int cate1) {
+		
+		List<Cate2VO> cate2s = service.selectProductCate2s(cate1);
+		
+		Map<String, List<Cate2VO>> map = new HashMap<>();
+		
+		map.put("result", cate2s);
+		
+		System.out.println("cate2 : " + cate2s);
+		
+		return map;
 	}
 	
-	//상품등록
+	//상품등록 - 2023/02/13
 	@PostMapping("admin/product/register")
 	public String register(ProductVO pv, HttpServletRequest req) {
 		
@@ -65,9 +133,92 @@ public class AdminController {
 		service.insertAdminProduct(pv);
 		
 		return "redirect:/admin/product/list";
+	}
+
+	//관리자 CS - Notice List
+	@GetMapping("admin/cs/notice/list")
+	public String notice(Model model, String pg) {
 		
+		int currentPage = service.getCurrentPage(pg);
+		int start = service.getLimitStart(currentPage);
+		
+		int total = service.selectCountNoticeTotal();
+		int lastPageNum = service.getLastPageNum(total);
+		int pageStartNum = service.getPageStartNum(total, start);
+		int groups[] = service.getPageGroup(currentPage, lastPageNum);
+		
+		List<CsVO> notice = service.selectCsNoticeList(start);
+		
+		model.addAttribute("notice", notice);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPageNum", lastPageNum);
+		model.addAttribute("pageStartNum", pageStartNum);
+		model.addAttribute("groups", groups);
+		
+		/*System.out.println("currentPage : " + currentPage);
+		System.out.println("lastPageNum : " + lastPageNum);
+		System.out.println("pageStartNum : " + pageStartNum);
+		System.out.println("groups[0] : " + groups[0]);
+		System.out.println("groups[1] : " + groups[1]);*/
+		
+		return "admin/cs/notice_list";
+	}
+
+	//관리자 CS - Notice View
+	@GetMapping("admin/cs/notice/view")
+	public String view(int no, Model model) {
+		
+		CsVO article = service.selectNoticeArticle(no);
+		
+		model.addAttribute("article", article);
+		
+		return "admin/cs/notice_view";
 	}
 	
+	//관리자 CS - Notice modify
+	@GetMapping("admin/cs/notice/modify")
+	public String modify(int no, Model model) {
+		
+		CsVO article = service.selectNoticeArticle(no);
+		
+		model.addAttribute("article", article);
+		
+		return "admin/cs/notice_modify";
+	}
 	
-
+	//관리자 CS - Notice modify
+	@PostMapping("admin/cs/notice/modify")
+	public String modify(CsVO vo) {
+		service.updateNoticeArticle(vo);
+		return "redirect:/admin/cs/notice/list";
+	}
+	
+	//관리자 CS - Notice delete
+	@GetMapping("admin/cs/notice/delete")
+	public String delete(int no) {
+		service.deleteNoticeArticle(no);
+		return "redirect:/admin/cs/notice/list";
+	}
+	
+	//관리자 CS - Qna List
+	@GetMapping("admin/cs/qna/list")
+	public String qna(Model model) {
+		List<CsVO> articles = service.selectQnaArticles();
+		
+		model.addAttribute("articles", articles);
+		
+		return "admin/cs/qna_list";
+	}
+	
+	//관리자 CS - Qna View
+	@GetMapping("admin/cs/qna/view")
+	public String qna(int no, Model model) {
+		
+		CsVO article = service.selectQnaArticle(no);
+		
+		model.addAttribute("article", article);
+		
+		return "admin/cs/qna_view";
+	}
+	
 }

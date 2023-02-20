@@ -20355,3 +20355,9 @@ org.thymeleaf.exceptions.TemplateProcessingException: Could not parse as express
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.71.jar:9.0.71]
 	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
 
+2023-02-16 13:42:01.372  INFO 7736 --- [RMI TCP Connection(393)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2023-02-16 13:42:01.379  INFO 7736 --- [RMI TCP Connection(393)-127.0.0.1] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-02-16 13:42:01.379  INFO 7736 --- [RMI TCP Connection(393)-127.0.0.1] o.a.c.c.C.[.[localhost].[/Kmarket]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-02-16 13:42:01.383  INFO 7736 --- [RMI TCP Connection(393)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-02-16 13:42:01.384  INFO 7736 --- [RMI TCP Connection(393)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-42 - Shutdown initiated...
+2023-02-16 13:42:01.385  INFO 7736 --- [RMI TCP Connection(393)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-42 - Shutdown completed.

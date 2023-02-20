@@ -21,11 +21,11 @@ public class MainController {
 	
 	@GetMapping(value = {"", "index"})
 	public String index(Model model, Principal principal) {
-		List<ProductVO> hitProduct = service.selectProduct("hit");
-		List<ProductVO> recommendProduct = service.selectProduct("score");
-		List<ProductVO> discountProduct = service.selectProduct("discount");
-		List<ProductVO> bestProduct = service.selectProduct("sold");
-		List<ProductVO> newProduct = service.selectProduct("prodNo");
+		List<ProductVO> hitProduct = service.selectProductByParam("hit");
+		List<ProductVO> recommendProduct = service.selectProductByParam("score");
+		List<ProductVO> discountProduct = service.selectProductByParam("discount");
+		List<ProductVO> bestProduct = service.selectProductByParam("sold");
+		List<ProductVO> newProduct = service.selectProductByParam("prodNo");
 		
 		model.addAttribute("hitProduct", hitProduct);
 		model.addAttribute("recommendProduct", recommendProduct);

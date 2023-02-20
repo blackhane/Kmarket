@@ -4,14 +4,34 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace = mapper파일의 아이디 값 -->
 <mapper namespace="kr.co.kmarket.dao.ProductDAO">
-
+	<!-- product list -->
+	<select id="selectProductByParam" resultType="kr.co.kmarket.vo.ProductVO">
+		SELECT * FROM `km_product` ORDER BY ${param} DESC LIMIT 8;
+	</select>
+	<select id="selectProducts" resultType="kr.co.kmarket.vo.ProductVO">
+		SELECT * FROM `km_product` WHERE `cate1`=#{arg0} AND `cate2`=#{arg1} 
+		ORDER BY ${arg2} DESC 
+		limit #{arg3}, 10;
+	</select>
+	<select id="selectProductByPrice" resultType="kr.co.kmarket.vo.ProductVO">
+		SELECT * FROM `km_product` WHERE `cate1`=#{arg0} AND `cate2`=#{arg1} ORDER BY `price` ASC;
+	</select>
+	<select id="selectCountTotal" resultType="int">
+		SELECT count(`prodNo`) FROM `km_product` WHERE `cate1`=#{arg0} AND `cate2`=#{arg1};
+	</select>
+	
+	<!-- product view -->
 	<select id="selectProduct" resultType="kr.co.kmarket.vo.ProductVO">
-		SELECT * FROM `km_product` ORDER BY #{arg0} DESC LIMIT 8;
+		SELECT * FROM `km_product` WHERE `prodNo`=#{param1};
 	</select>
-	<select id="selectProducts1" resultType="kr.co.kmarket.vo.ProductVO">
-		SELECT * FROM `km_product` WHERE `cate1`=#{cate1} ORDER BY #{sold} DESC;
+	<select id="selectReviews" resultType="kr.co.kmarket.vo.ReviewVO">
+		SELECT * FROM `km_product_review` WHERE `prodNo`=#{param1};
 	</select>
-	<select id="selectProducts2" resultType="kr.co.kmarket.vo.ProductVO">
-		SELECT * FROM `km_product` WHERE `cate1`=#{cate1} AND `cate2`=#{cate2} ORDER BY #{sold} DESC;
+	<select id="selectReviewCountTotal" resultType="int">
+		SELECT count(`revNo`) FROM `km_product_review` WHERE `prodNo`=#{param1} ORDER BY `revNo` DESC 
+		limit #{param2}, 10;;
 	</select>
+	
+	
+	
 </mapper>

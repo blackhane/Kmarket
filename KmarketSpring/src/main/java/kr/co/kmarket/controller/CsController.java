@@ -1,5 +1,7 @@
 package kr.co.kmarket.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,6 +64,7 @@ public class CsController {
 	//자주묻는질문 리스트
 	@GetMapping("cs/faq/list")
 	public String faqList(Model model, String group) {
+		System.out.println(group);
 		List<CsVO> articles = service.selectFaq(group);
 		List<CsVO> cate = service.selectFaqCate(group);
 		model.addAttribute("articles", articles);
@@ -93,23 +96,32 @@ public class CsController {
 	}
 	//문의하기 상세보기
 	@GetMapping("cs/qna/view")
-	public String qnaView(Model model, String group, int no) {
+	public String qnaView(Model model, String group, int no, int pg) {
 		CsVO vo = service.selectQnaArticle(no);
 		model.addAttribute("vo", vo);
 		model.addAttribute("group", group);
+		model.addAttribute("pg", pg);
 		return "cs/qna_view";
 	}
 	//문의하기 글쓰기
 	@GetMapping("cs/qna/write")
-	public String qnaWrite(Model model, String group) {
+	public String qnaWrite(Model model, String group, int pg) {
 		model.addAttribute("group", group);
+		model.addAttribute("pg", pg);
 		return "cs/qna_write";
 	}
 	@PostMapping("cs/qna/write")
 	public String qnaWrite(Model model, CsVO vo, HttpServletRequest req) {
 		vo.setRegip(req.getRemoteAddr());
 		service.insertQna(vo);
-		return "redirect:/cs/qna/list?group=all";
+		
+		String encodeResult = "";
+		try {
+			encodeResult = URLEncoder.encode(vo.getGroup(), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/cs/qna/list?group="+encodeResult+"&pg=1";
 	}
 	
 }
