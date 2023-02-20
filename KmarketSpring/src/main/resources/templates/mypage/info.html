@@ -11,6 +11,24 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" th:href="@{/css/mypage_style.css}">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script th:src="@{/js/postcode.js}"></script>
+    <script>
+    	$(function(){
+    		$('#modifyEmail').on('click', function(){
+    			$('input[name=mail1]').attr("readonly",false);
+    			$('input[name=mail2]').attr("readonly",false);
+    			$("#mail").prop('disabled',false);
+    			$('input[name=mail1]').focus();
+    		});
+    		$('#modifyHp').click(function(){
+    			$('input[name=phone1]').attr("readonly",false);
+    			$('input[name=phone2]').attr("readonly",false);
+    			$('input[name=phone3]').attr("readonly",false);
+    			$('input[name=phone1]').focus();
+    		});
+    	});
+    </script>
 </head>
 <body>
     <div id="wrap">
@@ -36,8 +54,9 @@
                                     <tr>
                                         <td>E-mail</td>
                                         <td>
-                                            <input type="text" name="mail1" th:value="${info.email1}"> @ <input type="text" name="mail2" th:value="${info.email2}">
-                                            <select name="mail3" id="mail">
+                                            <input type="text" name="mail1" th:value="${info.email1}" readonly> @ 
+                                            <input type="text" name="mail2" th:value="${info.email2}" readonly>
+                                            <select name="mail3" id="mail" disabled>
                                                 <option value="1">직접입력</option>
                                                 <option value="2">naver.com</option>
                                                 <option value="3">daum.net</option>
@@ -45,23 +64,23 @@
                                                 <option value="5">nate.com</option>
                                                 <option value="6">outlook.com</option>
                                             </select>
-                                            <button>수정하기</button>
+                                            <button id="modifyEmail">수정하기</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>휴대폰</td>
                                         <td>
-                                            <input type="text" name="phone1" th:value="${info.hp1}"> - 
-                                            <input type="text" name="phone2" th:value="${info.hp2}"> - 
-                                            <input type="text" name="phone3" th:value="${info.hp3}"> <button>수정하기</button>
+                                            <input type="text" name="phone1" th:value="${info.hp1}" readonly="readonly"> - 
+                                            <input type="text" name="phone2" th:value="${info.hp2}" readonly="readonly"> - 
+                                            <input type="text" name="phone3" th:value="${info.hp3}" readonly="readonly"> <button id="modifyHp">수정하기</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>주소</td>
                                         <td>
-                                            <input type="text" name="zip" th:value="${info.zip}"> <button>주소검색</button><br/>
-                                            <input type="text" name="addr1" th:value="${info.addr1}"><br/>
-                                            <input type="text" name="addr2" th:value="${info.addr2}">
+                                            <input type="text" name="zip" id="zip" th:value="${info.zip}" readonly="readonly"> <button onclick="postcode()">주소검색</button><br/>
+                                            <input type="text" name="addr1" id="addr1" th:value="${info.addr1}" readonly="readonly"><br/>
+                                            <input type="text" name="addr2" id="addr2" th:value="${info.addr2}">
                                         </td>
                                     </tr>
                                     <tr>
