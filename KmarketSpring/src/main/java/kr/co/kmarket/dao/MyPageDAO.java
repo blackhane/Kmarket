@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface MyPageDAO {
-
 	public int countOrder();
 }
