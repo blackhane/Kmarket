@@ -26,7 +26,7 @@
                 <td>내용</td>
                 <td name="content">
                     <span>
-                        [[${article.title}]]
+                        [[${article.content}]]
                     </span>
                 </td>
             </tr>
@@ -34,14 +34,14 @@
                 <td>답변</td>
                 <td name="reply">
                     <span>
-                        어떻게 처리하지?
+						[[${article.reply}]]
                     </span>
                 <td>
             </tr>
         </table>
         <div class="view_button">
             <a href=""><input type="button" value="삭제"></a>
-            <a href=""><input type="button" value="목록"></a>
+            <a th:href="@{/admin/cs/qna/list}"><input type="button" value="목록"></a>
         </div>
     </section>
 </article>

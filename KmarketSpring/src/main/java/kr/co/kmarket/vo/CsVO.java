@@ -22,6 +22,8 @@ public class CsVO {
 	//추가필드
 	private int count;
 	private String uidMask;
+	private String reply;
+	private int status;
 	
 	public String getRdate() {
 		return rdate.substring(2, 10);
