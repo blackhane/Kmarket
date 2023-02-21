@@ -1,14 +1,18 @@
 package kr.co.kmarket.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.kmarket.service.MyPageService;
 import kr.co.kmarket.vo.CouponVO;
@@ -61,15 +65,26 @@ public class MypageController {
 		return "mypage/ordered";
 	}
 	
+	@PostMapping("mypage/orderList")
+	@ResponseBody
+	public Map<String, Object> order(Principal principal, String start, String end) {
+		String uid = principal.getName();
+		List<OrderItemVO> list = service.selectMyOrder(uid, start, end);
+		
+		//JSON 파싱
+		Map<String, Object> map = new HashMap<>();
+		map.put("result", list);
+		
+		return map;
+	}
+	
 	@GetMapping("mypage/point")
 	public String point(Principal principal, Model model) {
 		String uid = principal.getName();
 		
 		MemberVO info = service.selectUserinfo(uid);
-		List<PointVO> vo = service.selectMyPoint(uid);
 		
 		model.addAttribute("info", info);
-		model.addAttribute("vo", vo);
 		
 		return "mypage/point";
 	}

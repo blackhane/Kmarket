@@ -39,55 +39,7 @@ public class MyPageService {
 	
 	//전체주문내역
 	public List<OrderItemVO> selectMyOrder(String param1, String param2, String param3){
-		LocalDate day = LocalDate.now();
-		System.out.println(param2);
-		System.out.println(param3);
-		if(param2.equals("1WEEK")) {
-			param2 = LocalDate.now().minusWeeks(1).toString();
-			param3 = LocalDate.now().toString();
-		}else if(param2.equals("15DAY")){
-			param2 = LocalDate.now().minusDays(15).toString();
-			param3 = LocalDate.now().toString();
-		}else if(param2.equals("1MONTH")){
-			param2 = LocalDate.now().minusMonths(1).toString();
-			param3 = LocalDate.now().toString();
-		}else if(param2.equals("MONTHS")) {
-			String[]result = date(day);
-			param2 = result[0];
-			param3 = result[1];
-		}else if(param2.equals("1MONTHS")) {
-			day = LocalDate.now().minusMonths(1);
-			String[]result = date(day);
-			param2 = result[0];
-			param3 = result[1];
-		}else if(param2.equals("2MONTHS")) {
-			day = LocalDate.now().minusMonths(2);
-			String[]result = date(day);
-			param2 = result[0];
-			param3 = result[1];
-		}else if(param2.equals("3MONTHS")) {
-			day = LocalDate.now().minusMonths(3);
-			String[]result = date(day);
-			param2 = result[0];
-			param3 = result[1];
-		}else if(param2.equals("4MONTHS")) {
-			day = LocalDate.now().minusMonths(4);
-			String[]result = date(day);
-			param2 = result[0];
-			param3 = result[1];
-		}
-		
 		return dao.selectMyOrder(param1, param2, param3);
-	}
-	
-	public String[] date(LocalDate date) {
-		String[] day = new String[2];
-		YearMonth month = YearMonth.from(date);
-		String start = month.atDay(1).toString();
-		String end = month.atEndOfMonth().toString();
-		day[0] = start;
-		day[1] = end;
-		return day;
 	}
 	//포인트내역
 	public List<PointVO> selectMyPoint(String uid){

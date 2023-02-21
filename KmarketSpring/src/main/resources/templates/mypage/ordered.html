@@ -14,45 +14,92 @@
     <script th:inline="javascript">
     	$(function(){
     		let now = new Date();
-    		$('.months').text(now.getMonth()+1);
+    		$('.month1').text(now.getMonth()+1);
     		now.setMonth(now.getMonth() -1);
-    		$('.1months').text(now.getMonth()+1);
+    		$('.month2').text(now.getMonth()+1);
     		now.setMonth(now.getMonth() -1);
-    		$('.2months').text(now.getMonth()+1);
+    		$('.month3').text(now.getMonth()+1);
     		now.setMonth(now.getMonth() -1);
-    		$('.3months').text(now.getMonth()+1);
+    		$('.month4').text(now.getMonth()+1);
     		now.setMonth(now.getMonth() -1);
-    		$('.4months').text(now.getMonth()+1);
+    		$('.month5').text(now.getMonth()+1);
     		
     		$('.off').on('click', function(){
     			$('.on').attr('class','off');
     			$(this).attr('class','on');
     		});
+
+    		//오늘
+    		let today = new Date();
+    		let lastDay = dateFormat(today);
     		
-    		$('.1week').click(function(){
-    			list('1WEEK');
+    		//7일전
+    		$('#1week').click(function(){
+	    		today = new Date();
+	    		let firstDay = new Date(today.setDate(today.getDate()-7));
+	    		firstDay = dateFormat(firstDay);
+	    		list(firstDay, lastDay);
     		});
-    		$('.15day').click(function(){
-    			list('15DAY');
+    		//15일전
+    		$('#15day').click(function(){
+    			today = new Date();
+	    		let firstDay = new Date(today.setDate(today.getDate()-15));
+	    		firstDay = dateFormat(firstDay);
+	    		list(firstDay, lastDay);
     		});
-    		$('.1month').click(function(){
-    			list('1MONTH');
+    		//30일전
+    		$('#1month').click(function(){
+    			today = new Date();
+    			let firstDay = new Date(today.setDate(today.getDate()-30));
+    			firstDay = dateFormat(firstDay);
+    			list(firstDay, lastDay);
     		});
-    		$('.months').click(function(){
-    			list('MONTHS');
+    		//당월
+    		$('#month1').click(function(){
+    			today = new Date();	
+				let firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+				let lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+				firstDay = dateFormat(firstDay);
+				lastDay = dateFormat(lastDay);
+				list(firstDay, lastDay);
     		});
-    		$('.1months').click(function(){
-    			list('1MONTHS');
+    		//1달전
+    		$('#month2').click(function(){
+    			today = new Date();	
+				let firstDay = new Date(today.getFullYear(), today.getMonth()-1, 1);
+				let lastDay = new Date(today.getFullYear(), today.getMonth(), 0);
+				firstDay = dateFormat(firstDay);
+				lastDay = dateFormat(lastDay);
+				list(firstDay, lastDay);
     		});
-    		$('.2months').click(function(){
-    			list('2MONTHS');
+    		//2달전
+    		$('#month3').click(function(){
+    			today = new Date();	
+				let firstDay = new Date(today.getFullYear(), today.getMonth()-2, 1);
+				let lastDay = new Date(today.getFullYear(), today.getMonth()-1, 0);
+				firstDay = dateFormat(firstDay);
+				lastDay = dateFormat(lastDay);
+				list(firstDay, lastDay);
     		});
-    		$('.3months').click(function(){
-    			list('3MONTHS');
+    		//3달전
+    		$('#month4').click(function(){
+    			today = new Date();	
+				let firstDay = new Date(today.getFullYear(), today.getMonth()-3, 1);
+				let lastDay = new Date(today.getFullYear(), today.getMonth()-2, 0);
+				firstDay = dateFormat(firstDay);
+				lastDay = dateFormat(lastDay);
+				list(firstDay, lastDay);
     		});
-    		$('.4months').click(function(){
-    			list('4MONTHS');
+    		//4달전
+    		$('#month5').click(function(){
+    			today = new Date();	
+				let firstDay = new Date(today.getFullYear(), today.getMonth()-4, 1);
+				let lastDay = new Date(today.getFullYear(), today.getMonth()-3, 0);
+				firstDay = dateFormat(firstDay);
+				lastDay = dateFormat(lastDay);
+				list(firstDay, lastDay);
     		});
+    		//사용자 지정
     		$('.search').click(function(){
     			let start = $('input[name=start]').val();
     			let end = $('input[name=end]').val();
@@ -60,17 +107,38 @@
     				alert('날짜를 선택해주세요.');
     				return false;
     			}
+    			
+    			today = new Date();	
+    			let firstDay = new Date(today.setFullYear(today.getFullYear() - 1));
+    			firstDay = dateFormat(firstDay);
+    			if(start < firstDay){
+    				alert('전체주문내역의 최대 1년치까지만 조회가능합니다.');
+    				start = firstDay;
+    			}
     			list(start, end);
     			$('.on').attr('class','off');
     		});
     		
-    		function list(when){
+    		function dateFormat(date) {
+    			let dateFormat2 = date.getFullYear() +
+    				'-' + ( (date.getMonth()+1) < 9 ? "0" + (date.getMonth()+1) : (date.getMonth()+1) )+
+    				'-' + ( (date.getDate()) < 9 ? "0" + (date.getDate()) : (date.getDate()) );
+    			return dateFormat2;
+    		}
+    		
+    		function list(start, end){
+    			let jsonData = {
+    					'start' : start,
+    					'end' : end
+    			}
+    			console.log(jsonData);
     			$.ajax({
-    				url : '/mypage/'+when,
+    				url : '/Kmarket/mypage/orderList/',
     				method : 'POST',
+    				data : jsonData,
     				dataType : 'JSON',
     				success : function(data){
-    					
+    					console.log(data.result);
     				}
     			});
     		}
@@ -86,16 +154,16 @@
                         <div class="day">
                             <span></span>
                             <ul>
-                                <li><a href="#" class="off"><span>1</span>주일</a></li>
-                                <li><a href="#" class="on off"><span>15</span>일</a></li>
-                                <li><a href="#" class="off"><span>1</span>개월</a></li>
+                                <li><a href="#" class="off" id="1week"><span>1</span>주일</a></li>
+                                <li><a href="#" class="on off" id="15day"><span>15</span>일</a></li>
+                                <li><a href="#" class="off" id="1month"><span>1</span>개월</a></li>
                             </ul>
                             <ul>
-                                <li><a href="#" class="off"><span class="months"></span>월</a></li>
-                                <li><a href="#" class="off"><span class="1months"></span>월</a></li>
-                                <li><a href="#" class="off"><span class="2months"></span>월</a></li>
-                                <li><a href="#" class="off"><span class="3months"></span>월</a></li>
-                                <li><a href="#" class="off"><span class="4months"></span>월</a></li>
+                                <li><a href="#" class="off" id="month1"><span class="month1"></span>월</a></li>
+                                <li><a href="#" class="off" id="month2"><span class="month2"></span>월</a></li>
+                                <li><a href="#" class="off" id="month3"><span class="month3"></span>월</a></li>
+                                <li><a href="#" class="off" id="month4"><span class="month4"></span>월</a></li>
+                                <li><a href="#" class="off" id="month5"><span class="month5"></span>월</a></li>
                             </ul>
                             <p>
                                 <input type="date" name="start">~<input type="date" name="end">
