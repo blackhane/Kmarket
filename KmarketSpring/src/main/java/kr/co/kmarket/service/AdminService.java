@@ -115,6 +115,11 @@ public class AdminService {
 		return dao.selectQnaReply(no);
 	};
 	
+	//관리자 문의하기 카테고리 검색
+	public List<CsVO> selectQnaSearch (String group, String cate){
+		return dao.selectQnaSearch(group, cate);
+	};
+	
 	//관리자 상품 삭제
 	public int productDelete(int no) {
 		return dao.productDelete(no);

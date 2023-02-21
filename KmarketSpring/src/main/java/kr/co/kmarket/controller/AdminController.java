@@ -246,4 +246,24 @@ public class AdminController {
 		return "redirect:/admin/cs/qna/list";
 	}
 	
+	//관리자 CS - Qna Search
+	@ResponseBody
+	@GetMapping("admin/qna_search")
+	public Map<String, List<CsVO>> Search(@RequestParam("group") String group, String cate) {
+		
+		System.out.println("group : " + group);
+		System.out.println("cate : " + cate);
+		
+		List<CsVO> search = service.selectQnaSearch(group, cate);
+		
+		Map<String, List<CsVO>> map = new HashMap<>();
+		
+		map.put("result", search);
+		
+		int size = search.size();
+		
+		System.out.println("size : " + size);
+		
+		return map;
+	}
 }
