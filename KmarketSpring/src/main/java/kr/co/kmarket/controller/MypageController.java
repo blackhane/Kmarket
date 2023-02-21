@@ -69,6 +69,7 @@ public class MypageController {
 	@ResponseBody
 	public Map<String, Object> order(Principal principal, String start, String end) {
 		String uid = principal.getName();
+		
 		List<OrderItemVO> list = service.selectMyOrder(uid, start, end);
 		
 		//JSON 파싱
@@ -87,6 +88,20 @@ public class MypageController {
 		model.addAttribute("info", info);
 		
 		return "mypage/point";
+	}
+	
+	@PostMapping("mypage/pointList")
+	@ResponseBody
+	public Map<String, Object> point(Principal principal, String start, String end) {
+		String uid = principal.getName();
+		
+		List<PointVO> list = service.selectMyPoint(uid, start, end);
+		
+		//JSON 파싱
+		Map<String, Object> map = new HashMap<>();
+		map.put("result", list);
+		
+		return map;
 	}
 	
 	@GetMapping("mypage/coupon")
