@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.kmarket.dao.ProductDAO;
+import kr.co.kmarket.vo.CartVO;
 import kr.co.kmarket.vo.ProductVO;
 import kr.co.kmarket.vo.ReviewVO;
 
@@ -32,6 +33,33 @@ public class ProductService {
 	}
 	public List<ReviewVO> selectReviews(String param1) {
 		return dao.selectReviews(param1);
+	}
+	
+	//장바구니 추가
+	public int addCart(CartVO cart) {
+		//중복체크
+		CartVO checkCart = dao.checkCart(cart);
+		
+		if(checkCart != null) {
+			return 2;
+		}
+		//추가
+		try {
+			return dao.addCart(cart);
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+	
+	//장바구니 목록
+	public List<CartVO> selectCarts(String uid){
+		return dao.selectCarts(uid);
+	}
+	
+	//장바구니 삭제
+	public int deleteCart(int cartNo,String uid) {
+		int result = dao.deleteCart(cartNo,uid);
+		return result;
 	}
 
 	//현재 페이지 번호
