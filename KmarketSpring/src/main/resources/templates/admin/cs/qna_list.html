@@ -16,6 +16,57 @@
 			
 			/*alert(op1);
 			alert(op2);*/
+		$(document).ready(function(){
+			
+			$('input[name=all]').click(function(){
+				if($('input[name=all]').is(':checked')) $('input[type=checkbox]').prop("checked",true);
+				else $('input[type=checkbox]').prop('checked',false) ;
+			});
+			
+			$('input[name=check1]').click(function(){
+				let total = $('input:checkbox[name=check1]').length;
+				let length = $('input:checkbox[name=check1]:checked').length;
+				
+				if(total != length){
+					$('input[name=all]').prop('checked',false);
+				}else{
+					$('input[name=all]').prop('checked',true);
+				}
+			});
+			
+			$('input[name=delete]').click(function(){
+				//왜 삭제버튼을 누르면 새로고침이 되는거지?
+				
+				let arr = [];
+				let check = $('input[name=check1]:checked');
+				let length = $('input:checkbox[name=check1]:checked').length;
+				$(check).each(function(){
+					arr.push($(this).val());
+				});						
+				
+				let jsonData = {'arr' : arr};
+				console.log('here1');
+				
+				if(length == 0){
+					alert('확인요망');
+				}else
+				console.log('here2');			
+				$.ajax({
+					url : '/Kmarket/admin/deleteQnaArticle',
+					method : 'GET',
+					traditional : true,
+					data : jsonData,
+					dataType : 'json',
+					success : function(data){
+						if(data.result > 0){
+							console.log('here3');
+							$('input[name=check1]:checked').parent().remove();
+							alert('삭제완료'); //왜 2개 체크하면 alert 가 안 뜰까?
+						};
+					}
+				}); 
+			});
+>>>>>>> Stashed changes
 		});
 	});
 	
@@ -41,9 +92,15 @@
         <select name="f2">
 			<option value="2">2차 선택</option>
         </select>
+<<<<<<< Updated upstream
         <table border="0">
             <tr>
                 <th><input type="checkbox"></th>
+=======
+        <table border="0" class="qna_table">
+            <tr class="qna">
+                <th><input type="checkbox" name="all"></th>
+>>>>>>> Stashed changes
                 <th>번호</th>
                 <th>유형</th>
                 <th>제목</th>
@@ -75,7 +132,7 @@
             </tr>
         </table>
         <div class="button">
-            <a href=""><input type="button" value="선택삭제"></a>
+            <a href=""><input type="button" name="delete"value="선택삭제"></a>
         </div>
         <div class="page">
             <a href="">이전</a>

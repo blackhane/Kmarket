@@ -113,4 +113,13 @@
 		UPDATE `km_cs_qna` SET `comment` = 1, `status` = 1
 		WHERE `no` = #{no};
 	</update>
+	
+	<select id="selectQnaSearch" resultType="kr.co.kmarket.vo.CsVO">
+		SELECT * FROM `km_cs_qna`  WHERE `group` = #{group} and `cate` = #{cate} ORDER BY `no` desc limit 10;
+	</select>
+	
+	<delete id="deleteQnaArticle">
+		delete from `km_cs_qna` where `no` = #{no} or `parent` = #{no};		
+	</delete>	
+>>>>>>> Stashed changes
 </mapper>
