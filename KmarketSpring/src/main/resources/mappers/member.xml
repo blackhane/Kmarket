@@ -56,7 +56,4 @@
 		`rdate`=NOW();
 	
 	</insert>
-	
-	
-	
 </mapper>

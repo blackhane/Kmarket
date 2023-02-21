@@ -48,7 +48,8 @@
 		SELECT * FROM `km_cs_qna` WHERE `group` = #{arg0} AND `parent` = 0 ORDER BY `no` DESC LIMIT #{arg1},10;
 	</select>
 	<select id="selectQnaArticle" resultType="kr.co.kmarket.vo.CsVO">
-		SELECT * FROM `km_cs_qna` WHERE `no` = #{no};
+		SELECT a.*,b.content AS `reply` FROM `km_cs_qna` AS a LEFT JOIN `km_cs_qna` AS b
+		ON a.`no`=b.`parent` WHERE a.`no` = #{no};
 	</select>
 	<select id="selectQnaComment" resultType="kr.co.kmarket.vo.CsVO">
 		SELECT * FROM `km_cs_qna` WHERE `parent` = #{no};

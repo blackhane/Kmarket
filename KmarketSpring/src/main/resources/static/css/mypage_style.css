@@ -232,7 +232,6 @@ header > .logo button{
     float: left;
     width: 80px;
     height: 80px;
-    background: #888888;
     margin-right:  10px;
 }
 .home > section > div > table.lastOrder tr > td:nth-child(1) {width: 15%;}
@@ -370,7 +369,7 @@ header > .logo button{
     line-height: 25px;
     font-size: 12px;
 }
-.home > section > div > .day > ul > li > a:hover, a.current {
+.home > section > div > .day > ul > li > a:hover, a.on {
     border: none;
     border-top: 1px solid #4c6fb1;
     border-left: 1px solid #4c6fb1;

@@ -17,4 +17,5 @@ public interface MemberDAO {
 	// 약관
 	public TermsVO selectTerms();
 	public TermsVO selectTermsSeller();
+	
 }

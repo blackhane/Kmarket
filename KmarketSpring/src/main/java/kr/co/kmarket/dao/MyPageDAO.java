@@ -24,7 +24,7 @@ public interface MyPageDAO {
 	
 	
 	//전체주문내역
-	public List<OrderItemVO> selectMyOrder(String uid);
+	public List<OrderItemVO> selectMyOrder(String param1, String param2, String param3);
 	//포인트내역
 	public List<PointVO> selectMyPoint(String uid);
 	//쿠폰
@@ -33,5 +33,7 @@ public interface MyPageDAO {
 	public List<ReviewVO> selectMyReview(String uid);
 	//문의하기
 	public List<CsVO> selectMyQna(String uid);
-	
+
+	//회원수정
+	public void updateMember(MemberVO vo);
 }
