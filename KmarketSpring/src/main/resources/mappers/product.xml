@@ -56,8 +56,16 @@
 		order by `cartNo` desc;
 	</select>
 	<delete id="deleteCart">
-		delete * from `km_product_cart` where `cartNo`=#{cartNo} and `uid`=#{uid};
+		delete from `km_product_cart` where `cartNo`=#{cartNo};
 	</delete>
 	
+	<!-- 장바구니에서 주문목록 -->
+	<select id="selectOrder" resultType="kr.co.kmarket.vo.CartVO">
+		select a.*, b.`prodName`, b.`descript`, b.`thumb1` from `km_product_cart` as a
+		join `km_product` as b 
+		on a.`prodNo`=b.`prodNo` 
+		where `cartNo`=#{cartNo}  
+		order by `cartNo` desc;
+	</select>
 	
 </mapper>

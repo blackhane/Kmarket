@@ -21,5 +21,6 @@ public interface ProductDAO {
 	public int addCart(CartVO cart);
 	public CartVO checkCart(CartVO cart);
 	public List<CartVO> selectCarts(String uid);
-	public int deleteCart(int cartNo,String uid);
+	public int deleteCart(String cartNo);
+	public CartVO selectOrder(String cartNo);
 }

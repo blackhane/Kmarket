@@ -1,6 +1,7 @@
 package kr.co.kmarket.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.kmarket.entity.MemberEntity;
@@ -106,27 +110,52 @@ public class ProductController {
 		return "product/cart";
 	}
 
-	@GetMapping("product/cart/delete")
-	public String deleteCart(int cartNo, String uid) {
-		service.deleteCart(cartNo,uid);
+	@PostMapping("product/cart/delete")
+	@ResponseBody
+	public String deleteCart(@RequestParam(value="checkBoxArr[]")List<String> checkBoxArr) {
 		
-		return "redirect:product/cart?uid="+uid;
+		int result = 0;
+		
+		for(int i = 0; i < checkBoxArr.size(); i++) {
+			service.deleteCart(checkBoxArr.get(i));
+		}	
+		
+		return result + "";
 	}
 	
 	@GetMapping("product/order")
-	public String orderList(Model model, String param1, String count, String uid, HttpServletRequest req) {
+	public String orderList(Model model, String param1, String count, String uid) {
 		
 		ProductVO product = service.selectProduct(param1);
-		List<CartVO> carts = service.selectCarts(uid);
 		MemberVO user = service1.selectUser(uid);
 		
-		
 		model.addAttribute("product",product);
-		model.addAttribute("carts",carts);
 		model.addAttribute("user",user);
 		model.addAttribute("count",count);
 		return "product/order";
 	}
 
+	@PostMapping("product/order")
+	@ResponseBody
+	public List<CartVO> orderList(Model model, @RequestParam(value="checkBoxArr[]")List<String> checkBoxArr) {
+		//System.out.println(checkBoxArr);
+		//System.out.println(checkBoxArr.get(0));
+		
+		List<CartVO> carts = new ArrayList<>();
+		
+		for(int i = 0; i < checkBoxArr.size(); i++) {
+			
+			CartVO cart = service.selectOrder(checkBoxArr.get(i));
+		
+			carts.add(cart);
+		}
+		
+		//System.out.println(carts.get(0));
+		//System.out.println(carts.get(1));
+		
+		model.addAttribute("carts", carts);
+		
+		return carts;
+	}
 
 }
