@@ -1,5 +1,7 @@
 package kr.co.kmarket.service;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +42,8 @@ public class MyPageService {
 		return dao.selectMyOrder(param1, param2, param3);
 	}
 	//포인트내역
-	public List<PointVO> selectMyPoint(String uid, String param2, String param3){
-		return dao.selectMyPoint(uid, param2, param3);
+	public List<PointVO> selectMyPoint(String uid){
+		return dao.selectMyPoint(uid);
 	}
 	//쿠폰
 	public List<CouponVO> selectMyCoupon(String uid){

@@ -26,7 +26,7 @@ public interface MyPageDAO {
 	//전체주문내역
 	public List<OrderItemVO> selectMyOrder(String param1, String param2, String param3);
 	//포인트내역
-	public List<PointVO> selectMyPoint(String uid, String param2, String param3);
+	public List<PointVO> selectMyPoint(String uid);
 	//쿠폰
 	public List<CouponVO> selectMyCoupon(String uid);
 	//나의리뷰

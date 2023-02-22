@@ -390,7 +390,7 @@ header > .logo button{
     font-size: 12px;
 }
 .home > section > div > .day > button {float: left;
-    background: url('img/myPage/my_sprites.png') no-repeat -491px -80px;
+    background: url('imgs/my_sprites.png') no-repeat -491px -80px;
     width: 71px;
     height: 26px;
     border: 1px solid #c7c7c7;
