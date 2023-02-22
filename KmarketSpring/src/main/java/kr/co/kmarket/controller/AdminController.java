@@ -245,9 +245,7 @@ public class AdminController {
 		
 		return "redirect:/admin/cs/qna/list";
 	}
-	
-<<<<<<< Updated upstream
-=======
+  
 	//관리자 CS - Qna Search
 	@ResponseBody
 	@GetMapping("admin/qna_search")
@@ -287,5 +285,4 @@ public class AdminController {
 		
 		return map;
 	}
->>>>>>> Stashed changes
 }
