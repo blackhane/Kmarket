@@ -115,8 +115,6 @@ public class AdminService {
 		return dao.selectQnaReply(no);
 	};
 	
-<<<<<<< Updated upstream
-=======
 	//관리자 문의하기 카테고리 검색 2023/02/21
 	public List<CsVO> selectQnaSearch (String group, String cate){
 		return dao.selectQnaSearch(group, cate);
@@ -127,7 +125,6 @@ public class AdminService {
 		dao.deleteQnaArticle(no);
 	}
 	
->>>>>>> Stashed changes
 	//관리자 상품 삭제
 	public int productDelete(int no) {
 		return dao.productDelete(no);

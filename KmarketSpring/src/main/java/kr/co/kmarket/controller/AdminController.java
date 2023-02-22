@@ -246,27 +246,20 @@ public class AdminController {
 		return "redirect:/admin/cs/qna/list";
 	}
 	
-<<<<<<< Updated upstream
-=======
 	//관리자 CS - Qna Search
 	@ResponseBody
 	@GetMapping("admin/qna_search")
-	public Map<String, List<CsVO>> Search(@RequestParam("group") String group, String cate) {
+	public List<CsVO> Search(@RequestParam("group") String group, String cate) {
 		
 		System.out.println("group : " + group);
 		System.out.println("cate : " + cate);
 		
 		List<CsVO> search = service.selectQnaSearch(group, cate);
 		
-		Map<String, List<CsVO>> map = new HashMap<>();
+		//Map<String, List<CsVO>> map = new HashMap<>();
+		//map.put("result", search);
 		
-		map.put("result", search);
-		
-		int size = search.size();
-		
-		System.out.println("size : " + size);
-		
-		return map;
+		return search;
 	}
 	
 	//관리자 CS - Qna Delete
@@ -287,5 +280,17 @@ public class AdminController {
 		
 		return map;
 	}
->>>>>>> Stashed changes
+	
+	//관리자 CS - Qna list
+	@ResponseBody
+	@GetMapping("admin/qna_list")
+	public List<CsVO> listQna(@Param("group") String group, @Param("cate")String cate) {
+		
+		System.out.println("group : " + group);
+		System.out.println("cate : " + cate);
+		
+		List<CsVO> search = service.selectQnaSearch(group, cate);
+		
+		return search;
+	}
 }

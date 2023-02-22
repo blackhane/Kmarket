@@ -121,5 +121,4 @@
 	<delete id="deleteQnaArticle">
 		delete from `km_cs_qna` where `no` = #{no} or `parent` = #{no};		
 	</delete>	
->>>>>>> Stashed changes
 </mapper>
