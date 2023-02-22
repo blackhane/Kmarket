@@ -80,6 +80,18 @@ $(document).ready(function(){
 			});
 	}*/
 	
+	//주문하기 버튼
+	$(".order").on("click",function(){
+		
+		
+		
+		//주문페이지로 이동
+		var url = "/Kmarket/product/order?";
+		var data="param1="+param1+"&count="+quantity+"&uid="+uid;
+		
+		location.href= url + data;
+	});
+	
 });
 	
 
@@ -123,6 +135,7 @@ $(document).ready(function(){
                     	<input type="hidden" class="totalDisPrice" th:value="${cart.disPrice}">
                     	<input type="hidden" class="deliveryPrice" th:value="${cart.delivery}">
                     	<input type="hidden" class="finalTotalPrice" th:value="${cart.total}">
+                    	<input type="hidden" class="prodNo" th:value="${cart.prodNo}">
                     </td>
                     <td>
                         <article>
@@ -173,7 +186,7 @@ $(document).ready(function(){
                         <td class="finalTotalPrice_td">26,000</td>
                     </tr>
                 </table>
-                <input type="submit" name="" value="주문하기">
+                <input type="submit" class="order" value="주문하기">
             </div>
         </form> 
     </section>

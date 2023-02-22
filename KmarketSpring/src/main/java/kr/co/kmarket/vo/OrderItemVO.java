@@ -15,5 +15,14 @@ public class OrderItemVO {
 	private int point;
 	private int total;
 	private String uid;
+	private String rdate;
 	
+	//추가
+	private String prodName;
+	private String company;
+	private String thumb1;
+	
+	public String getRdate() {
+		return rdate.substring(2,10);
+	}
 }

@@ -4,60 +4,78 @@
 	$(document).ready(function(){
 		
 		let quantity = $(".quantity").val();
-		let price = [[${prod.price *(100-prod.discount)/100}]];
-		let total = $("#total").text(price);
-		let disPrice = [[${prod.price * prod.discount}]]
+		let finalPrice = [[${prod.price *(100-prod.discount)/100}]];
+		let total = $(".totalPrice").text(finalPrice);
+		let disPrice = [[${prod.price * prod.discount/100}]]
 		
 		//수량버튼 조작
 		$(".increase").on("click",function(){
 			$(".quantity").val(++quantity);
-			total = $("#total").text(price*quantity);
+			total = $(".totalPrice").text(finalPrice*quantity);
 		})
 		$(".decrease").on("click",function(){
 			if(quantity > 1){
 				$(".quantity").val(--quantity);
-				total = $("#total").text(price*quantity);
+				total = $(".totalPrice").text(finalPrice*quantity);
 			}
 		})
 		
 		//장바구니 버튼
-		$(".cart").on("click",function(e){
-				//서버로 전송할 데이터
-				const form = {
-					uid: '${#authentication.principal.user.uid}',
-					prodNo: '${prod.prodNo}',
-					count: quantity,
-					price: '${prod.price}',
-					discount: '${prod.discount}',
-					disPrice:disPrice,
-					point: '${prod.point}',
-					delivery: '${delivery}',
-					total: total
-				}
-				
-				//장바구니 추가
-				$.ajax({
-				url: '/product/cart/add?uid=form.uid',
+		$(".cart").on("click",function(){
+			
+			
+			//서버로 전송할 데이터
+			let uid = [[${#authentication.name}]];
+			let price = [[${prod.price}]];
+			let prodNo = [[${prod.prodNo}]];
+			let discount = [[${prod.discount}]];
+			let point = [[${prod.point}]];
+			let delivery = [[${prod.delivery}]];
+			let total = $(".totalPrice").text();
+			
+			const form = {
+				'uid': uid,
+				'prodNo': prodNo,
+				'count': quantity,
+				'price': price,
+				'discount': discount,
+				'disPrice':disPrice,
+				'point': point,
+				'delivery': delivery,
+				'total': total
+			}
+			console.log(form);
+			
+			//장바구니 추가
+			$.ajax({
+				url: '/Kmarket/product/cart/add',
 				type: 'POST',
 				data: form,
-				success: function(result){
-						cartAlert(result);
+				success: function(data){
+					//1번 장바구니에 상품이 등록됨
+					console.log(data.result);
+					let answer = confirm("장바구니에 상품이 등록되었습니다.\n장바구니로 이동하시겠습니까?");
+					if(answer){
+						//장바구니로 이동
+						location.href="/Kmarket/product/cart?uid="+uid;
+					}else{
+						return false;
 					}
-				})
+				}
+			});
 		});
 		
+		//바로구매
+		$(".order").on("click",function(){
+			let param1 = [[${param1}]];
+			let uid = [[${#authentication.name}]];
 			
-			function cartAlert(result){
-				if(result == '0'){
-					alert("장바구니에 추가하지 못했습니다.");
-				} else if(result == '1'){
-					alert("장바구니에 추가되었습니다.");
-				} else if(result == '2'){
-					alert("이미 추가된 상품입니다.");
-				}
-			}
-		
-		
+			//주문페이지로 이동
+			var url = "/Kmarket/product/order?";
+			var data="param1="+param1+"&count="+quantity+"&uid="+uid;
+			
+			location.href= url + data;
+		});
 	});
 	
 	
@@ -138,12 +156,12 @@
 	                <button class="increase">+</button>
 	            </div>
 	            <div class="total">
-	                <span id="total" pattern="#,###원"></span>
+	                <span class="totalPrice"></span>
 	                <em>총 상품금액</em>
 	            </div>
 	            <div class="button">
 	                <input type="text" class="cart" value="장바구니">
-	                <input type="text" class="order" value="구매하기" th:onclick="|location.href='@{product/order(uid=${#authentication.principal.user.uid})}'|">
+	                <input type="text" class="order" value="구매하기" >
 	            </div>
 	        
 	        </div>
@@ -155,7 +173,7 @@
 	            <h1>상품정보</h1>
 	        </nav>
 	        <!-- 상품 상세페이지 이미지 -->
-	        <img src="@{/image/}+${prod.detail}" alt="상세페이지1">
+	        <img th:src="@{/image/}+${prod.detail}" alt="상세페이지1">
 	    </article>
 	
 	    <!-- 상품 정보 제공 고시 내용 -->
@@ -286,6 +304,7 @@
 	    </article>
 	</section>
 	<!-- 상품 상세페이지 끝-->
+	
 </main>
 <th:block th:include="@{product/_footer.html}"/>
 

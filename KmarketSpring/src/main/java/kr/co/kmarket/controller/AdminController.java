@@ -196,7 +196,7 @@ public class AdminController {
 	
 	//관리자 CS - Notice delete
 	@GetMapping("admin/cs/notice/delete")
-	public String deleteNotice(int no) {
+	public String delete(int no) {
 		service.deleteNoticeArticle(no);
 		return "redirect:/admin/cs/notice/list";
 	}
@@ -246,46 +246,4 @@ public class AdminController {
 		return "redirect:/admin/cs/qna/list";
 	}
 	
-<<<<<<< Updated upstream
-=======
-	//관리자 CS - Qna Search
-	@ResponseBody
-	@GetMapping("admin/qna_search")
-	public Map<String, List<CsVO>> Search(@RequestParam("group") String group, String cate) {
-		
-		System.out.println("group : " + group);
-		System.out.println("cate : " + cate);
-		
-		List<CsVO> search = service.selectQnaSearch(group, cate);
-		
-		Map<String, List<CsVO>> map = new HashMap<>();
-		
-		map.put("result", search);
-		
-		int size = search.size();
-		
-		System.out.println("size : " + size);
-		
-		return map;
-	}
-	
-	//관리자 CS - Qna Delete
-	@ResponseBody
-	@GetMapping("admin/deleteQnaArticle")
-	public Map<String, Integer> deleteQna(@RequestParam("arr") List<Integer> arr) {
-		
-		for(int no : arr) {
-			service.deleteQnaArticle(no);
-		}
-		
-		Map<String, Integer> map = new HashMap<>();
-		
-		map.put("result", arr.size());
-		
-		System.out.println(map);
-		System.out.println(arr.size());
-		
-		return map;
-	}
->>>>>>> Stashed changes
 }

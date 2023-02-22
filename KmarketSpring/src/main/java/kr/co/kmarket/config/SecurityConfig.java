@@ -17,12 +17,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// 접근권한
 		http.authorizeRequests().antMatchers("/").permitAll();
-		http.authorizeRequests().antMatchers("/product/order").hasAnyRole("1", "2", "3", "4", "5") ;
+		http.authorizeRequests().antMatchers("/product/order").permitAll();
 		http.authorizeRequests().antMatchers("/product/orderComplete").hasAnyRole("1", "2", "3", "4", "5") ;
 		http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("5","7") ;
 		http.authorizeRequests().antMatchers("/mypage/**").hasAnyRole("1", "2", "3", "4", "5") ;
-		http.authorizeRequests().antMatchers("/product/**").permitAll();
-		
+		http.authorizeRequests().antMatchers("/product/list/**").permitAll();
+		http.authorizeRequests().antMatchers("/product/view/**").permitAll();
+		http.authorizeRequests().antMatchers("/product/cart/**").permitAll();
 		// 위조 방지
 		http.csrf().disable();
 		

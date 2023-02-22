@@ -14,4 +14,11 @@ public class PointVO {
 	private String pointDate;
 	private String pointDateEnd;
 	
+	public String getPointDate() {
+		return pointDate.substring(2,10);
+	}
+	public String getPointDateEnd() {
+		return pointDateEnd.substring(2,10);
+	}
+	
 }

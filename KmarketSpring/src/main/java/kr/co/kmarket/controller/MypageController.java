@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.co.kmarket.service.MyPageService;
 import kr.co.kmarket.vo.CouponVO;
@@ -66,8 +66,10 @@ public class MypageController {
 		String uid = principal.getName();
 		
 		MemberVO info = service.selectUserinfo(uid);
+		List<PointVO> vo = service.selectMyPoint(uid);
 		
 		model.addAttribute("info", info);
+		model.addAttribute("vo", vo);
 		
 		return "mypage/point";
 	}
@@ -120,6 +122,12 @@ public class MypageController {
 		model.addAttribute("info", info);
 		
 		return "mypage/info";
+	}
+	
+	@PostMapping("mypage/info")
+	public String info(MemberVO vo) {
+		service.updateMember(vo);
+		return "redirect:/mypage/info?success=101";
 	}
 	
 }

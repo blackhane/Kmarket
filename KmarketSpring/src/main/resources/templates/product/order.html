@@ -12,6 +12,7 @@
         </nav>
         <form action="#">
             <!-- 주문 상품 목록-->
+            <th:block>
             <table>
                 <tr>
                     <th><input type="checkbox" name="all"></th>
@@ -30,55 +31,20 @@
                     <td><input type="checkbox" name=""></td>
                     <td>
                         <article>
-                            <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
+                            <a href="#"><img th:src="@{/image/}+${product.thumb1}" alt=""></a>
                             <div>
-                                <h2><a href="#">상품명</a></h2>
-                                <p>상품설명</p>
+                                <h2><a href="#">[[${product.prodName}]]</a></h2>
+                                <p>[[${product.descript}]]</p>
                             </div>
                         </article>
                     </td>
-                    <td>1</td>
-                    <td>27,000</td>
-                    <td>5%</td>
-                    <td>270</td>
-                    <td>무료배송</td>
-                    <td>27,000</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name=""></td>
-                    <td>
-                        <article>
-                            <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
-                            <div>
-                                <h2><a href="#">상품명</a></h2>
-                                <p>상품설명</p>
-                            </div>
-                        </article>
-                    </td>
-                    <td>1</td>
-                    <td>27,000</td>
-                    <td>5%</td>
-                    <td>270</td>
-                    <td>무료배송</td>
-                    <td>27,000</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" name=""></td>
-                    <td>
-                        <article>
-                            <a href="#"><img src="https://via.placeholder.com/80x80" alt=""></a>
-                            <div>
-                                <h2><a href="#">상품명</a></h2>
-                                <p>상품설명</p>
-                            </div>
-                        </article>
-                    </td>
-                    <td>1</td>
-                    <td>27,000</td>
-                    <td>5%</td>
-                    <td>270</td>
-                    <td>무료배송</td>
-                    <td>27,000</td>
+                    <td>[[${count}]]</td>
+                    <td>[[${product.price}]]</td>
+                    <td>[[${product.discount}]]%</td>
+                    <td>[[${product.point}]]</td>
+                    <td th:if="${product.delivery == '0'}">무료배송</td>
+                    <td th:unless="${product.delivery == '0'}">[[${product.delivery}]]</td>
+                    <td class="total"></td>
                 </tr>
             </table>
 
@@ -88,29 +54,96 @@
                 <table border="0">
                     <tr>
                         <td>상품수</td>
-                        <td>1</td>
+                        <td>[[${count}]]</td>
                     </tr>
                     <tr>
                         <td>상품금액</td>
-                        <td>27,000</td>
+                        <td>[[${product.price}]]</td>
                     </tr>
                     <tr>
                         <td>할인금액</td>
-                        <td>-1000</td>
+                        <td th:text="${product.price *(100-product.discount)/100}">-</td>
                     </tr>
                     <tr>
                         <td>배송비</td>
-                        <td>0</td>
+                        <td>[[${product.delivery}]]</td>
                     </tr>
                     <tr>
                         <td>포인트</td>
-                        <td>260</td>
+                        <td th:text="${product.point}*${count}"></td>
                     </tr>
                     <tr>
                         <td>전체주문금액</td>
-                        <td>26,000</td>
+                        <td th:text="${product.price *(100-product.discount)/100}"></td>
                     </tr>
                 </table>
+                </th:block>
+            <th:block th:each="cart:${carts}">
+            <table>
+                <tr>
+                    <th><input type="checkbox" name="all"></th>
+                    <th>상품명</th>
+                    <th>총수량</th>
+                    <th>판매가</th>
+                    <th>할인</th>
+                    <th>포인트</th>
+                    <th>배송비</th>
+                    <th>소계</th>
+                </tr>
+                <tr class="empty">
+                    <td colspan="7">장바구니에 상품이 없습니다.</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name=""></td>
+                    <td>
+                        <article>
+                            <a href="#"><img th:src="@{/image/}+${cart.thumb1}" alt=""></a>
+                            <div>
+                                <h2><a href="#">[[${cart.prodName}]]</a></h2>
+                                <p>[[${cart.descript}]]</p>
+                            </div>
+                        </article>
+                    </td>
+                    <td>[[${cart.count}]]</td>
+                    <td>[[${cart.price}]]</td>
+                    <td>[[${cart.discount}]]%</td>
+                    <td>[[${cart.point}]]</td>
+                    <td th:if="${cart.delivery == '0'}">무료배송</td>
+                    <td th:unless="${cart.delivery == '0'}">[[${cart.delivery}]]</td>
+                    <td class="total">[[${cart.total}]]</td>
+                </tr>
+            </table>
+
+            <!-- 최종 결제 정보-->
+            <div class="final">
+                <h2>최종결제 정보</h2>
+                <table border="0">
+                    <tr>
+                        <td>상품수</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>상품금액</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>할인금액</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>배송비</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>포인트</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>전체주문금액</td>
+                        <td></td>
+                    </tr>
+                </table>
+                </th:block>
                 <input type="button" value="결제하기" class="cartorder">
             </div>
 
@@ -120,27 +153,27 @@
                 <table>
                     <tr>
                         <td>주문자</td>
-                        <td><input type="text" name="order"></td>
+                        <td><input type="text" name="order" th:value="${user.name}"></td>
                     </tr>
                     <tr>
                         <td>휴대폰</td>
                         <td>
-                            <input type="text" name="hp">
+                            <input type="text" name="hp" th:value="${user.hp}">
                             <span>- 포함 입력</span>
                         </td>
                     </tr>
                     <tr>
                         <td>우편번호</td>
-                        <td><input type="text" name="zip"></td>
+                        <td><input type="text" name="zip" th:value="${user.zip}"></td>
                         <td><input type="button" value="검색"></td>
                     </tr>
                     <tr>
                         <td>기본주소</td>
-                        <td><input type="text" name="addr1"></td>
+                        <td><input type="text" name="addr1" th:value="${user.addr1}"></td>
                     </tr>
                     <tr>
                         <td>상세주소</td>
-                        <td><input type="text" name="addr2"></td>
+                        <td><input type="text" name="addr2" th:value="${user.addr2}"></td>
                     </tr>
                 </table>
             </article>

@@ -18,7 +18,7 @@
                     <img th:src="@{/img/myPage/my_banner1.jpg}" alt="배너">
                     <div>
                         <p>최근주문내역</p>
-                        <a href="#"></a>
+                        <a th:href="@{/mypage/order}"></a>
                         <table class="lastOrder">
                             <tr>
                                 <th>날짜</th>
@@ -32,11 +32,11 @@
                             <tr th:each = "ord : ${order}">
                                 <td>[[${ord.rdate}]]</td>
                                 <td>
-                                    <img src="#" alt="상품이미지">
+                                    <img th:src="@{/image/}+${ord.thumb1}" alt="상품이미지">
                                     <div>
                                         상호명 : [[${ord.company}]]<br/>
                                         상품명 : [[${ord.prodName}]]<br/>
-                                        수량 : [[${ord.count}]]개 / 주문번호 :[[${ord.ordNo}]]<br/>
+                                        수량 : [[${ord.count}]]개 / 주문번호 :[[${ord.ordNO}]]<br/>
                                         [[${ord.price}]]원
                                     </div>
                                 </td>
@@ -54,7 +54,7 @@
                     </div>
                     <div>
                         <p>포인트적립내역</p>
-                        <a href="#"></a>
+                        <a th:href="@{/mypage/point(arg1=-15)}"></a>
                         <table class="lastPoint">
                             <tr>
                                 <th>날짜</th>
@@ -79,7 +79,7 @@
                     </div>
                     <div>
                         <p>상품평</p>
-                        <a href="#"></a>
+                        <a th:href="@{/mypage/review}"></a>
                         <table class="lastComment">
                         	<colgroup> 
 								<col width="10%">
@@ -99,7 +99,7 @@
                             	<td colspan="5" align="center">최근 남긴 상품평이 없습니다.</td>
                             </tr>
                             <tr th:each = "review : ${review}">
-                                <td>1</td>
+                                <td th:text="${reviewStat.size - reviewStat.index}"></td>
                                 <td class="title">[[${review.prodName}]]</td>
                                 <td class="title">[[${review.content}]]</td>
                                 <td><span th:class="star+${review.rating}|"></span></td>
@@ -147,7 +147,7 @@
                         <div class="setting">
                             <div>
                                 <span></span>
-                                <a href="#"></a>
+                                <a th:href="@{/mypage/info}"></a>
                                 <p>
                                 	[[${info.zip}]]<br/>
                                     [[${info.addr1}]]<br/>
@@ -156,7 +156,7 @@
                             </div>
                             <div>
                                 <span></span>
-                                <a href="#"></a>
+                                <a th:href="@{/mypage/info}"></a>
                                 <p>
                                     [[${info.email}]]<br/>
                                     (최종수정일 [[${info.rdate}]])
@@ -164,7 +164,7 @@
                             </div>
                             <div>
                                 <span></span>
-                                <a href="#"></a>
+                                <a th:href="@{/mypage/info}"></a>
                                 <p>
                                     [[${info.hp}]]<br/>
                                     (최종수정일 [[${info.rdate}]])

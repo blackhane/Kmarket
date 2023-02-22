@@ -8,8 +8,9 @@
 	<select id="selectUserinfo" resultType="kr.co.kmarket.vo.MemberVO">
 		SELECT * FROM `km_member` WHERE `uid`=#{uid};
 	</select>
-	<select id="selectLastOrder" resultType="kr.co.kmarket.vo.OrderVO">
-		SELECT * FROM `km_product_order_item` WHERE `uid`=#{uid} ORDER BY `ordNO` DESC LIMIT 5;
+	<select id="selectLastOrder" resultType="kr.co.kmarket.vo.OrderItemVO">
+		SELECT a.*,b.prodName,b.company,b.thumb1 FROM `km_product_order_item` AS a JOIN `km_product` AS b
+		ON a.prodNo=b.prodNo WHERE `uid`=#{uid} ORDER BY a.`rdate` DESC LIMIT 5;
 	</select>
 	<select id="selectLastPoint" resultType="kr.co.kmarket.vo.PointVO">
 		SELECT * FROM `km_member_point` WHERE `uid`=#{uid} ORDER BY `pointNo` DESC LIMIT 5;
@@ -23,11 +24,18 @@
 	</select>
 	
 	<!-- 전체주문내역 -->
+	<select id="selectMyOrder" resultType="kr.co.kmarket.vo.OrderItemVO">
+		SELECT a.*,b.prodName,b.company,b.thumb1 FROM `km_product_order_item` AS a JOIN `km_product` AS b ON a.prodNo=b.prodNo 
+		WHERE `uid`=#{param1} and DATE(a.`rdate`) BETWEEN #{param2} AND #{param3} ORDER BY a.`rdate` DESC;
+	</select>
 	<!-- 포인트내역 -->
+	<select id="selectMyPoint" resultType="kr.co.kmarket.vo.PointVO">
+		SELECT * FROM `km_member_point` WHERE `uid`=#{uid} ORDER BY `pointNo` DESC;
+	</select>
 	<!-- 쿠폰 -->
 	<select id="selectMyCoupon" resultType="kr.co.kmarket.vo.CouponVO">
 		SELECT b.*,a.couponDate,a.endDate FROM `km_member_coupon` AS a JOIN `km_coupon` AS b
-		ON a.coupon=b.`no` WHERE `uid`='tyranno93' ORDER BY `endDate` DESC;
+		ON a.coupon=b.`no` WHERE `uid`=#{uid} ORDER BY `endDate` DESC;
 	</select>
 	<!-- 나의리뷰 -->
 	<select id="selectMyReview" resultType="kr.co.kmarket.vo.ReviewVO">
@@ -38,5 +46,8 @@
 	<select id="selectMyQna" resultType="kr.co.kmarket.vo.CsVO">
 		SELECT * FROM `km_cs_qna` WHERE `uid`=#{uid} ORDER BY `no` DESC;
 	</select>
-	
+	<!-- 회원정보 수정 -->
+	<update id="updateMember">
+		UPDATE `km_member` SET `email`=#{email}, `hp`=#{hp}, `zip`=#{zip}, `addr1`=#{addr1}, `addr2`=#{addr2}, `rdate`=NOW() WHERE `uid`=#{uid};
+	</update>
 </mapper>

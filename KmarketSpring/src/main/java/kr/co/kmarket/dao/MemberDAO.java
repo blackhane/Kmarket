@@ -17,4 +17,7 @@ public interface MemberDAO {
 	// 약관
 	public TermsVO selectTerms();
 	public TermsVO selectTermsSeller();
+	
+	//회원정보 가져오기
+	public MemberVO selectUser(String uid);
 }

@@ -30,7 +30,7 @@
                     <div class="content comment" th:if="${vo.comment > 0}">
                         <span>☞[답변] [[${vo.title}]]</span>
                         <p>
-                        	[[${comment.content}]]
+                        	[[${vo.reply}]]
                         </p>
                     </div>
                     <a th:href="@{/cs/qna/list(group=${group}, pg=${pg})}" class="goList">목록보기</a>

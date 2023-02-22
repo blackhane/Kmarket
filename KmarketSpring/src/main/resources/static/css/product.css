@@ -304,7 +304,7 @@ main > aside > .category > li > ol > li > a{
 
 #product > .view > .info > .summary{
     float: right;
-    width: 440px;
+    width: 420px;
     margin-left: 20px;        
 }
 #product > .view > .info > .summary > nav{

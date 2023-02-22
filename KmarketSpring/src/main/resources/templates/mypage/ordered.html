@@ -11,12 +11,69 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" th:href="@{/css/mypage_style.css}">
-    <script>
+    <script th:inline="javascript">
     	$(function(){
+    		let now = new Date();
+    		$('.months').text(now.getMonth()+1);
+    		now.setMonth(now.getMonth() -1);
+    		$('.1months').text(now.getMonth()+1);
+    		now.setMonth(now.getMonth() -1);
+    		$('.2months').text(now.getMonth()+1);
+    		now.setMonth(now.getMonth() -1);
+    		$('.3months').text(now.getMonth()+1);
+    		now.setMonth(now.getMonth() -1);
+    		$('.4months').text(now.getMonth()+1);
     		
+    		$('.off').on('click', function(){
+    			$('.on').attr('class','off');
+    			$(this).attr('class','on');
+    		});
     		
+    		$('.1week').click(function(){
+    			list('1WEEK');
+    		});
+    		$('.15day').click(function(){
+    			list('15DAY');
+    		});
+    		$('.1month').click(function(){
+    			list('1MONTH');
+    		});
+    		$('.months').click(function(){
+    			list('MONTHS');
+    		});
+    		$('.1months').click(function(){
+    			list('1MONTHS');
+    		});
+    		$('.2months').click(function(){
+    			list('2MONTHS');
+    		});
+    		$('.3months').click(function(){
+    			list('3MONTHS');
+    		});
+    		$('.4months').click(function(){
+    			list('4MONTHS');
+    		});
+    		$('.search').click(function(){
+    			let start = $('input[name=start]').val();
+    			let end = $('input[name=end]').val();
+    			if(start == "" || end == ""){
+    				alert('날짜를 선택해주세요.');
+    				return false;
+    			}
+    			list(start, end);
+    			$('.on').attr('class','off');
+    		});
     		
-    		
+    		function list(when){
+    			$.ajax({
+    				url : '/mypage/'+when,
+    				method : 'POST',
+    				dataType : 'JSON',
+    				success : function(data){
+    					
+    				}
+    			});
+    		}
     	});
     </script>
 </head>
@@ -29,21 +86,21 @@
                         <div class="day">
                             <span></span>
                             <ul>
-                                <li><a href="#"><span>1</span>주일</a></li>
-                                <li><a href="#" class="current"><span>15</span>일</a></li>
-                                <li><a href="#"><span>1</span>개월</a></li>
+                                <li><a href="#" class="off"><span>1</span>주일</a></li>
+                                <li><a href="#" class="on off"><span>15</span>일</a></li>
+                                <li><a href="#" class="off"><span>1</span>개월</a></li>
                             </ul>
                             <ul>
-                                <li><a href="#"><span>11</span>월</a></li>
-                                <li><a href="#"><span>10</span>월</a></li>
-                                <li><a href="#"><span>9</span>월</a></li>
-                                <li><a href="#"><span>8</span>월</a></li>
-                                <li><a href="#"><span>7</span>월</a></li>
+                                <li><a href="#" class="off"><span class="months"></span>월</a></li>
+                                <li><a href="#" class="off"><span class="1months"></span>월</a></li>
+                                <li><a href="#" class="off"><span class="2months"></span>월</a></li>
+                                <li><a href="#" class="off"><span class="3months"></span>월</a></li>
+                                <li><a href="#" class="off"><span class="4months"></span>월</a></li>
                             </ul>
                             <p>
-                                <input type="date">~<input type="date">
+                                <input type="date" name="start">~<input type="date" name="end">
                             </p>
-                            <button>조회하기</button>
+                            <button class="search">조회하기</button>
                         </div>
                         <table class="lastOrder">
                             <tr>
@@ -52,15 +109,19 @@
                                 <th>상태</th>
                                 <th>확인/신청</th>
                             </tr>
-                            <tr>
-                                <td>2023-02-10</td>
+                            <!--/*
+                            <tr th:if="${#lists.size(vo) == 0}">
+                            	<td colspan="4" align="center">최근 구매한 내역이 없습니다.</td>
+                            </tr>
+                            <tr th:each = "ord : ${vo}">
+                                <td>[[${ord.rdate}]]</td>
                                 <td>
-                                    <img src="#" alt="상품이미지">
+                                    <img th:src="@{/image/}+${ord.thumb1}" alt="상품이미지">
                                     <div>
-                                        상호명 : <br/>
-                                        상품명 : <br/>
-                                        수량 : 1개 / 주문번호 :1012211341 <br/>
-                                        34,000원
+                                        상호명 : [[${ord.company}]]<br/>
+                                        상품명 : [[${ord.prodName}]]<br/>
+                                        수량 : [[${ord.count}]]개 / 주문번호 :[[${ord.ordNO}]]<br/>
+                                        [[${ord.price}]]원
                                     </div>
                                 </td>
                                 <td>배송완료</td>
@@ -73,90 +134,7 @@
                                     </ul>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>
-                                    <img src="#" alt="상품이미지">
-                                    <div>
-                                        상호명 : <br/>
-                                        상품명 : <br/>
-                                        수량 : 1개 / 주문번호 :1012211341 <br/>
-                                        34,000원
-                                    </div>
-                                </td>
-                                <td>배송완료</td>
-                                <td>
-                                    <ul>
-                                        <li><a href="#">수취확인</a></li>
-                                        <li><a href="#">상품평쓰기</a></li>
-                                        <li><a href="#">반품신청</a></li>
-                                        <li><a href="#">교환신청</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>
-                                    <img src="#" alt="상품이미지">
-                                    <div>
-                                        상호명 : <br/>
-                                        상품명 : <br/>
-                                        수량 : 1개 / 주문번호 :1012211341 <br/>
-                                        34,000원
-                                    </div>
-                                </td>
-                                <td>배송완료</td>
-                                <td>
-                                    <ul>
-                                        <li><a href="#">수취확인</a></li>
-                                        <li><a href="#">상품평쓰기</a></li>
-                                        <li><a href="#">반품신청</a></li>
-                                        <li><a href="#">교환신청</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>
-                                    <img src="#" alt="상품이미지">
-                                    <div>
-                                        상호명 : <br/>
-                                        상품명 : <br/>
-                                        수량 : 1개 / 주문번호 :1012211341 <br/>
-                                        34,000원
-                                    </div>
-                                </td>
-                                <td>배송완료</td>
-                                <td>
-                                    <ul>
-                                        <li><a href="#">수취확인</a></li>
-                                        <li><a href="#">상품평쓰기</a></li>
-                                        <li><a href="#">반품신청</a></li>
-                                        <li><a href="#">교환신청</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>
-                                    <img src="#" alt="상품이미지">
-                                    <div>
-                                        상호명 : <br/>
-                                        상품명 : <br/>
-                                        수량 : 1개 / 주문번호 :1012211341 <br/>
-                                        34,000원
-                                    </div>
-                                </td>
-                                <td>배송완료</td>
-                                <td>
-                                    <ul>
-                                        <li><a href="#">수취확인</a></li>
-                                        <li><a href="#">상품평쓰기</a></li>
-                                        <li><a href="#">반품신청</a></li>
-                                        <li><a href="#">교환신청</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
+                            */-->
                         </table>
                         <div class="page">
                             <a href="#" class="prev"></a>

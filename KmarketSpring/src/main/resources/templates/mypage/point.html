@@ -46,85 +46,16 @@
                                 <th>비고</th>
                                 <th>유효기간</th>
                             </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
-                                <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
+                            <tr th:if="${#lists.size(vo) == 0}">
+                            	<td colspan="6" align="center">최근 적립된 내역이 없습니다.</td>
                             </tr>
-                            <tr>
-                                <td>2023-02-10</td>
+                            <tr th:each = "point : ${vo}">
+                                <td>[[${point.pointDate}]]</td>
                                 <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
+                                <td>[[${point.ordNo}]]</td>
+                                <td>[[${point.point}]]</td>
                                 <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
-                                <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
-                                <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
-                                <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
-                                <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
-                                <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
-                                <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
-                                <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
-                            </tr>
-                            <tr>
-                                <td>2023-02-10</td>
-                                <td>적립</td>
-                                <td>2022121001</td>
-                                <td>340</td>
-                                <td>상품 구매확정</td>
-                                <td>2024-12-10</td>
+                                <td>[[${point.pointDateEnd}]]</td>
                             </tr>
                         </table>
                         <div class="page">
