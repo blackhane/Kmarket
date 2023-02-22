@@ -46,9 +46,14 @@ public class ProductService {
 	}
 	
 	//장바구니 삭제
-	public int deleteCart(int cartNo,String uid) {
-		int result = dao.deleteCart(cartNo,uid);
+	public int deleteCart(String cartNo) {
+		int result = dao.deleteCart(cartNo);
 		return result;
+	}
+	
+	//장바구니에서 주문목록 불러오기
+	public CartVO selectOrder(String cartNo){
+		return dao.selectOrder(cartNo);
 	}
 
 	//현재 페이지 번호

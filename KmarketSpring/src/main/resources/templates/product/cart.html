@@ -15,15 +15,16 @@ function setTotalInfo(){
 		//체크가 되었다면
 		if($(element).find(".cartCheck").is(":checked")===true){
 			//상품금액
-			totalPrice += parseInt($(element).find(".totalPrice").val());
+			totalPrice += parseInt($(element).find(".totalPrice").val()*$(element).find(".totalCount").val());
 			//상품수
 			totalCount += parseInt($(element).find(".totalCount").val());
 			//총 할인금액
 			totalDisPrice += parseInt($(element).find(".totalDisPrice").val());
 			//적립포인트
-			totalPoint += parseInt($(element).find(".totalPoint").val());
+			totalPoint += parseInt($(element).find(".totalPoint").val()*$(element).find(".totalCount").val());
 			//총 배송비
 			deliveryPrice += parseInt($(element).find(".deliveryPrice").val());
+			finalTotalPrice += parseInt($(element).find(".finalTotalPrice").val());
 		}
 	});
 	
@@ -38,7 +39,7 @@ function setTotalInfo(){
 	//배송비
 	$(".deliveryPrice_td").text(deliveryPrice.toLocaleString());
 	//전체주문금액
-	$(".finalTotalPrice_td").text(totalPrice-totalDisPrice+deliveryPrice);
+	$(".finalTotalPrice_td").text(finalTotalPrice.toLocaleString()+'원');
 	
 }
 
@@ -61,40 +62,67 @@ $(document).ready(function(){
 		setTotalInfo($(".cartInfo"));
 	})
 	
-	/*장바구니 삭제
-	function deleteCart(){
-		let checkBoxArr = new Array();
-		let list = $("input[name=rowCheck]");
-		
-		for(var i =0;  i < list.length; i++){
-			if(list[i].checked){
-				checkBoxArr.push(list[i].value);
-			}
-			
-			$.ajax({
-				url:'product/cart/delete',
-				type:'get',
-				data:'',
-				url:'',
-				url:'',
-			});
-	}*/
 	
 	//주문하기 버튼
 	$(".order").on("click",function(){
 		
+		let uid = [[${#authentication.name}]];
 		
-		
-		//주문페이지로 이동
+		//주문하기 주소
 		var url = "/Kmarket/product/order?";
-		var data="param1="+param1+"&count="+quantity+"&uid="+uid;
+		var pr="uid="+uid;
 		
-		location.href= url + data;
+		//컨트롤러로 넘길 장바구니 번호 리스트
+		var checkBoxArr = new Array();
+		
+		$("input:checkbox[name='rowCheck']:checked").each(function(){
+			checkBoxArr.push($(this).val());
+			
+		});
+		console.log(checkBoxArr);
+		
+		let ans = confirm("주문하시겠습니까?");
+		
+		if(ans){
+			$.ajax({
+				url:'/Kmarket/product/order',
+				type:'post',
+				data:{'checkBoxArr':checkBoxArr},
+				success:function(data){
+					console.log(data);
+					location.href=url+pr;
+				}
+			});
+			
+		}
+		
+	});
+	
+	//장바구니 삭제
+	$(".cartDelete").on("click",function(){
+		
+		var checkBoxArr = new Array();
+		
+		$("input:checkbox[name='rowCheck']:checked").each(function(){
+			checkBoxArr.push($(this).val());
+			
+		});
+		
+		if(checkBoxArr.length == 0){
+			alert("선택된 글이 없습니다.");
+		}else{
+			$.ajax({
+				url:'/Kmarket/product/cart/delete',
+				type:'post',
+				data:{'checkBoxArr':checkBoxArr},
+				success:function(data){
+					console.log("data : ", data);
+				}	
+			});
+		}
 	});
 	
 });
-	
-
 </script>
     <!-- 장바구니 페이지 시작 -->
     <section class="cart">
@@ -110,7 +138,6 @@ $(document).ready(function(){
                  > <strong>장바구니</strong>
             </p>
         </nav>
-        <form action="#">
             <!-- 장바구니 목록 -->
             <table>
                 <tr>
@@ -135,7 +162,6 @@ $(document).ready(function(){
                     	<input type="hidden" class="totalDisPrice" th:value="${cart.disPrice}">
                     	<input type="hidden" class="deliveryPrice" th:value="${cart.delivery}">
                     	<input type="hidden" class="finalTotalPrice" th:value="${cart.total}">
-                    	<input type="hidden" class="prodNo" th:value="${cart.prodNo}">
                     </td>
                     <td>
                         <article>
@@ -152,10 +178,10 @@ $(document).ready(function(){
                     <td>[[${cart.point}]]</td>
                     <td th:if="${cart.delivery} != '0'" th:text="${cart.delivery}">무료배송</td>
                     <td th:unless="${cart.delivery} != '0'">무료배송</td>
-                    <td data-th-text="${#numbers.formatInteger(cart.total, 3, 'COMMA')}"></td>
+                    <td  data-th-text="${#numbers.formatInteger(cart.total, 3, 'COMMA')}"></td>
                 </tr>
             </table>
-            <input type="button" name="del" value="선택삭제" class="cartDelete" onclick="deleteCart();">
+            <input type="button" name="del" value="선택삭제" class="cartDelete">
 
             <!-- 장바구니 전체합계-->
             <div class="total">
@@ -188,7 +214,6 @@ $(document).ready(function(){
                 </table>
                 <input type="submit" class="order" value="주문하기">
             </div>
-        </form> 
     </section>
     <!-- 장바구니 페이지 끝-->
 </main>
