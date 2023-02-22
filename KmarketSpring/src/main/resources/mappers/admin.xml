@@ -88,7 +88,7 @@
 	</delete>
 	
 	<select id="selectQnaArticles" resultType="kr.co.kmarket.vo.CsVO">
-		SELECT * FROM `km_cs_qna` where `parent` = 0 ORDER BY `no` DESC LIMIT 10;
+		SELECT * FROM `km_cs_qna` where `parent` = 0 ORDER BY `no` DESC LIMIT #{start},10;
 	</select>
 	
 	<select id="selectQnaReply" resultType="kr.co.kmarket.vo.CsVO">
@@ -117,4 +117,8 @@
 	<select id="selectQnaSearch" resultType="kr.co.kmarket.vo.CsVO">
 		SELECT * FROM `km_cs_qna`  WHERE `group` = #{group} and `cate` = #{cate} ORDER BY `no` desc limit 10;
 	</select>
+  
+	<delete id="deleteQnaArticle">
+		delete from `km_cs_qna` where `no` = #{no} or `parent` = #{no};		
+	</delete>	
 </mapper>

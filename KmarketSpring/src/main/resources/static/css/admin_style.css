@@ -546,6 +546,15 @@ main table {
     margin-top: 20px;
 }
 
+.button > input[name=delete]{
+    width: 100px;
+    padding: 6px;
+    font-weight: bold;
+    color: azure;
+    background: gray;
+    border: 1px solid gray;
+}
+
 .button > a:nth-of-type(1) > input{
     width: 100px;
     padding: 6px;

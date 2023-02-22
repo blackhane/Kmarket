@@ -1,5 +1,82 @@
 <th:block th:include="/admin/_header.html"/>
 <script>
+	function list(){
+		$.ajax({
+			url : '/Kmarket/admin/qna_list',
+			method : 'GET',
+			dataType : 'json',
+			success : function(data){
+				$('.qna_list').remove();
+				if(data.length > 0){
+					let i = 0;
+					for (let article of data){
+						i += 1;
+						let tags  = "<tr class='qna_list'>";
+							tags += "<td><input type='checkbox' name='check1' value='"+article.no+"'></td>";
+							tags += "<td>"+article.no+"</td>";
+							tags += "<td>"+article.cate+"</td>";
+							tags += "<td>"+article.title+"</td>";
+							tags += "<td>"+article.rdate+"</td>";
+							tags += "<td>"+article.status+"</td>";
+							tags += "</tr>";
+						$('.table').append(tags);
+					}
+				}
+			}
+		});
+	}
+
+	$(document).ready(function(){
+		
+		let a1 = ['가입','탈퇴','회원정보','로그인'];
+		let a2 = ['쿠폰/할인혜텍','포인트','제휴','이벤트'];
+		let a3 = ['상품','결제','구매내역','영수증/증빙'];
+		let a4 = ['배송상태/기간','배송정보확인/변경','스마일배송','해외배송','당일배송','해외직구'];
+		let a5 = ['반품신청/철회','배송정보확인/변경','교환.AS신청/철회','교환정보확인/변경','취소신청/철회','취소확인/환불정보'];
+		let a6 = ['여행/숙박','항공'];
+		let a7 = ['서비스 이용규칙 위반','지식재산권침해','법령 및 정책위반 상품','게시물정책위반','직거래/외부거래유도','표시광고','청소년위해상품/이미지'];
+		
+		$('select[name=f1]').change(function(){
+			let group = $(this).val();
+			
+			$('select[name=f2]').empty();
+			$('select[name=f2]').append("<option value='"+2+"'>2차 선택</option>");
+			if(group == '회원'){
+				for(let i of a1){
+					let tags = "<option value='"+i+"'>"+i+"</option>";
+					$('select[name=f2]').append(tags);
+				}
+			}else if(group == '쿠폰/이벤트'){
+				for(let i of a2){
+					let tags = "<option value='"+i+"'>"+i+"</option>";
+					$('select[name=f2]').append(tags);
+				}
+			}else if(group == '주문/결제'){
+				for(let i of a3){
+					let tags = "<option value='"+i+"'>"+i+"</option>";
+					$('select[name=f2]').append(tags);
+				}
+			}else if(group == '배송'){
+				for(let i of a4){
+					let tags = "<option value='"+i+"'>"+i+"</option>";
+					$('select[name=f2]').append(tags);
+				}
+			}else if(group == '취소/반품/교환'){
+				for(let i of a5){
+					let tags = "<option value='"+i+"'>"+i+"</option>";
+					$('select[name=f2]').append(tags);
+				}	
+			}else if(group == '여행/숙박/항공'){
+				for(let i of a6){
+					let tags = "<option value='"+i+"'>"+i+"</option>";
+					$('select[name=f2]').append(tags);
+				}	
+			}else if(group == '안전거래'){
+				for(let i of a7){
+					let tags = "<option value='"+i+"'>"+i+"</option>";
+					$('select[name=f2]').append(tags);
+				}	
+=======
 	$(function(){
 		
 		let a1 = ['가입','탈퇴','회원정보','로그인'];
@@ -111,6 +188,93 @@
 				
 				
 			});
+      
+		$('select[name=f2]').change(function(){
+			
+			let group = $('select[name=f1]').val();
+			let cate = $(this).val();
+			
+			let jsonData = {'group' : group,
+							'cate'  : cate };
+			
+			$.ajax({
+				url : '/Kmarket/admin/qna_search',
+				method : 'GET',
+				data : jsonData,
+				dataType : 'json',
+				success : function(data){
+					$('.qna_list').remove();
+					if(data.length > 0){
+						let i = 0;
+						for (let article of data){
+							i += 1;
+							let tags  = "<tr class='qna_list'>";
+								tags += "<td><input type='checkbox' name='check1' value='"+article.no+"'></td>";
+								tags += "<td>"+i+"</td>";
+								tags += "<td>"+article.cate+"</td>";
+								tags += "<td>"+article.title+"</td>";
+								tags += "<td>"+article.rdate+"</td>";
+								tags += "<td>"+article.status+"</td>";
+								tags += "</tr>";
+							$('.table').append(tags);
+						}
+					}
+				}
+			});
+		});
+		
+		$('input[name=all]').click(function(){
+			if($('input[name=all]').is(':checked')) $('input[type=checkbox]').prop("checked",true);
+			else $('input[type=checkbox]').prop('checked',false) ;
+		});
+		
+		$('input[name=check1]').click(function(){
+			let total = $('input:checkbox[name=check1]').length;
+			let length = $('input:checkbox[name=check1]:checked').length;
+			
+			if(total != length){
+				$('input[name=all]').prop('checked',false);
+			}else{
+				$('input[name=all]').prop('checked',true);
+			}
+		});
+		
+		$('input[name=delete]').click(function(){
+			//왜 삭제버튼을 누르면 새로고침이 되는거지?
+			
+			let arr = [];
+			let check = $('input[name=check1]:checked');
+			let length = $('input:checkbox[name=check1]:checked').length;
+			$(check).each(function(){
+				arr.push($(this).val());
+			});						
+			
+			let jsonData = {'arr' : arr};
+			
+			if(length == 0) {
+				alert('체크 확인');
+			}
+			
+			let answer = confirm('삭제 ? ');
+			
+			if(answer){
+				$.ajax({
+					url : '/Kmarket/admin/deleteQnaArticle',
+					method : 'GET',
+					traditional : true,
+					data : jsonData,
+					dataType : 'json',
+					success : function(data){
+						if(data.result > 0){
+							//$('input[name=check1]:checked').parent().parent().remove();
+							//alert(data.result + "건 삭제되었습니다."); //왜 2개 체크하면 alert 가 안 뜰까?
+							//$('input[name=all]').prop("checked",false);
+							list();
+							
+							
+							//location.href = '/Kmarket/admin/cs/qna/list';
+						};
+					}
 		});
 	});
 	
@@ -138,7 +302,12 @@
         </select>
         <table border="0" class="qna_table">
             <tr class="qna">
+        <table border="0">
+            <tr>
                 <th><input type="checkbox"></th>
+        <table border="0" class="qna_table">
+            <tr class="qna">
+                <th><input type="checkbox" name="all"></th>
                 <th>번호</th>
                 <th>유형</th>
                 <th>제목</th>
@@ -170,14 +339,25 @@
             </tr>
         </table>
         <div class="button">
-            <a href=""><input type="button" value="선택삭제"></a>
+            <input type="button" name="delete" value="선택삭제"></a>
         </div>
-        <div class="page">
-            <a href="">이전</a>
-            <a href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">다음</a>
+        <div class="list_page">
+        	    <span class="prev" th:if="${groups[0]>=1}">
+        	    	<a th:href="@{/admin/cs/notice/list(pg=1)}"><< 처음으로</a>
+                    <a th:href="@{/admin/cs/notice/list(pg=${groups[0]-1})}">< 이전</a>
+                </span>
+                
+                <span class="num">
+                <th:block th:each="num:${#numbers.sequence(groups[0],groups[1])}">
+                    <a th:href="@{/admin/cs/notice/list(pg=${num})}" 
+                    	th:class="${num==currentPage ? 'on':'off'}"+"${num==currentPage?'num current':'num'}">[[${num}]]</a>
+                </th:block>
+                </span>
+                
+                <span class="next" th:if="${groups[1] <= lastPageNum}">
+                    <a th:href="@{/admin/cs/notice/list(pg=${groups[1]+1})}">다음 ></a>
+                    <a th:href="@{/admin/cs/notice/list(pg=${lastPageNum})}">끝으로>></a>
+                </span>
         </div>
     </section>
     </article>

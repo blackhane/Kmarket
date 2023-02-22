@@ -65,7 +65,7 @@ public interface AdminDAO {
 	public void deleteNoticeArticle(int no);
 	
 	//관리자 문의하기 목록
-	public List<CsVO> selectQnaArticles();
+	public List<CsVO> selectQnaArticles(int start);
 	
 	//관리자 문의하기 보기
 	public CsVO selectQnaArticle(int no);
@@ -78,7 +78,17 @@ public interface AdminDAO {
 	
 	//관리자 문의하기 답변보기
 	public CsVO selectQnaReply(int no);
-	
+  
 	//관리자 문의하기 카테고리 검색
 	public List<CsVO> selectQnaSearch(@Param("group") String group, @Param("cate") String cate);
+
+	//관리자 문의하기 카테고리 검색
+	public List<CsVO> selectQnaSearch(@Param("group") String group, @Param("cate") String cate);
+	
+	//관리자 문의하기 게시글 삭제
+	public void deleteQnaArticle(@RequestParam("no") int no);
+	
+	//관리자 문의하기 페이징 작업
+	public int selectCountQnaTotal();
+  
 }
