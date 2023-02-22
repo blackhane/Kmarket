@@ -2,12 +2,19 @@ package kr.co.kmarket.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.kmarket.service.ProductService;
+import kr.co.kmarket.vo.CartVO;
+import kr.co.kmarket.vo.MemberVO;
 import kr.co.kmarket.vo.ProductVO;
 import kr.co.kmarket.vo.ReviewVO;
 
@@ -55,14 +62,14 @@ public class ProductController {
         int pageStartNum = service.getPageStartNum(total, param2);
         int groups[] = service.getPageGroup(currentPage, lastPageNum);
 		
-		ProductVO product = service.selectProduct(param1);
+		ProductVO prod = service.selectProduct(param1);
 		List<ReviewVO> reviews = service.selectReviews(param1);
 		
 		model.addAttribute("arg0", arg0);
 		model.addAttribute("arg1", arg1);
 		model.addAttribute("arg2", arg2);
 		model.addAttribute("pg", pg);
-		model.addAttribute("product", product);
+		model.addAttribute("prod", prod);
 		model.addAttribute("reviews", reviews);
 		model.addAttribute("param1", param1);
 		model.addAttribute("currentPage", currentPage);
@@ -72,4 +79,31 @@ public class ProductController {
 		
 		return "product/view";
 	}
+	
+	@PostMapping("product/cart/add")
+	@ResponseBody
+	public String addCart(CartVO cart) {
+		//장바구니 추가
+		int result = service.addCart(cart);
+		
+		return result+"";
+	}
+	
+	@GetMapping("product/cart")
+	public String cart(Model model, String uid) {
+		List<CartVO> carts = service.selectCarts(uid);
+		
+		model.addAttribute("carts",carts);
+		
+		return "product/cart";
+	}
+
+	@GetMapping("product/cart/delete")
+	public String deleteCart(int cartNo, String uid) {
+		service.deleteCart(cartNo,uid);
+		
+		return "redirect:product/cart?uid="+uid;
+	}
+
+
 }

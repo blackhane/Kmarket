@@ -1,8 +1,69 @@
 <th:block th:include="@{product/_header.html}"/>
 <th:block th:include="@{product/_aside.html}"/>
+<script th:inline="javascript">
+	$(document).ready(function(){
+		
+		let quantity = $(".quantity").val();
+		let price = [[${prod.price *(100-prod.discount)/100}]];
+		let total = $("#total").text(price);
+		let disPrice = [[${prod.price * prod.discount}]]
+		
+		//수량버튼 조작
+		$(".increase").on("click",function(){
+			$(".quantity").val(++quantity);
+			total = $("#total").text(price*quantity);
+		})
+		$(".decrease").on("click",function(){
+			if(quantity > 1){
+				$(".quantity").val(--quantity);
+				total = $("#total").text(price*quantity);
+			}
+		})
+		
+		//장바구니 버튼
+		$(".cart").on("click",function(e){
+				//서버로 전송할 데이터
+				const form = {
+					uid: '${#authentication.principal.user.uid}',
+					prodNo: '${prod.prodNo}',
+					count: quantity,
+					price: '${prod.price}',
+					discount: '${prod.discount}',
+					disPrice:disPrice,
+					point: '${prod.point}',
+					delivery: '${delivery}',
+					total: total
+				}
+				
+				//장바구니 추가
+				$.ajax({
+				url: '/product/cart/add?uid=form.uid',
+				type: 'POST',
+				data: form,
+				success: function(result){
+						cartAlert(result);
+					}
+				})
+		});
+		
+			
+			function cartAlert(result){
+				if(result == '0'){
+					alert("장바구니에 추가하지 못했습니다.");
+				} else if(result == '1'){
+					alert("장바구니에 추가되었습니다.");
+				} else if(result == '2'){
+					alert("이미 추가된 상품입니다.");
+				}
+			}
+		
+		
+	});
 	
+	
+</script>
 	<!-- 상품 상세페이지 시작 -->
-	<section class="view" th:each="prod:${product}">
+	<section class="view">
 	    <!-- 제목, 페이지 네비게이션-->
 	    <nav>
 	        <h1>상품보기</h1>
@@ -59,7 +120,7 @@
 	            </nav>
 	            <nav th:with="date=${#calendars.createToday()}">
 	                <span class="delivery" th:if="${prod.delivery} != 0">[[${prod.delivery}]]</span>
-	                <span class="arrival" th:text="${#calendars.month(date)}+'/'+${#calendars.day(date)+3}+ '일 '+${#calendars.dayOfWeekName(date)}+' 도착 예정'"></span>
+	                <span class="arrival" th:text="${#calendars.month(date)}+'/'+${#calendars.day(date)+3}+' 도착 예정'"></span>
 	                <span class="desc">본 상품은 국내배송만 가능합니다.</span>
 	            </nav>
 	            <nav>
@@ -69,20 +130,20 @@
 	            <nav>
 	                <span class="origin">원산지-상세설명 참조</span>
 	            </nav>
-	            <img src="../img/vip_plcc_banner.png" alt="100원만 결제해도 1만원 적립!" class="banner">
+	            <img th:src="@{/img/main/vip_plcc_banner.png}" alt="100원만 결제해도 1만원 적립!" class="banner">
 	            
 	            <div class="count">
 	                <button class="decrease">-</button>
-	                <input type="text" name="num" value="1" readonly>
+	                <input type="text" name="num" value="1" class="quantity" readonly>
 	                <button class="increase">+</button>
 	            </div>
 	            <div class="total">
-	                <span>35,000</span>
+	                <span id="total" pattern="#,###원"></span>
 	                <em>총 상품금액</em>
 	            </div>
 	            <div class="button">
 	                <input type="text" class="cart" value="장바구니">
-	                <input type="text" class="order" value="구매하기">
+	                <input type="text" class="order" value="구매하기" th:onclick="|location.href='@{product/order(uid=${#authentication.principal.user.uid})}'|">
 	            </div>
 	        
 	        </div>
