@@ -30,7 +30,7 @@
 	                    </th:block>
                 	</th:block>
                     <a th:href="@{/mypage/home}">마이페이지</a>
-                    <a th:href="@{/product/cart}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp;장바구니</a>
+                    <a th:href="@{/product/cart?uid=}+${#authentication.name}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> &nbsp;장바구니</a>
                 </div>
             </div>
             <div class="logo">

@@ -57,4 +57,9 @@ public class MemberService {
 		
 	}
 	
+	//회원정보 가져오기
+		public MemberVO selectUser(String uid) {
+			return dao.selectUser(uid);
+		};
+	
 }
