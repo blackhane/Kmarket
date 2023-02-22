@@ -90,31 +90,44 @@ public class AdminService {
 		dao.deleteNoticeArticle(no);
 	}
 	
-	//관리자 문의하기 게시글 list
+	//관리자 문의하기 게시글 list 2023/02/20
 	public List<CsVO> selectQnaArticles(){
 		return dao.selectQnaArticles();
 	}
 	
-	//관리자 문의하기 게시글 View
+	//관리자 문의하기 게시글 View 2023/02/20
 	public CsVO selectQnaArticle(int no) {
 		return dao.selectQnaArticle(no);
 	};
 	
-	//관리자 문의하기 게시글 Reply
+	//관리자 문의하기 게시글 Reply 2023/02/20
 	public void insertQnaReply(CsVO vo) {
 		dao.insertQnaReply(vo);
 	};
 	
-	//관리자 문의하기 status
+	//관리자 문의하기 status 2023/02/20
 	public void updateQnaStatus(CsVO vo) {
 		dao.updateQnaStatus(vo);
 	};
 	
-	//관리자 문의하기 목록 답변보기
+	//관리자 문의하기 목록 답변보기 2023/02/20
 	public CsVO selectQnaReply(int no) {
 		return dao.selectQnaReply(no);
 	};
 	
+<<<<<<< Updated upstream
+=======
+	//관리자 문의하기 카테고리 검색 2023/02/21
+	public List<CsVO> selectQnaSearch (String group, String cate){
+		return dao.selectQnaSearch(group, cate);
+	};
+	
+	//관리자 문의하기 게시글 삭제 2023/02/21
+	public void deleteQnaArticle(int no) {
+		dao.deleteQnaArticle(no);
+	}
+	
+>>>>>>> Stashed changes
 	//관리자 상품 삭제
 	public int productDelete(int no) {
 		return dao.productDelete(no);

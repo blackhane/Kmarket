@@ -32,6 +32,33 @@
 		limit #{param2}, 10;;
 	</select>
 	
+	<!-- 장바구니 -->
+	<insert id="addCart">
+		insert into `km_product_cart` set
+		`uid`=#{uid},
+		`prodNo`=#{prodNo},
+		`count`=#{count},
+		`price`=#{price},
+		`discount`=#{discount},
+		`disPrice`=#{disPrice},
+		`point`=#{point},
+		`delivery`=#{delivery},
+		`total`=#{total},
+		`rdate`=now();
+	</insert>
+	<select id="checkCart" resultType="kr.co.kmarket.vo.CartVO">
+		select * from `km_product_cart` where `uid`=#{uid};
+	</select>
+	<select id="selectCarts" resultType="kr.co.kmarket.vo.CartVO">
+		select a.*, b.`prodName`, b.`descript`, b.`thumb1` from `km_product_cart` as a
+		join `km_product` as b 
+		on a.`prodNo`=b.`prodNo` 
+		where `uid`=#{uid} 
+		order by `cartNo` desc;
+	</select>
+	<delete id="deleteCart">
+		delete * from `km_product_cart` where `cartNo`=#{cartNo} and `uid`=#{uid};
+	</delete>
 	
 	
 </mapper>
