@@ -56,6 +56,10 @@ public class AdminService {
 		return dao.selectCountNoticeTotal();
 	}
 	
+	public int selectQnaArticleTotal() {
+		return dao.selectCountQnaTotal();
+	}
+	
 	public List<ProductVO> selectAdminProductList(int start) {
 		return dao.selectAdminProductList(start);
 	}
@@ -91,8 +95,8 @@ public class AdminService {
 	}
 	
 	//관리자 문의하기 게시글 list 2023/02/20
-	public List<CsVO> selectQnaArticles(){
-		return dao.selectQnaArticles();
+	public List<CsVO> selectQnaArticles(int start){
+		return dao.selectQnaArticles(start);
 	}
 	
 	//관리자 문의하기 게시글 View 2023/02/20

@@ -1,31 +1,10 @@
 <th:block th:include="/admin/_header.html"/>
 <script>
-    list('1차선택', '2차선택');
-    /*//선택이 없으면
-    모든 리스트
-    //1차선택만 골라져있으면
-    1차 해당하는 모든 리스트
-    //1차,2차 둘다 골라져있으면
-    1차,2차 해당하는 모든 리스트*/
-    
-	$('select[name=f2]').change(function(){
-		let group = $('select[name=f1]').val();
-		let cate = $(this).val();
-		list(group, cate);
-	});
-	function list(group, cate){
-		
-		if(cate == ''){
-			return false;
-		};
-		
-		let jsonData = {'group' : group,
-						'cate'  : cate };
-		
+	
+	function list(){
 		$.ajax({
 			url : '/Kmarket/admin/qna_list',
 			method : 'GET',
-			data : jsonData,
 			dataType : 'json',
 			success : function(data){
 				$('.qna_list').remove();
@@ -35,7 +14,7 @@
 						i += 1;
 						let tags  = "<tr class='qna_list'>";
 							tags += "<td><input type='checkbox' name='check1' value='"+article.no+"'></td>";
-							tags += "<td>"+i+"</td>";
+							tags += "<td>"+article.no+"</td>";
 							tags += "<td>"+article.cate+"</td>";
 							tags += "<td>"+article.title+"</td>";
 							tags += "<td>"+article.rdate+"</td>";
@@ -62,7 +41,7 @@
 			let group = $(this).val();
 			
 			$('select[name=f2]').empty();
-			$('select[name=f2]').append("<option>2차 선택</option>");
+			$('select[name=f2]').append("<option value='"+2+"'>2차 선택</option>");
 			if(group == '회원'){
 				for(let i of a1){
 					let tags = "<option value='"+i+"'>"+i+"</option>";
@@ -178,10 +157,13 @@
 					dataType : 'json',
 					success : function(data){
 						if(data.result > 0){
-							$('input[name=check1]:checked').parent().parent().remove();
-							alert(data.result + "건 삭제되었습니다."); //왜 2개 체크하면 alert 가 안 뜰까?
-							$('input[name=all]').prop("checked",false);	
+							//$('input[name=check1]:checked').parent().parent().remove();
+							//alert(data.result + "건 삭제되었습니다."); //왜 2개 체크하면 alert 가 안 뜰까?
+							//$('input[name=all]').prop("checked",false);
 							list();
+							
+							
+							//location.href = '/Kmarket/admin/cs/qna/list';
 						};
 					}
 				});
@@ -247,12 +229,23 @@
         <div class="button">
             <input type="button" name="delete" value="선택삭제"></a>
         </div>
-        <div class="page">
-            <a href="">이전</a>
-            <a href="">1</a>
-            <a href="">2</a>
-            <a href="">3</a>
-            <a href="">다음</a>
+        <div class="list_page">
+        	    <span class="prev" th:if="${groups[0]>=1}">
+        	    	<a th:href="@{/admin/cs/notice/list(pg=1)}"><< 처음으로</a>
+                    <a th:href="@{/admin/cs/notice/list(pg=${groups[0]-1})}">< 이전</a>
+                </span>
+                
+                <span class="num">
+                <th:block th:each="num:${#numbers.sequence(groups[0],groups[1])}">
+                    <a th:href="@{/admin/cs/notice/list(pg=${num})}" 
+                    	th:class="${num==currentPage ? 'on':'off'}"+"${num==currentPage?'num current':'num'}">[[${num}]]</a>
+                </th:block>
+                </span>
+                
+                <span class="next" th:if="${groups[1] <= lastPageNum}">
+                    <a th:href="@{/admin/cs/notice/list(pg=${groups[1]+1})}">다음 ></a>
+                    <a th:href="@{/admin/cs/notice/list(pg=${lastPageNum})}">끝으로>></a>
+                </span>
         </div>
     </section>
     </article>
