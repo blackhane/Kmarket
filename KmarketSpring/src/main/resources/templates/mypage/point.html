@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" th:href="@{/css/mypage_style.css}">
+    <script type="text/javascript" th:src="@{/js/ordered.js}"></script>
+    <script th:inline="javascript">
+    	$(function(){
+    		
+    	});
+    	</script>
 </head>
 <body>
     <div id="wrap">
@@ -21,21 +27,21 @@
                         <div class="day">
                             <span></span>
                             <ul>
-                                <li><a href="#"><span>1</span>주일</a></li>
-                                <li><a href="#" class="current"><span>15</span>일</a></li>
-                                <li><a href="#"><span>1</span>개월</a></li>
+                                <li><a href="#" class="off" id="1week"><span>1</span>주일</a></li>
+                                <li><a href="#" class="on off" id="15day"><span>15</span>일</a></li>
+                                <li><a href="#" class="off" id="1month"><span>1</span>개월</a></li>
                             </ul>
                             <ul>
-                                <li><a href="#"><span>11</span>월</a></li>
-                                <li><a href="#"><span>10</span>월</a></li>
-                                <li><a href="#"><span>9</span>월</a></li>
-                                <li><a href="#"><span>8</span>월</a></li>
-                                <li><a href="#"><span>7</span>월</a></li>
+                                <li><a href="#" class="off" id="month1"><span class="month1"></span>월</a></li>
+                                <li><a href="#" class="off" id="month2"><span class="month2"></span>월</a></li>
+                                <li><a href="#" class="off" id="month3"><span class="month3"></span>월</a></li>
+                                <li><a href="#" class="off" id="month4"><span class="month4"></span>월</a></li>
+                                <li><a href="#" class="off" id="month5"><span class="month5"></span>월</a></li>
                             </ul>
                             <p>
-                                <input type="date">~<input type="date">
+                                <input type="date" name="start">~<input type="date" name="end">
                             </p>
-                            <button>조회하기</button>
+                            <button class="search">조회하기</button>
                         </div>
                         <table class="lastPoint">
                             <tr>
@@ -46,6 +52,7 @@
                                 <th>비고</th>
                                 <th>유효기간</th>
                             </tr>
+                            <!--/*
                             <tr th:if="${#lists.size(vo) == 0}">
                             	<td colspan="6" align="center">최근 적립된 내역이 없습니다.</td>
                             </tr>
@@ -57,6 +64,7 @@
                                 <td>상품 구매확정</td>
                                 <td>[[${point.pointDateEnd}]]</td>
                             </tr>
+                            */-->
                         </table>
                         <div class="page">
                             <a href="#" class="prev"></a>

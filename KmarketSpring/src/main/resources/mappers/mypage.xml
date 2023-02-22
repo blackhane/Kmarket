@@ -30,7 +30,7 @@
 	</select>
 	<!-- 포인트내역 -->
 	<select id="selectMyPoint" resultType="kr.co.kmarket.vo.PointVO">
-		SELECT * FROM `km_member_point` WHERE `uid`=#{uid} ORDER BY `pointNo` DESC;
+		SELECT * FROM `km_member_point` WHERE `uid`=#{param1} and DATE(`pointDate`) BETWEEN #{param2} AND #{param3} ORDER BY `pointDate` DESC;
 	</select>
 	<!-- 쿠폰 -->
 	<select id="selectMyCoupon" resultType="kr.co.kmarket.vo.CouponVO">

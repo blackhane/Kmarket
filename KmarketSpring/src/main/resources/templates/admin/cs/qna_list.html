@@ -1,6 +1,5 @@
 <th:block th:include="/admin/_header.html"/>
 <script>
-	
 	function list(){
 		$.ajax({
 			url : '/Kmarket/admin/qna_list',
@@ -77,9 +76,119 @@
 					let tags = "<option value='"+i+"'>"+i+"</option>";
 					$('select[name=f2]').append(tags);
 				}	
+=======
+	$(function(){
+		
+		let a1 = ['가입','탈퇴','회원정보','로그인'];
+		let a2 = ['쿠폰/할인혜택','포인트','제휴','이벤트'];
+		let a3 = ['상품','결제','구매내역','영수증/증빙'];
+		let a4 = ['배송상태/기간','배송정보확인/변경','해외배송','당일배송','해외직구'];
+		let a5 = ['반품신청/철회','반품정보확인/변경','교환AS신청/철회','교환정보확인/변경','취소신청/철회','취소확인/환불정보'];
+		let a6 = ['여행/숙박','항공'];
+		let a7 = ['서비스 이용규칙 위반','지식재산권침해','법령 및 정책위반 상품','게시물 정책위반','직거래/외부거래유도','표시광고','청소년위해상품/이미지'];
+		
+		$('select[name=f1]').change(function(){
+			let f1 = $(this).val();
+			
+			$('select[name=f2]').empty();
+			let tag = "<option>2차 선택</option>";
+			$('select[name=f2]').append(tag);
+			
+			if(f1 == '회원'){
+				for(let i of a1){
+					let tag = "<option value='"+i+"'>"+i+"</option>";
+					$('select[name=f2]').append(tag);
+				}
+			}else if(f1 == '쿠폰/이벤트'){
+				for(let i of a2){
+					let tag = "<option value='"+i+"'>"+i+"</option>";
+					$('select[name=f2]').append(tag);
+				}
+			}else if(f1 == '주문/결제'){
+				for(let i of a3){
+					let tag = "<option value='"+i+"'>"+i+"</option>";
+					$('select[name=f2]').append(tag);
+				}
+			}else if(f1 == '배송'){
+				for(let i of a4){
+					let tag = "<option value='"+i+"'>"+i+"</option>";
+					$('select[name=f2]').append(tag);
+				}
+			}else if(f1 == '취소/반품/교환'){
+				for(let i of a5){
+					let tag = "<option value='"+i+"'>"+i+"</option>";
+					$('select[name=f2]').append(tag);
+				}
+			}else if(f1 == '여행/숙박/항공'){
+				for(let i of a6){
+					let tag = "<option value='"+i+"'>"+i+"</option>";
+					$('select[name=f2]').append(tag);
+				}
+			}else if(f1 == '안전거래'){
+				for(let i of a7){
+					let tag = "<option value='"+i+"'>"+i+"</option>";
+					$('select[name=f2]').append(tag);
+				}
 			}
+			
+			$('select[name=f2]').change(function(){
+				let f1 = $('select[name=f1]').val();
+				let f2 = $(this).val();
+		
+				let jsonData = {'group' : f1, 
+								'cate'  : f2};
+				
+				$.ajax({
+					url : '/Kmarket/admin/qna_search',
+					method : 'GET',
+					data : jsonData,
+					dataType : 'json',
+					success : function(data){
+						//여기서 조회하고 페이지 출력
+						console.log('data.result : ' + data.result);
+						console.log('length : ' + data.result.length);
+						
+						let length = data.result.length;
+						if(length > 0){
+							
+							console.log('here1');
+							
+							$('.qna_list').remove();
+							
+							let i = 0;
+							for(let article of data.result){
+								
+								console.log('here2');
+								
+								let tag = "<tr class='qna_list'>";
+									tag += "<td><input type='checkbox' name='check' value='"+article.no+"'></td>";
+									tag += "<td>"+article.no+"</td>";
+									tag += "<td class='article_cate'>"+article.cate+"</td>";
+									tag += "<td class='article_title'><p>"+(article.status == 1 ? "<a href='/Kmarket/admin/cs/qna/view?no="+article.no+"'>"+article.title+"</a>" : "<a href='/Kmarket/admin/cs/qna/reply?no="+article.no+"'>"+article.title+"</a>")+"</p></td>";
+									tag += "<td>"+article.rdate+"</td>";
+									tag += "<td>"+(article.status == 1 ? '<span style="font-weight:bold; color:blue;">답변완료</span>' : '<span >검토중</span>')+"</td>";
+									tag += "</tr>";
+								$('.qna_table').append(tag);	
+							}
+						}
+					}
+				});
+			});
 		});
 		
+		$(document).ready(function(){
+			$('input[name=check1]').click(function(){
+				
+				let arr = [];
+				let length = $('input[name=check1]:checked').length;
+				let check = $('input[name=check1]:checked').val();
+							
+				console.log(check);
+				
+				
+				
+			});
+      
 		$('select[name=f2]').change(function(){
 			
 			let group = $('select[name=f1]').val();
@@ -166,8 +275,6 @@
 							//location.href = '/Kmarket/admin/cs/qna/list';
 						};
 					}
-				});
-			}
 		});
 	});
 	
@@ -180,7 +287,7 @@
         </p>
     </nav>
     <section>
-        <select name="f1" style="margin-right: 5px;">
+        <select name="f1" style="margin-right: 5px; width: 150px">
             <option value="1">1차 선택</option>
             <option value="회원">회원</option>
             <option value="쿠폰/이벤트">쿠폰/이벤트</option>
@@ -190,10 +297,15 @@
             <option value="여행/숙박/항공">여행/숙박/항공</option>
             <option value="안전거래">안전거래</option>
         </select>
-        <select name="f2" style="width: 150px;">
+        <select name="f2" style="width: 170px;">
 			<option value="2">2차 선택</option>
         </select>
-        <table border="0" class="table">
+        <table border="0" class="qna_table">
+            <tr class="qna">
+        <table border="0">
+            <tr>
+                <th><input type="checkbox"></th>
+        <table border="0" class="qna_table">
             <tr class="qna">
                 <th><input type="checkbox" name="all"></th>
                 <th>번호</th>
