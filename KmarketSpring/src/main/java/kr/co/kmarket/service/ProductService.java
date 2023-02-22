@@ -37,18 +37,7 @@ public class ProductService {
 	
 	//장바구니 추가
 	public int addCart(CartVO cart) {
-		//중복체크
-		CartVO checkCart = dao.checkCart(cart);
-		
-		if(checkCart != null) {
-			return 2;
-		}
-		//추가
-		try {
-			return dao.addCart(cart);
-		} catch (Exception e) {
-			return 0;
-		}
+		return dao.addCart(cart);
 	}
 	
 	//장바구니 목록

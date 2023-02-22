@@ -18,7 +18,7 @@ public interface ProductDAO {
 	public int selectReviewCountTotal(String param1,int param2);
 	public ProductVO selectProduct(String param1);
 	public List<ReviewVO> selectReviews(String param1);
-	public int addCart(CartVO cart) throws Exception;
+	public int addCart(CartVO cart);
 	public CartVO checkCart(CartVO cart);
 	public List<CartVO> selectCarts(String uid);
 	public int deleteCart(int cartNo,String uid);

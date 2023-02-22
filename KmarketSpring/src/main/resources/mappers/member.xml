@@ -56,4 +56,8 @@
 		`rdate`=NOW();
 	
 	</insert>
+	
+	<select id="selectUser" resultType="kr.co.kmarket.vo.MemberVO">
+		SELECT * FROM `km_member` WHERE `uid`=#{uid};
+	</select>
 </mapper>
