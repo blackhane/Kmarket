@@ -58,7 +58,12 @@
                                         </li>
                                     </ol>
                                 </td>
-                                <td class="status">배송완료</td>
+                                <td class="status" th:if="${vo.ordComplete == '0'}">결제대기</td>
+                                <td class="status" th:if="${vo.ordComplete == '1'}">결제완료</td>
+                                <td class="status" th:if="${vo.ordComplete == '2'}">주문완료</td>
+                                <td class="status" th:if="${vo.ordComplete == '3'}">배송준비</td>
+                                <td class="status" th:if="${vo.ordComplete == '4'}">배송완료</td>
+                                <td class="status" th:if="${vo.ordComplete == '5'}">수취확인</td>
                             </tr>
                         </table>
                     </article>

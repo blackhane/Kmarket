@@ -30,4 +30,10 @@
 		ON a.prodNo=c.prodNo
 		WHERE a.prodNo=#{prodNO};
 	</select>
+	
+	<!-- 문의하기 -->
+	<insert id="insertMyQna">
+		INSERT INTO `km_cs_qna` (`group`,`cate`, `company`,`title`,`content`,`uid`,`regip`,`rdate`)
+		VALUES (#{group}, #{cate}, #{company}, #{title}, #{content}, #{uid}, #{regip}, NOW());
+	</insert>
 </mapper>

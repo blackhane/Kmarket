@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.kmarket.service.PopupService;
+import kr.co.kmarket.vo.CsVO;
 import kr.co.kmarket.vo.MemberVO;
 import kr.co.kmarket.vo.OrderItemVO;
 import kr.co.kmarket.vo.ReviewVO;
@@ -96,15 +97,30 @@ public class PopupController {
 		return "popup/orderInfo";
 	}
 	
-	
-	
-	
-	
-	
-	
-	@GetMapping("my/qna")
-	public String qna() {
+	@GetMapping("my/qna/{company}")
+	public String qna(@PathVariable("company") String company, Principal principal, Model model) {
+		
+		String uid = principal.getName();
+		
+		model.addAttribute("uid",uid);
+		model.addAttribute("company",company);
+		
 		return "popup/qnaPopup";
+	}
+
+	@PostMapping("my/qna")
+	@ResponseBody
+	public Map<String, Integer> qna(CsVO vo, HttpServletRequest req) {
+		
+		vo.setGroup("판매자 게시판");
+		vo.setRegip(req.getRemoteAddr());
+		
+		int result = service.insertMyQna(vo);
+		
+		Map<String, Integer> res = new HashMap<>();
+		res.put("result", result);
+		
+		return res;
 	}
 	
 }

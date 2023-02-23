@@ -21,8 +21,14 @@ public class OrderItemVO {
 	private String prodName;
 	private String company;
 	private String thumb1;
-	
+	private String ordComplete;
 	public String getRdate() {
 		return rdate.substring(2,10);
 	}
+	
+	private String recipname;
+	private String recipHp;
+	private String recipZip;
+	private String recipAddr1;
+	private String recipAddr2;
 }

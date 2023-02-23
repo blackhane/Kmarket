@@ -25,6 +25,8 @@ public class CsVO {
 	private String reply;
 	private int status;
 	
+	private String company;
+	
 	public String getRdate() {
 		return rdate.substring(2, 10);
 	}

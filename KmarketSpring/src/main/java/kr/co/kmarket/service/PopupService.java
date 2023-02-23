@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.kmarket.dao.PopupDAO;
+import kr.co.kmarket.vo.CsVO;
 import kr.co.kmarket.vo.MemberVO;
 import kr.co.kmarket.vo.OrderItemVO;
 import kr.co.kmarket.vo.ReviewVO;
@@ -32,6 +33,11 @@ public class PopupService {
 	//주문상세
 	public OrderItemVO selectOrderInfo(String prodNO) {
 		return dao.selectOrderInfo(prodNO);
+	}
+	
+	//문의하기
+	public int insertMyQna(CsVO vo) {
+		return dao.insertMyQna(vo);
 	}
 	
 }

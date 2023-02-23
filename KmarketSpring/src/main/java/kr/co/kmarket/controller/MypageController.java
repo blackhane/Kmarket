@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -40,12 +39,14 @@ public class MypageController {
 		String uid = principal.getName();
 		
 		MemberVO info = service.selectUserinfo(uid);
+		int count = service.selectMyQnaCount(uid);
 		List<OrderItemVO> order = service.selectLastOrder(uid);
 		List<PointVO> point = service.selectLastPoint(uid);
 		List<ReviewVO> review = service.selectLastReview(uid);
 		List<CsVO> qna = service.selectLastQna(uid);
 		
 		model.addAttribute("info", info);
+		model.addAttribute("count", count);
 		model.addAttribute("order", order);
 		model.addAttribute("point", point);
 		model.addAttribute("review", review);
@@ -59,8 +60,10 @@ public class MypageController {
 		String uid = principal.getName();
 		
 		MemberVO info = service.selectUserinfo(uid);
+		int count = service.selectMyQnaCount(uid);
 		
 		model.addAttribute("info", info);
+		model.addAttribute("count", count);
 		
 		return "mypage/ordered";
 	}
@@ -83,10 +86,25 @@ public class MypageController {
 		String uid = principal.getName();
 		
 		MemberVO info = service.selectUserinfo(uid);
+		int count = service.selectMyQnaCount(uid);
 		
 		model.addAttribute("info", info);
+		model.addAttribute("count", count);
 		
 		return "mypage/point";
+	}
+	
+	@PostMapping("mypage/pointList")
+	@ResponseBody
+	public Map<String, Object> point(Principal principal, String start, String end) {
+		String uid = principal.getName();
+		List<PointVO> list = service.selectMyPoint(uid, start, end);
+		
+		//JSON 파싱
+		Map<String, Object> map = new HashMap<>();
+		map.put("result", list);
+		
+		return map;
 	}
 	
 	@GetMapping("mypage/coupon")
@@ -94,9 +112,11 @@ public class MypageController {
 		String uid = principal.getName();
 		
 		MemberVO info = service.selectUserinfo(uid);
+		int count = service.selectMyQnaCount(uid);
 		List<CouponVO> vo = service.selectMyCoupon(uid);
 		
 		model.addAttribute("info", info);
+		model.addAttribute("count", count);
 		model.addAttribute("vo", vo);
 		
 		return "mypage/coupon";
@@ -107,9 +127,11 @@ public class MypageController {
 		String uid = principal.getName();
 		
 		MemberVO info = service.selectUserinfo(uid);
+		int count = service.selectMyQnaCount(uid);
 		List<ReviewVO> vo = service.selectMyReview(uid);
 		
 		model.addAttribute("info", info);
+		model.addAttribute("count", count);
 		model.addAttribute("vo", vo);
 		
 		return "mypage/review";
@@ -120,9 +142,11 @@ public class MypageController {
 		String uid = principal.getName();
 		
 		MemberVO info = service.selectUserinfo(uid);
+		int count = service.selectMyQnaCount(uid);
 		List<CsVO> vo = service.selectMyQna(uid);
 		
 		model.addAttribute("info", info);
+		model.addAttribute("count", count);
 		model.addAttribute("vo", vo);
 		
 		return "mypage/qna";
@@ -133,8 +157,10 @@ public class MypageController {
 		String uid = principal.getName();
 		
 		MemberVO info = service.selectUserinfo(uid);
+		int count = service.selectMyQnaCount(uid);
 		
 		model.addAttribute("info", info);
+		model.addAttribute("count", count);
 		
 		return "mypage/info";
 	}
