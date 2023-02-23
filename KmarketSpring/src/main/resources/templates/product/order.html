@@ -1,5 +1,21 @@
 <th:block th:include="@{product/_header.html}"/>
 <th:block th:include="@{product/_aside.html}"/>
+<script th:inline="javascript">
+$(document).ready(function(){
+	/* 
+	$.ajax({
+		url:'Kmarket/product/order',
+		type:'post',
+		datatype:"json",
+		success:function(data){
+			alert(1);
+			
+		}
+	});
+	 */
+});
+
+</script>
     <!-- 주문 페이지 시작-->
     <section id="order">
         <!-- 제목, 페이지 내비게이션-->
@@ -42,7 +58,7 @@
                     <td>[[${product.point}]]</td>
                     <td th:if="${product.delivery == '0'}">무료배송</td>
                     <td th:unless="${product.delivery == '0'}">[[${product.delivery}]]</td>
-                    <td class="total"></td>
+                    <td class="total">[[${product.price *(100-product.discount)/100}*${count}]]</td>
                 </tr>
             </table>
 
@@ -75,7 +91,7 @@
                         <td th:text="${product.price *(100-product.discount)/100}"></td>
                     </tr>
                 </table>
-                </th:block>*/
+                </th:block>
             <th:block th:each="cart:${carts}">
             <table>
                 <tr>

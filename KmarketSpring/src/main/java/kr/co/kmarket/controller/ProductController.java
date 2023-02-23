@@ -1,17 +1,18 @@
 package kr.co.kmarket.controller;
 
-import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,13 +66,6 @@ public class ProductController {
 	
 	@GetMapping("product/view")
 	public String view(String arg0, String arg1, String arg2, String pg, String param1, Model model) {
-		int currentPage = service.getCurrentPage(pg);
-        int param2 = service.getLimitStart(currentPage);
-
-        int total = service.selectReviewCountTotal(param1,param2);
-        int lastPageNum = service.getLastPageNum(total);
-        int pageStartNum = service.getPageStartNum(total, param2);
-        int groups[] = service.getPageGroup(currentPage, lastPageNum);
 		
 		ProductVO prod = service.selectProduct(param1);
 		List<ReviewVO> reviews = service.selectReviews(param1);
@@ -83,10 +77,6 @@ public class ProductController {
 		model.addAttribute("prod", prod);
 		model.addAttribute("reviews", reviews);
 		model.addAttribute("param1", param1);
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("lastPageNum", lastPageNum);
-		model.addAttribute("pageStartNum", pageStartNum);
-		model.addAttribute("groups", groups);
 		
 		return "product/view";
 	}
@@ -137,23 +127,18 @@ public class ProductController {
 
 	@PostMapping("product/order")
 	@ResponseBody
-	public List<CartVO> orderList(Model model, @RequestParam(value="checkBoxArr[]")List<String> checkBoxArr) {
+	public Map<Integer, CartVO> orderList(Model model, @RequestParam(value="checkBoxArr[]")List<String> checkBoxArr) {
 		//System.out.println(checkBoxArr);
 		//System.out.println(checkBoxArr.get(0));
 		
-		List<CartVO> carts = new ArrayList<>();
+		Map<Integer, CartVO> carts = new HashMap<>();
 		
 		for(int i = 0; i < checkBoxArr.size(); i++) {
 			
 			CartVO cart = service.selectOrder(checkBoxArr.get(i));
 		
-			carts.add(cart);
+			carts.put(i, cart);
 		}
-		
-		//System.out.println(carts.get(0));
-		//System.out.println(carts.get(1));
-		
-		model.addAttribute("carts", carts);
 		
 		return carts;
 	}
