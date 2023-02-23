@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./css/star-rating-svg.css">
 	<script type="text/javascript">
 		$(function(){
+			opener.location.reload();
 			$('.btnQuestion').click(function(e){
     			e.preventDefault;
     			//창 사이즈
@@ -18,7 +19,10 @@
     			//현재 창의 가운데
     			var left = (window.screen.width / 2) - (width/2);
     			var top = (window.screen.height / 4);
-    			window.open("/Kmarket/my/qna", "문의하기", "width = "+width+", height = "+height+", top = "+top+", left = "+left);
+    			
+    			let company = $('.company').text();
+    			
+    			window.open("/Kmarket/my/qna/"+company, "문의하기", "width = "+width+", height = "+height+", top = "+top+", left = "+left);
     			window.close();
     		});
 		});

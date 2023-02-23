@@ -11,48 +11,102 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" th:href="@{/css/mypage_style.css}">
+    <script th:src="@{/js/date.js}"></script>
     <script th:inline="javascript">
     	$(function(){
     		let now = new Date();
-    		$('.months').text(now.getMonth()+1);
+    		$('.month1').text(now.getMonth()+1);
     		now.setMonth(now.getMonth() -1);
-    		$('.1months').text(now.getMonth()+1);
+    		$('.month2').text(now.getMonth()+1);
     		now.setMonth(now.getMonth() -1);
-    		$('.2months').text(now.getMonth()+1);
+    		$('.month3').text(now.getMonth()+1);
     		now.setMonth(now.getMonth() -1);
-    		$('.3months').text(now.getMonth()+1);
+    		$('.month4').text(now.getMonth()+1);
     		now.setMonth(now.getMonth() -1);
-    		$('.4months').text(now.getMonth()+1);
-    		
+    		$('.month5').text(now.getMonth()+1);
+
     		$('.off').on('click', function(){
     			$('.on').attr('class','off');
     			$(this).attr('class','on');
     		});
-    		
-    		$('.1week').click(function(){
-    			list('1WEEK');
+
+    		//오늘
+    		let today = new Date();
+    		let lastDay = dateFormat(today);
+
+    		//시작시 호출
+    		today = new Date();
+    		let firstDay = new Date(today.setDate(today.getDate()-15));
+    		firstDay = dateFormat(firstDay);
+    		list(firstDay, lastDay);
+
+    		//7일전
+    		$('#1week').click(function(){
+    			today = new Date();
+    			let firstDay = new Date(today.setDate(today.getDate()-7));
+    			firstDay = dateFormat(firstDay);
+    			list(firstDay, lastDay);
     		});
-    		$('.15day').click(function(){
-    			list('15DAY');
+    		//15일전
+    		$('#15day').click(function(){
+    			today = new Date();
+    			let firstDay = new Date(today.setDate(today.getDate()-15));
+    			firstDay = dateFormat(firstDay);
+    			list(firstDay, lastDay);
     		});
-    		$('.1month').click(function(){
-    			list('1MONTH');
+    		//30일전
+    		$('#1month').click(function(){
+    			today = new Date();
+    			let firstDay = new Date(today.setDate(today.getDate()-30));
+    			firstDay = dateFormat(firstDay);
+    			list(firstDay, lastDay);
     		});
-    		$('.months').click(function(){
-    			list('MONTHS');
+    		//당월
+    		$('#month1').click(function(){
+    			today = new Date();	
+    			let firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+    			let lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    			firstDay = dateFormat(firstDay);
+    			lastDay = dateFormat(lastDay);
+    			list(firstDay, lastDay);
     		});
-    		$('.1months').click(function(){
-    			list('1MONTHS');
+    		//1달전
+    		$('#month2').click(function(){
+    			today = new Date();	
+    			let firstDay = new Date(today.getFullYear(), today.getMonth()-1, 1);
+    			let lastDay = new Date(today.getFullYear(), today.getMonth(), 0);
+    			firstDay = dateFormat(firstDay);
+    			lastDay = dateFormat(lastDay);
+    			list(firstDay, lastDay);
     		});
-    		$('.2months').click(function(){
-    			list('2MONTHS');
+    		//2달전
+    		$('#month3').click(function(){
+    			today = new Date();	
+    			let firstDay = new Date(today.getFullYear(), today.getMonth()-2, 1);
+    			let lastDay = new Date(today.getFullYear(), today.getMonth()-1, 0);
+    			firstDay = dateFormat(firstDay);
+    			lastDay = dateFormat(lastDay);
+    			list(firstDay, lastDay);
     		});
-    		$('.3months').click(function(){
-    			list('3MONTHS');
+    		//3달전
+    		$('#month4').click(function(){
+    			today = new Date();	
+    			let firstDay = new Date(today.getFullYear(), today.getMonth()-3, 1);
+    			let lastDay = new Date(today.getFullYear(), today.getMonth()-2, 0);
+    			firstDay = dateFormat(firstDay);
+    			lastDay = dateFormat(lastDay);
+    			list(firstDay, lastDay);
     		});
-    		$('.4months').click(function(){
-    			list('4MONTHS');
+    		//4달전
+    		$('#month5').click(function(){
+    			today = new Date();	
+    			let firstDay = new Date(today.getFullYear(), today.getMonth()-4, 1);
+    			let lastDay = new Date(today.getFullYear(), today.getMonth()-3, 0);
+    			firstDay = dateFormat(firstDay);
+    			lastDay = dateFormat(lastDay);
+    			list(firstDay, lastDay);
     		});
+    		//사용자 지정
     		$('.search').click(function(){
     			let start = $('input[name=start]').val();
     			let end = $('input[name=end]').val();
@@ -60,8 +114,14 @@
     				alert('날짜를 선택해주세요.');
     				return false;
     			}
-    			console.log(start);
-    			console.log(end);
+    			
+    			today = new Date();	
+    			let firstDay = new Date(today.setFullYear(today.getFullYear() - 1));
+    			firstDay = dateFormat(firstDay);
+    			if(start < firstDay){
+    				alert('전체주문내역의 최대 1년치까지만 조회가능합니다.');
+    				start = firstDay;
+    			}
     			list(start, end);
     			$('.on').attr('class','off');
     		});
@@ -73,12 +133,30 @@
     			}
     			console.log(jsonData);
     			$.ajax({
-    				url : 'mypage/order/',
+    				url : '/Kmarket/mypage/pointList/',
     				method : 'POST',
     				data : jsonData,
     				dataType : 'JSON',
     				success : function(data){
-    					
+    					$('.po').remove();
+    					if(data.result.length == 0){
+    						let tag = "<tr class='po'>";
+                           		tag += "<td colspan='6' align='center'>적립된 내역이 없습니다.</td>";
+                           		tag += '</tr>';
+                          		$('.lastPoint').append(tag);
+    					}else{
+	    					for(let i of data.result){
+		   						let	tag = "<tr class='po'>";
+		   							tag += "<td>"+i.pointDate+"</td>";
+		   							tag += "<td>적립</td>";
+		   							tag += "<td>"+i.ordNo+"</td>";
+		   							tag += "<td>"+i.point+"점</td>";
+		   							tag += "<td>상품 구매확정</td>";
+		   							tag += "<td>"+i.pointDateEnd+"</td>";
+		   							tag += "</tr>"
+	   							$('.lastPoint').append(tag);
+    						}
+    					}
     				}
     			});
     		}
@@ -94,16 +172,16 @@
                         <div class="day">
                             <span></span>
                             <ul>
-                                <li><a href="#" class="off"><span>1</span>주일</a></li>
-                                <li><a href="#" class="on off"><span>15</span>일</a></li>
-                                <li><a href="#" class="off"><span>1</span>개월</a></li>
+                                <li><a href="#" class="off" id="1week"><span>1</span>주일</a></li>
+                                <li><a href="#" class="on off" id="15day"><span>15</span>일</a></li>
+                                <li><a href="#" class="off" id="1month"><span>1</span>개월</a></li>
                             </ul>
                             <ul>
-                                <li><a href="#" class="off"><span class="months"></span>월</a></li>
-                                <li><a href="#" class="off"><span class="1months"></span>월</a></li>
-                                <li><a href="#" class="off"><span class="2months"></span>월</a></li>
-                                <li><a href="#" class="off"><span class="3months"></span>월</a></li>
-                                <li><a href="#" class="off"><span class="4months"></span>월</a></li>
+                                <li><a href="#" class="off" id="month1"><span class="month1"></span>월</a></li>
+                                <li><a href="#" class="off" id="month2"><span class="month2"></span>월</a></li>
+                                <li><a href="#" class="off" id="month3"><span class="month3"></span>월</a></li>
+                                <li><a href="#" class="off" id="month4"><span class="month4"></span>월</a></li>
+                                <li><a href="#" class="off" id="month5"><span class="month5"></span>월</a></li>
                             </ul>
                             <p>
                                 <input type="date" name="start">~<input type="date" name="end">
@@ -111,7 +189,7 @@
                             <button class="search">조회하기</button>
                         </div>
                         <table class="lastPoint">
-                            <tr>
+                        	<tr class="tit">
                                 <th>날짜</th>
                                 <th>구분</th>
                                 <th>주문번호</th>
@@ -119,7 +197,7 @@
                                 <th>비고</th>
                                 <th>유효기간</th>
                             </tr>
-                            <!--/*
+                        	<!--/*
                             <tr th:if="${#lists.size(vo) == 0}">
                             	<td colspan="6" align="center">최근 적립된 내역이 없습니다.</td>
                             </tr>

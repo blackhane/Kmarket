@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" th:href="@{/css/mypage_style.css}">
-    <script th:inline="javascript">
+    <script th:src="@{/js/date.js}"></script>
+    <script>
     	$(function(){
     		let now = new Date();
     		$('.month1').text(now.getMonth()+1);
@@ -28,10 +29,16 @@
     			$('.on').attr('class','off');
     			$(this).attr('class','on');
     		});
-
+    		
     		//오늘
     		let today = new Date();
     		let lastDay = dateFormat(today);
+    		
+    		//시작시 호출
+    		today = new Date();
+    		let firstDay = new Date(today.setDate(today.getDate()-15));
+    		firstDay = dateFormat(firstDay);
+    		list(firstDay, lastDay);
     		
     		//7일전
     		$('#1week').click(function(){
@@ -119,13 +126,6 @@
     			$('.on').attr('class','off');
     		});
     		
-    		function dateFormat(date) {
-    			let dateFormat2 = date.getFullYear() +
-    				'-' + ( (date.getMonth()+1) < 9 ? "0" + (date.getMonth()+1) : (date.getMonth()+1) )+
-    				'-' + ( (date.getDate()) < 9 ? "0" + (date.getDate()) : (date.getDate()) );
-    			return dateFormat2;
-    		}
-    		
     		function list(start, end){
     			let jsonData = {
     					'start' : start,
@@ -138,7 +138,47 @@
     				data : jsonData,
     				dataType : 'JSON',
     				success : function(data){
-    					console.log(data.result);
+    					$('.order').remove();
+    					if(data.result.length == 0){
+    						let tag = "<tr class='order'>";
+                           		tag += "<td colspan='6' align='center'>구매내역이 없습니다.</td>";
+                           		tag += '</tr>';
+                          		$('.lastOrder').append(tag);
+    					}else{
+	    					for(let i of data.result){
+		   						let	tag = "<tr class='order'>";
+		   							tag += "<td>"+i.rdate+"</td>";
+		   							tag += "<td>";
+		   							tag += "<img src=/Kmarket/image/"+i.thumb1+" alt='상품이미지'>";
+		   							tag += "<div>";
+		   							tag += "상호명 : "+i.company+"<br/>";
+		   							tag += "상품명 : "+i.prodName+"<br/>";
+		   							tag += "수량 : "+i.count+"개 / 주문번호 :"+i.ordNO+"<br/>";
+		   							tag += i.price.toLocaleString('ko-KR') +"원";
+		   							tag += "</div>";
+		   							tag += "</td>";
+		   							if(i.ordComplete == "0"){
+		   								tag += "<td>결제대기</td>";
+		   							}else if(i.ordComplete == "1"){
+		   								tag += "<td>결제완료</td>";
+		   							}else if(i.ordComplete == "2"){
+		   								tag += "<td>주문완료</td>";
+		   							}else if(i.ordComplete == "3"){
+		   								tag += "<td>배송준비</td>";
+		   							}else if(i.ordComplete == "4"){
+		   								tag += "<td>배송완료</td>";
+		   							}else {
+		   								tag += "<td>수취확인</td>";
+		   							}
+		   							tag += "<td><ul>";
+		   							tag += "<li><a href='#'>수취확인</a></li>";
+		   							tag += "<li><a href='#'>상품평쓰기</a></li>";
+		   							tag += "<li><a href='#'>반품신청</a></li>";
+		   							tag += "<li><a href='#'>교환신청</a></li>";
+		   							tag += "</ul></td></tr>";
+	   							$('.lastOrder').append(tag);
+    					}
+   					}
     				}
     			});
     		}
@@ -171,7 +211,7 @@
                             <button class="search">조회하기</button>
                         </div>
                         <table class="lastOrder">
-                            <tr>
+                        	<tr class="tit">
                                 <th>날짜</th>
                                 <th>상품정보</th>
                                 <th>상태</th>
