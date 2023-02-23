@@ -128,7 +128,7 @@ public class AdminService {
 	public void deleteQnaArticle(int no) {
 		dao.deleteQnaArticle(no);
 	}
-  
+	
 	//관리자 상품 삭제
 	public int productDelete(int no) {
 		return dao.productDelete(no);

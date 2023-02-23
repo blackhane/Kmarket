@@ -78,10 +78,7 @@ public interface AdminDAO {
 	
 	//관리자 문의하기 답변보기
 	public CsVO selectQnaReply(int no);
-  
-	//관리자 문의하기 카테고리 검색
-	public List<CsVO> selectQnaSearch(@Param("group") String group, @Param("cate") String cate);
-
+	
 	//관리자 문의하기 카테고리 검색
 	public List<CsVO> selectQnaSearch(@Param("group") String group, @Param("cate") String cate);
 	
@@ -90,5 +87,4 @@ public interface AdminDAO {
 	
 	//관리자 문의하기 페이징 작업
 	public int selectCountQnaTotal();
-  
 }
