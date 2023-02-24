@@ -68,10 +68,6 @@ $(document).ready(function(){
 		
 		let uid = [[${#authentication.name}]];
 		
-		//주문하기 주소
-		var url = "/Kmarket/product/order?";
-		var pr="uid="+uid;
-		
 		//컨트롤러로 넘길 장바구니 번호 리스트
 		var checkBoxArr = [];
 		
@@ -84,16 +80,16 @@ $(document).ready(function(){
 		let ans = confirm("주문하시겠습니까?");
 		
 		if(ans){
-			$.ajax({
+			/*$.ajax({
 				url:'/Kmarket/product/order',
 				type:'post',
 				data:checkBoxArr,
 				success:function(data){
 					console.log(data);
-					//location.href=url+pr;
+					
 				}
-			});
-			
+			});*/
+			location.href="/Kmarket/product/order?uid="+uid;
 		}
 		
 	});
@@ -138,11 +134,11 @@ $(document).ready(function(){
                  > <strong>장바구니</strong>
             </p>
         </nav>
-        	<form th:action="@{/product/order}" method="post">
+        	<form th:action="@{#}">
             <!-- 장바구니 목록 -->
             <table>
                 <tr>
-                    <th><input type="checkbox" name="all" class="allCheck"></th>
+                    <th><input type="checkbox" name="all" class="allCheck" checked="checked"></th>
                     <th>상품명</th>
                     <th>총수량</th>
                     <th>판매가</th>
@@ -179,7 +175,7 @@ $(document).ready(function(){
                     <td>[[${cart.point}]]</td>
                     <td th:if="${cart.delivery} != '0'" th:text="${cart.delivery}">무료배송</td>
                     <td th:unless="${cart.delivery} != '0'">무료배송</td>
-                    <td data-th-text="${#numbers.formatInteger(cart.total, 3, 'COMMA')}"></td>
+                    <td data-th-text="${#numbers.formatInteger(cart.total, 3, 'COMMA')}+원"></td>
                 </tr>
             </table>
             <input type="button" name="del" value="선택삭제" class="cartDelete">

@@ -14,7 +14,9 @@ import kr.co.kmarket.vo.ReviewVO;
 public interface ProductDAO {
 	public List<ProductVO> selectProductByParam(String param);
 	public List<ProductVO> selectProducts(String arg0, String arg1,String arg2,int arg3);
+	public List<ProductVO> selectProductByKeyword(String keyword);
 	public int selectCountTotal(String arg0, String arg1);
+	public int selectProductByKeywordTotal(String keyword);
 	public int selectReviewCountTotal(String param1,int param2);
 	public ProductVO selectProduct(String param1);
 	public List<ReviewVO> selectReviews(String param1);

@@ -36,7 +36,7 @@
             <div class="logo">
                 <div>
                     <a th:href="@{/index}"><img th:src="@{/img/myPage/header_logo.png}" alt="로고"></a>
-                    <form action="#">
+                    <form th:action="@{/product/search}" method="get">
                         <input type="text" name="keyword">
                         <button><i class="fa fa-search"></i></button>
                     </form>
@@ -45,11 +45,11 @@
             <div class="menu">
                 <div>
                     <ul>
-                        <li><a th:href="@{#hit}">히트상품</a></li>
-                        <li><a th:href="@{#recommend}">추천상품</a></li>
-                        <li><a th:href="@{#new}">최신상품</a></li>
-                        <li><a th:href="@{#best}">인기상품</a></li>
-                        <li><a th:href="@{#discount}">할인상품</a></li>
+                        <li><a th:href="@{/#hit}">히트상품</a></li>
+                        <li><a th:href="@{/#recommend}">추천상품</a></li>
+                        <li><a th:href="@{/#new}">최신상품</a></li>
+                        <li><a th:href="@{/#best}">인기상품</a></li>
+                        <li><a th:href="@{/#discount}">할인상품</a></li>
                     </ul>
                     <ul>
                         <li><a href="#">쿠폰존</a></li>

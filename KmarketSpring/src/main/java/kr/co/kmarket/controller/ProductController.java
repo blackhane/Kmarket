@@ -56,6 +56,25 @@ public class ProductController {
 		return "product/list";
 	}
 	
+	//상품검색
+	@GetMapping("product/search")
+	public String searchProduct(String arg0, String arg1, String arg2, Model model,String keyword) {
+		
+		List<ProductVO> list = service.selectProductByKeyword(keyword);
+		int total = service.selectProductByKeywordTotal(keyword);
+		
+		model.addAttribute("keyword",keyword);
+		model.addAttribute("list",list);
+		model.addAttribute("total",total);
+		model.addAttribute("arg0", arg0);
+		model.addAttribute("arg1", arg1);
+		model.addAttribute("arg2", arg2);
+		model.addAttribute("cate1", arg0);
+		model.addAttribute("cate2", arg1);
+		
+		return "product/search";
+	}
+	
 	@GetMapping("product/view")
 	public String view(String arg0, String arg1, String arg2, String pg, String param1, Model model) {
 		
@@ -109,16 +128,17 @@ public class ProductController {
 	public String orderList(Model model, String param1, String count, String uid) {
 		
 		ProductVO product = service.selectProduct(param1);
+		List<CartVO> carts = service.selectCarts(uid);
 		MemberVO user = service1.selectUser(uid);
-		System.out.println("post ---------");
 		
 		model.addAttribute("product",product);
+		model.addAttribute("carts",carts);
 		model.addAttribute("user",user);
 		model.addAttribute("count",count);
 		return "product/order";
 	}
 
-	@PostMapping("product/order")
+	/*@PostMapping("product/order")
 	public String orderList(Model model, @RequestParam(value="checkBoxArr[]")List<String> checkBoxArr) {
 		List<CartVO> cartList = new ArrayList<>();
 		
@@ -137,7 +157,7 @@ public class ProductController {
 		
 		return "product/order";
 		
-		/*System.out.println(checkBoxArr);
+		System.out.println(checkBoxArr);
 		//System.out.println(checkBoxArr.get(0));
 		
 		List<CartVO> carts = new ArrayList<>();
@@ -163,7 +183,7 @@ public class ProductController {
 		
 		return "product/order";
 		
-		/*System.out.println(checkBoxArr);
+		System.out.println(checkBoxArr);
 		System.out.println(checkBoxArr.get(0));
 		
 		List<CartVO> carts = new ArrayList<>();
@@ -210,8 +230,8 @@ public class ProductController {
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("user", user);
 		
-		return orderList;*/
+		return orderList;
 		
-	}
+	}*/
 
 }

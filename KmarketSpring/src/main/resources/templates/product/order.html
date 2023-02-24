@@ -1,7 +1,7 @@
 <th:block th:include="@{product/_header.html}"/>
 <th:block th:include="@{product/_aside.html}"/>
 <script th:inline="javascript">
-$(document).ready(function(){
+/*$(document).ready(function(){
 	$.ajax({
 		url:'Kmarket/product/order',
 		type:'post',
@@ -11,8 +11,24 @@ $(document).ready(function(){
 			
 		}
 	});
-});
+});*/
+$(document).ready(function(){
+	
+	//선택체크
+	$(".orderCheck").on("change", function(){
+	});
 
+	//전체체크
+	$(".allCheck").on("click",function(){
+		if($(".allCheck").prop("checked")){
+			$(".orderCheck").attr("checked", true);	
+		}else{
+			$(".orderCheck").attr("checked", false);	
+		}
+		
+	})
+
+});
 </script>
     <!-- 주문 페이지 시작-->
     <section id="order">
@@ -23,12 +39,12 @@ $(document).ready(function(){
                 HOME > 장바구니 ><strong>주문결제</strong>
             </p>
         </nav>
-        <form action="#">
+        <form th:action="@{/product/order}">
             <!-- 주문 상품 목록-->
             <th:block th:if="${product} != null">
             <table>
                 <tr>
-                    <th><input type="checkbox" name="all"></th>
+                    <th><input type="checkbox" name="all" class="allCheck" checked="checked"></th>
                     <th>상품명</th>
                     <th>총수량</th>
                     <th>판매가</th>
@@ -41,7 +57,7 @@ $(document).ready(function(){
                     <td colspan="7">장바구니에 상품이 없습니다.</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" name=""></td>
+                    <td><input type="checkbox" name="" class="orderCheck" checked="checked"></td>
                     <td>
                         <article>
                             <a href="#"><img th:src="@{/image/}+${product.thumb1}" alt=""></a>
@@ -52,7 +68,7 @@ $(document).ready(function(){
                         </article>
                     </td>
                     <td>[[${count}]]</td>
-                    <td>[[${product.price}]]</td>
+                    <td data-th-text="${#numbers.formatInteger(product.price, 3, 'COMMA')}"></td>
                     <td>[[${product.discount}]]%</td>
                     <td>[[${product.point}]]</td>
                     <td th:if="${product.delivery == '0'}">무료배송</td>
@@ -71,11 +87,11 @@ $(document).ready(function(){
                     </tr>
                     <tr>
                         <td>상품금액</td>
-                        <td>[[${product.price}]]</td>
+                        <td data-th-text="${#numbers.formatInteger(product.price, 3, 'COMMA')}">[[${product.price}]]</td>
                     </tr>
                     <tr>
                         <td>할인금액</td>
-                        <td th:text="${product.price *(100-product.discount)/100}">-</td>
+                        <td th:if="${product.discount !='0'}" th:text="-${product.price *product.discount/100}">0</td>
                     </tr>
                     <tr>
                         <td>배송비</td>
@@ -87,11 +103,11 @@ $(document).ready(function(){
                     </tr>
                     <tr>
                         <td>전체주문금액</td>
-                        <td th:text="${product.price *(100-product.discount)/100}"></td>
+                        <td th:text="${product.price *(100-product.discount)/100}+'원'"></td>
                     </tr>
                 </table>
                 </th:block>
-            <th:block th:each="cart:${carts}">
+            <th:block th:each="cart:${carts}" th:unless="${product} != null">
             <table>
                 <tr>
                     <th><input type="checkbox" name="all"></th>

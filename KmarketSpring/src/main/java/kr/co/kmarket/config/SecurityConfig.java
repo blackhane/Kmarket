@@ -17,7 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// 접근권한
 		http.authorizeRequests().antMatchers("/").permitAll();
-		http.authorizeRequests().antMatchers("/product/order").permitAll();
+		http.authorizeRequests().antMatchers("/product/order").hasAnyRole("1", "2", "3", "4", "5") ;
 		http.authorizeRequests().antMatchers("/product/orderComplete").hasAnyRole("1", "2", "3", "4", "5") ;
 		http.authorizeRequests().antMatchers("/admin/**").permitAll();
 		http.authorizeRequests().antMatchers("/mypage/**").hasAnyRole("1", "2", "3", "4", "5") ;
