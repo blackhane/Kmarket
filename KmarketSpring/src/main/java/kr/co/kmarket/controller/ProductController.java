@@ -5,26 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.kmarket.entity.MemberEntity;
 import kr.co.kmarket.service.MemberService;
 import kr.co.kmarket.service.ProductService;
 import kr.co.kmarket.vo.CartVO;
 import kr.co.kmarket.vo.MemberVO;
-import kr.co.kmarket.vo.OrderVO;
 import kr.co.kmarket.vo.ProductVO;
 import kr.co.kmarket.vo.ReviewVO;
 
@@ -118,6 +110,7 @@ public class ProductController {
 		
 		ProductVO product = service.selectProduct(param1);
 		MemberVO user = service1.selectUser(uid);
+		System.out.println("post ---------");
 		
 		model.addAttribute("product",product);
 		model.addAttribute("user",user);
@@ -126,21 +119,99 @@ public class ProductController {
 	}
 
 	@PostMapping("product/order")
-	@ResponseBody
-	public Map<Integer, CartVO> orderList(Model model, @RequestParam(value="checkBoxArr[]")List<String> checkBoxArr) {
-		//System.out.println(checkBoxArr);
-		//System.out.println(checkBoxArr.get(0));
-		
-		Map<Integer, CartVO> carts = new HashMap<>();
+	public String orderList(Model model, @RequestParam(value="checkBoxArr[]")List<String> checkBoxArr) {
+		List<CartVO> cartList = new ArrayList<>();
 		
 		for(int i = 0; i < checkBoxArr.size(); i++) {
 			
 			CartVO cart = service.selectOrder(checkBoxArr.get(i));
-		
-			carts.put(i, cart);
+			cartList.add(cart);
+			
 		}
 		
-		return carts;
+		String uid = (String) cartList.get(0).getUid();
+		MemberVO user = service1.selectUser(uid);
+		
+		model.addAttribute("cartList", cartList);
+		model.addAttribute("user", user);
+		
+		return "product/order";
+		
+		/*System.out.println(checkBoxArr);
+		//System.out.println(checkBoxArr.get(0));
+		
+		List<CartVO> carts = new ArrayList<>();
+		
+		for(int i = 0; i < checkBoxArr.length; i++) {
+			
+			CartVO cart = service.selectOrder(checkBoxArr[i]);
+			carts.add(cart);
+			
+		}
+		
+		String uid = (String) carts.get(0).getUid();
+		MemberVO user = service1.selectUser(uid);
+		
+		
+
+		System.out.println("user 정보 : "+user.getUid());
+		System.out.println("uid 정보 : "+uid);
+		System.out.println("post ---------");
+
+		model.addAttribute("carts", carts);
+		model.addAttribute("user", user);
+		
+		return "product/order";
+		
+		/*System.out.println(checkBoxArr);
+		System.out.println(checkBoxArr.get(0));
+		
+		List<CartVO> carts = new ArrayList<>();
+		
+		Map<String, Object> cartList = new HashMap<String, Object>();
+		List<Map<String, Object>> orderList = new ArrayList<Map<String, Object>>();
+		
+		for(int i = 0; i < checkBoxArr.size(); i++) {
+			
+			CartVO cart = service.selectOrder(checkBoxArr.get(i));
+			
+			carts.add(cart);
+			
+			cartList.put("cartNo", carts.get(i).getCartNo());
+			cartList.put("uid", carts.get(i).getUid());
+			cartList.put("prodNo", carts.get(i).getProdNo());
+			cartList.put("count", carts.get(i).getCount());
+			cartList.put("price", carts.get(i).getPrice());
+			cartList.put("discount", carts.get(i).getDiscount());
+			cartList.put("disPrice", carts.get(i).getDisPrice());
+			cartList.put("point", carts.get(i).getPoint());
+			cartList.put("delivery", carts.get(i).getDelivery());
+			cartList.put("total", carts.get(i).getTotal());
+			cartList.put("rdate", carts.get(i).getRdate());
+			cartList.put("prodName", carts.get(i).getProdName());
+			cartList.put("descript", carts.get(i).getDescript());
+			cartList.put("thumb1", carts.get(i).getThumb1());
+			
+			orderList.add(cartList);
+		}
+		
+		String uid = (String) orderList.get(0).get("uid");
+		MemberVO user = service1.selectUser(uid);
+		
+		
+		
+		System.out.println("user 정보 : "+user.getUid());
+		System.out.println("uid 정보 : "+uid);
+		System.out.println(orderList);
+		System.out.println(orderList.get(0));
+		System.out.println(orderList.get(0).get("uid"));
+		System.out.println("post ---------");
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("user", user);
+		
+		return orderList;*/
+		
 	}
 
 }

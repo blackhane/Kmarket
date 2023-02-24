@@ -73,7 +73,7 @@ $(document).ready(function(){
 		var pr="uid="+uid;
 		
 		//컨트롤러로 넘길 장바구니 번호 리스트
-		var checkBoxArr = new Array();
+		var checkBoxArr = [];
 		
 		$("input:checkbox[name='rowCheck']:checked").each(function(){
 			checkBoxArr.push($(this).val());
@@ -87,10 +87,10 @@ $(document).ready(function(){
 			$.ajax({
 				url:'/Kmarket/product/order',
 				type:'post',
-				data:{'checkBoxArr':checkBoxArr},
+				data:checkBoxArr,
 				success:function(data){
 					console.log(data);
-					location.href=url+pr;
+					//location.href=url+pr;
 				}
 			});
 			
@@ -138,6 +138,7 @@ $(document).ready(function(){
                  > <strong>장바구니</strong>
             </p>
         </nav>
+        	<form th:action="@{/product/order}" method="post">
             <!-- 장바구니 목록 -->
             <table>
                 <tr>
@@ -214,6 +215,7 @@ $(document).ready(function(){
                 </table>
                 <input type="submit" class="order" value="주문하기">
             </div>
+            </form>
     </section>
     <!-- 장바구니 페이지 끝-->
 </main>

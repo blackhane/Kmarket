@@ -2,7 +2,6 @@
 <th:block th:include="@{product/_aside.html}"/>
 <script th:inline="javascript">
 $(document).ready(function(){
-	/* 
 	$.ajax({
 		url:'Kmarket/product/order',
 		type:'post',
@@ -12,7 +11,6 @@ $(document).ready(function(){
 			
 		}
 	});
-	 */
 });
 
 </script>
@@ -25,6 +23,7 @@ $(document).ready(function(){
                 HOME > 장바구니 ><strong>주문결제</strong>
             </p>
         </nav>
+        <form action="#">
             <!-- 주문 상품 목록-->
             <th:block th:if="${product} != null">
             <table>
@@ -242,6 +241,7 @@ $(document).ready(function(){
                     <li><span>등록여부는 금융감독원 홈페이지(www.fss.or.kr)의 업무자료>인허가업무안내>전자금융업등록현황에서 확인하실수 있습니다.</span></li>
                 </ul>
             </article>
+            </form>
     </section>
     <!-- 주문 페이지 끝-->
 </main>
