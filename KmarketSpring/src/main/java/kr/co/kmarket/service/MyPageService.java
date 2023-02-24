@@ -25,6 +25,9 @@ public class MyPageService {
 	public int selectMyQnaCount(String uid) {
 		return dao.selectMyQnaCount(uid);
 	}
+	public int selectMyOrdCount(String uid) {
+		return dao.selectMyOrdCount(uid);
+	}
 	public List<OrderItemVO> selectLastOrder(String uid) {
 		return dao.selectLastOrder(uid);
 	}
@@ -39,12 +42,34 @@ public class MyPageService {
 	}
 	
 	//전체주문내역
-	public List<OrderItemVO> selectMyOrder(String param1, String param2, String param3){
-		return dao.selectMyOrder(param1, param2, param3);
+	public List<OrderItemVO> selectMyOrder(String param1, String param2, String param3 , int param4){
+		return dao.selectMyOrder(param1, param2, param3, param4);
+	}
+	public int selectOrdCount(String param1, String param2, String param3) {
+		int result = dao.selectOrdCount(param1, param2, param3);
+		
+		if(result % 10 == 0) {
+			result = result / 10;
+		}else {
+			result = result / 10 + 1;
+		}
+		
+		return result;
 	}
 	//포인트내역
-	public List<PointVO> selectMyPoint(String param1, String param2, String param3){
-		return dao.selectMyPoint(param1, param2, param3);
+	public List<PointVO> selectMyPoint(String param1, String param2, String param3, int param4){
+		return dao.selectMyPoint(param1, param2, param3, param4);
+	}
+	public int selectPointCount(String param1, String param2, String param3) {
+		int result = dao.selectOrdCount(param1, param2, param3);
+		
+		if(result % 10 == 0) {
+			result = result / 10;
+		}else {
+			result = result / 10 + 1;
+		}
+		
+		return result;
 	}
 	//쿠폰
 	public List<CouponVO> selectMyCoupon(String uid){

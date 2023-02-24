@@ -18,6 +18,7 @@ public interface MyPageDAO {
 	
 	public MemberVO selectUserinfo(String uid);
 	public int selectMyQnaCount(String uid);
+	public int selectMyOrdCount(String uid);
 	public List<OrderItemVO> selectLastOrder(String uid);
 	public List<PointVO> selectLastPoint(String uid);
 	public List<ReviewVO> selectLastReview(String uid);
@@ -25,9 +26,11 @@ public interface MyPageDAO {
 	
 	
 	//전체주문내역
-	public List<OrderItemVO> selectMyOrder(String param1, String param2, String param3);
+	public List<OrderItemVO> selectMyOrder(String param1, String param2, String param3, int param4);
+	public int selectOrdCount(String param1, String param2, String param3);
 	//포인트내역
-	public List<PointVO> selectMyPoint(String param1, String param2, String param3);
+	public List<PointVO> selectMyPoint(String param1, String param2, String param3, int param4);
+	public int selectPointCount(String param1, String param2, String param3);
 	//쿠폰
 	public List<CouponVO> selectMyCoupon(String uid);
 	//나의리뷰

@@ -37,7 +37,7 @@
                     <ul>
                         <li>주문·배송
                             <img class="deli" th:src="@{/img/myPage/ico_delivery.png}" alt="주문배송">
-                            <span>[[${info.order}]]</span>
+                            <span>[[${ordCount}]]</span>
                         </li>
                         <li>할인쿠폰
                             <img class="coupon" th:src="@{/img/myPage/ico_coupon.jpg}" alt="할인쿠폰">
@@ -45,7 +45,7 @@
                         </li>
                         <li>포인트
                             <img class="point" th:src="@{/img/myPage/ico_point.jpg}" alt="포인트">
-                            <span>[[${info.point}]]</span>
+                            <span>[[${#numbers.formatInteger(info.point, 0, 'COMMA')}]]</span>
                         </li>
                         <li>문의내역
                             <img class="qna" th:src="@{/img/myPage/ico_qna.png}" alt="문의내역">

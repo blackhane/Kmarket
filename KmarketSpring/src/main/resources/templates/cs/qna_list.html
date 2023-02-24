@@ -31,7 +31,7 @@
                             <td>[[${article.rdate}]]</td>
                         </tr>
                     </table>
-                    <div class="page">
+                    <div class="page" th:if="${page[1] > 0}">
                     	<th:block th:if="${page[0] > 1}">
                         	<a th:href="@{/cs/qna/list(group=${group}, pg=${page[0]-1})}" class="prev"></a>
                         </th:block>
