@@ -14,6 +14,69 @@
     <script th:src="@{/js/date.js}"></script>
     <script>
     	$(function(){
+    		let lastPage = 1;
+    		
+    		$(document).on('click','.sellerInfo',function(e){
+    			e.preventDefault();
+    			//창 사이즈
+    			let width = 698;
+    			let height = 560;
+    			//현재 창의 가운데
+    			var left = (window.screen.width / 2) - (width/2);
+    			var top = (window.screen.height / 4);
+    			
+    			let company = $(this).text();
+    			
+    			window.open("/Kmarket/my/sellerInfo/"+company , "판매자정보", "width = "+width+", height = "+height+", top = "+top+", left = "+left+", resizable=no");
+    		});
+    		$(document).on('click','.orderInfo',function(e){
+    			e.preventDefault();
+    			//창 사이즈
+    			let width = 698;
+    			let height = 560;
+    			//현재 창의 가운데
+    			var left = (window.screen.width / 2) - (width/2);
+    			var top = (window.screen.height / 4);
+
+    			let prodNO = $(this).data('value');
+    			console.log(prodNO);
+    			
+    			window.open("/Kmarket/my/orderInfo/"+prodNO, "주문정보", "width = "+width+", height = "+height+", top = "+top+", left = "+left);
+    		});
+    		$(document).on('click','.confirm',function(e){
+    			e.preventDefault();
+    			//창 사이즈
+    			let width = 516;
+    			let height = 280;
+    			//현재 창의 가운데
+    			var left = (window.screen.width / 2) - (width/2);
+    			var top = (window.screen.height / 4);
+    			
+    			let ordNO = $(this).data('value');
+    			let complete = $(this).data('complete');
+    			
+    			if(complete == "5"){
+    				alert('이미 수취확인 하셨습니다.');
+    				return false;
+    			}
+    			
+    			window.open("/Kmarket/my/confirm/"+ordNO, "주문정보", "width = "+width+", height = "+height+", top = "+top+", left = "+left);
+    		});
+    		$(document).on('click','.review',function(e){
+    			e.preventDefault();
+    			//창 사이즈
+    			let width = 632;
+    			let height = 435;
+    			//현재 창의 가운데
+    			var left = (window.screen.width / 2) - (width/2);
+    			var top = (window.screen.height / 4);
+
+    			let prodName = $(this).text();
+    			let prodNO = $(this).data('value');
+    			
+    			window.open("/Kmarket/my/review?prodName="+prodName+"&prodNo="+prodNO, "주문정보", "width = "+width+", height = "+height+", top = "+top+", left = "+left);
+    		});
+    		
     		let now = new Date();
     		$('.month1').text(now.getMonth()+1);
     		now.setMonth(now.getMonth() -1);
@@ -38,28 +101,39 @@
     		today = new Date();
     		let firstDay = new Date(today.setDate(today.getDate()-15));
     		firstDay = dateFormat(firstDay);
-    		list(firstDay, lastDay);
+    		let pg = 1;
+    		list(firstDay, lastDay, pg);
+    		page(firstDay, lastDay);
     		
     		//7일전
     		$('#1week').click(function(){
 	    		today = new Date();
 	    		let firstDay = new Date(today.setDate(today.getDate()-7));
 	    		firstDay = dateFormat(firstDay);
-	    		list(firstDay, lastDay);
+	    		pg = 1;
+	    		list(firstDay, lastDay, pg);
+	    		page(firstDay, lastDay);
+	    		lastPage = page(firstDay, lastDay);
     		});
     		//15일전
     		$('#15day').click(function(){
     			today = new Date();
 	    		let firstDay = new Date(today.setDate(today.getDate()-15));
 	    		firstDay = dateFormat(firstDay);
-	    		list(firstDay, lastDay);
+	    		pg = 1;
+	    		list(firstDay, lastDay, pg);
+	    		page(firstDay, lastDay);
+	    		lastPage = page(firstDay, lastDay);
     		});
     		//30일전
     		$('#1month').click(function(){
     			today = new Date();
     			let firstDay = new Date(today.setDate(today.getDate()-30));
     			firstDay = dateFormat(firstDay);
-    			list(firstDay, lastDay);
+    			pg = 1;
+    			list(firstDay, lastDay, pg);
+    			page(firstDay, lastDay);
+    			lastPage = page(firstDay, lastDay);
     		});
     		//당월
     		$('#month1').click(function(){
@@ -68,7 +142,10 @@
 				let lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 				firstDay = dateFormat(firstDay);
 				lastDay = dateFormat(lastDay);
-				list(firstDay, lastDay);
+				pg = 1;
+				list(firstDay, lastDay, pg);
+				page(firstDay, lastDay);
+				lastPage = page(firstDay, lastDay);
     		});
     		//1달전
     		$('#month2').click(function(){
@@ -77,7 +154,10 @@
 				let lastDay = new Date(today.getFullYear(), today.getMonth(), 0);
 				firstDay = dateFormat(firstDay);
 				lastDay = dateFormat(lastDay);
-				list(firstDay, lastDay);
+				pg = 1;
+				list(firstDay, lastDay, pg);
+				page(firstDay, lastDay);
+				lastPage = page(firstDay, lastDay);
     		});
     		//2달전
     		$('#month3').click(function(){
@@ -86,7 +166,10 @@
 				let lastDay = new Date(today.getFullYear(), today.getMonth()-1, 0);
 				firstDay = dateFormat(firstDay);
 				lastDay = dateFormat(lastDay);
-				list(firstDay, lastDay);
+				pg = 1;
+				list(firstDay, lastDay, pg);
+				page(firstDay, lastDay);
+				lastPage = page(firstDay, lastDay);
     		});
     		//3달전
     		$('#month4').click(function(){
@@ -95,7 +178,10 @@
 				let lastDay = new Date(today.getFullYear(), today.getMonth()-2, 0);
 				firstDay = dateFormat(firstDay);
 				lastDay = dateFormat(lastDay);
-				list(firstDay, lastDay);
+				pg = 1;
+				list(firstDay, lastDay, pg);
+				page(firstDay, lastDay);
+				lastPage = page(firstDay, lastDay);
     		});
     		//4달전
     		$('#month5').click(function(){
@@ -104,7 +190,10 @@
 				let lastDay = new Date(today.getFullYear(), today.getMonth()-3, 0);
 				firstDay = dateFormat(firstDay);
 				lastDay = dateFormat(lastDay);
-				list(firstDay, lastDay);
+				pg = 1;
+				list(firstDay, lastDay, pg);
+				page(firstDay, lastDay);
+				lastPage = page(firstDay, lastDay);
     		});
     		//사용자 지정
     		$('.search').click(function(){
@@ -122,14 +211,18 @@
     				alert('전체주문내역의 최대 1년치까지만 조회가능합니다.');
     				start = firstDay;
     			}
-    			list(start, end);
+    			pg = 1;
+    			list(start, end, pg);
+    			page(start, end);
+    			lastPage = page(start, end);
     			$('.on').attr('class','off');
     		});
     		
-    		function list(start, end){
+    		function list(start, end, pg){
     			let jsonData = {
     					'start' : start,
-    					'end' : end
+    					'end' : end,
+    					'pg' : pg-1
     			}
     			console.log(jsonData);
     			$.ajax({
@@ -151,9 +244,9 @@
 		   							tag += "<td>";
 		   							tag += "<img src=/Kmarket/image/"+i.thumb1+" alt='상품이미지'>";
 		   							tag += "<div>";
-		   							tag += "상호명 : "+i.company+"<br/>";
-		   							tag += "상품명 : "+i.prodName+"<br/>";
-		   							tag += "수량 : "+i.count+"개 / 주문번호 :"+i.ordNO+"<br/>";
+		   							tag += "상호명 : <a href='#' class='sellerInfo'>"+i.company+"</a><br/>";
+		   							tag += "상품명 : <a href='#'>"+i.prodName+"</a><br/>";
+		   							tag += "수량 : "+i.count+"개 / 주문번호 : <a href='#' class='orderInfo' data-value='"+i.prodNO+"'>"+i.ordNO+"</a><br/>";
 		   							tag += i.price.toLocaleString('ko-KR') +"원";
 		   							tag += "</div>";
 		   							tag += "</td>";
@@ -171,8 +264,8 @@
 		   								tag += "<td>수취확인</td>";
 		   							}
 		   							tag += "<td><ul>";
-		   							tag += "<li><a href='#'>수취확인</a></li>";
-		   							tag += "<li><a href='#'>상품평쓰기</a></li>";
+		   							tag += "<li><a href='#' class='confirm' data-value='"+i.ordNO+"' data-complete='"+i.ordComplete+"'>수취확인</a></li>";
+		   							tag += "<li><a href='#' class='review' data-value='"+i.prodNO+"'>상품평쓰기</a></li>";
 		   							tag += "<li><a href='#'>반품신청</a></li>";
 		   							tag += "<li><a href='#'>교환신청</a></li>";
 		   							tag += "</ul></td></tr>";
@@ -181,6 +274,71 @@
    					}
     				}
     			});
+    		}
+    		
+    		function page(start, end){
+    			let lastPage ="0";
+    			
+    			let jsonData = {
+    					'start' : start,
+    					'end' : end
+    			}
+    			
+    			console.log(jsonData);
+    			$.ajax({
+    				url : '/Kmarket/mypage/orderCount/',
+    				method : 'POST',
+    				async:false,
+    				data : jsonData,
+    				dataType : 'JSON',
+    				success : function(data){
+    					lastPage = data.result;
+    					$('.page').empty();
+    					let tag = "<a href='#num' class='prev'></a>";
+    					$('.page').append(tag);
+    					for(let i=1; i<=data.result; i++){
+    						let num = pg == i ? 'num current' : 'num off';
+    						let tag = "<a href='#num' class='"+num+"' data-value='"+i+"'>"+i+"</a>";
+    						$('.page').append(tag);
+    					}
+    					tag = "<a href='#num' class='next'></a>";
+    					$('.page').append(tag);
+    				}
+    			});
+    			return lastPage;
+    		}
+    		
+    		$(document).on('click','.num',function(){
+    			let pg = $(this).data('value');
+    			list(firstDay, lastDay, pg);
+    			$('.current').attr('class','num off');
+    			$(this).attr('class','num current');
+    		});
+    		
+    		$(document).on('click','.prev',function(){
+    			if(pg==1){
+    				alert('첫 페이지입니다.');
+    				return false;
+    			}else{
+    				pg -= 1;
+    				list(firstDay, lastDay, pg);
+    				newCurrent();
+    			}
+    		});
+    		$(document).on('click','.next',function(){
+    			if(pg == lastPage){
+    				alert('마지막 페이지입니다.');
+    				return false;
+    			}else{
+    				pg += 1;
+    				list(firstDay, lastDay, pg);
+    				newCurrent();
+    			}
+    		});
+    		
+    		function newCurrent(){
+    			$('a.num').attr('class','num off');
+    			$('a.num').eq(pg-1).attr('class','num current');
     		}
     	});
     </script>
@@ -192,18 +350,18 @@
                     <div>
                         <p>전체주문내역</p>
                         <div class="day">
-                            <span></span>
+                            <span id="day"></span>
                             <ul>
-                                <li><a href="#" class="off" id="1week"><span>1</span>주일</a></li>
-                                <li><a href="#" class="on off" id="15day"><span>15</span>일</a></li>
-                                <li><a href="#" class="off" id="1month"><span>1</span>개월</a></li>
+                                <li><a href="#day" class="off" id="1week"><span>1</span>주일</a></li>
+                                <li><a href="#day" class="on off" id="15day"><span>15</span>일</a></li>
+                                <li><a href="#day" class="off" id="1month"><span>1</span>개월</a></li>
                             </ul>
                             <ul>
-                                <li><a href="#" class="off" id="month1"><span class="month1"></span>월</a></li>
-                                <li><a href="#" class="off" id="month2"><span class="month2"></span>월</a></li>
-                                <li><a href="#" class="off" id="month3"><span class="month3"></span>월</a></li>
-                                <li><a href="#" class="off" id="month4"><span class="month4"></span>월</a></li>
-                                <li><a href="#" class="off" id="month5"><span class="month5"></span>월</a></li>
+                                <li><a href="#day" class="off" id="month1"><span class="month1"></span>월</a></li>
+                                <li><a href="#day" class="off" id="month2"><span class="month2"></span>월</a></li>
+                                <li><a href="#day" class="off" id="month3"><span class="month3"></span>월</a></li>
+                                <li><a href="#day" class="off" id="month4"><span class="month4"></span>월</a></li>
+                                <li><a href="#day" class="off" id="month5"><span class="month5"></span>월</a></li>
                             </ul>
                             <p>
                                 <input type="date" name="start">~<input type="date" name="end">
@@ -245,11 +403,13 @@
                             */-->
                         </table>
                         <div class="page">
+                        <!--/*
                             <a href="#" class="prev"></a>
                             <a href="#" class="num current">1</a>
                             <a href="#" class="num">2</a>
                             <a href="#" class="num">3</a>
                             <a href="#" class="next"></a>
+                        */-->
                         </div>
                     </div>
             </section>

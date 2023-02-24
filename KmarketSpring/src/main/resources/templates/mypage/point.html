@@ -14,6 +14,8 @@
     <script th:src="@{/js/date.js}"></script>
     <script th:inline="javascript">
     	$(function(){
+    		let lastPage = 1;
+    		
     		let now = new Date();
     		$('.month1').text(now.getMonth()+1);
     		now.setMonth(now.getMonth() -1);
@@ -38,28 +40,40 @@
     		today = new Date();
     		let firstDay = new Date(today.setDate(today.getDate()-15));
     		firstDay = dateFormat(firstDay);
-    		list(firstDay, lastDay);
+    		let pg = 1;
+			list(firstDay, lastDay, pg);
+			page(firstDay, lastDay);
+			lastPage = page(firstDay, lastDay);
 
     		//7일전
     		$('#1week').click(function(){
     			today = new Date();
     			let firstDay = new Date(today.setDate(today.getDate()-7));
     			firstDay = dateFormat(firstDay);
-    			list(firstDay, lastDay);
+    			pg = 1;
+				list(firstDay, lastDay, pg);
+				page(firstDay, lastDay);
+				lastPage = page(firstDay, lastDay);
     		});
     		//15일전
     		$('#15day').click(function(){
     			today = new Date();
     			let firstDay = new Date(today.setDate(today.getDate()-15));
     			firstDay = dateFormat(firstDay);
-    			list(firstDay, lastDay);
+    			pg = 1;
+				list(firstDay, lastDay, pg);
+				page(firstDay, lastDay);
+				lastPage = page(firstDay, lastDay);
     		});
     		//30일전
     		$('#1month').click(function(){
     			today = new Date();
     			let firstDay = new Date(today.setDate(today.getDate()-30));
     			firstDay = dateFormat(firstDay);
-    			list(firstDay, lastDay);
+    			pg = 1;
+				list(firstDay, lastDay, pg);
+				page(firstDay, lastDay);
+				lastPage = page(firstDay, lastDay);
     		});
     		//당월
     		$('#month1').click(function(){
@@ -68,7 +82,10 @@
     			let lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
     			firstDay = dateFormat(firstDay);
     			lastDay = dateFormat(lastDay);
-    			list(firstDay, lastDay);
+    			pg = 1;
+				list(firstDay, lastDay, pg);
+				page(firstDay, lastDay);
+				lastPage = page(firstDay, lastDay);
     		});
     		//1달전
     		$('#month2').click(function(){
@@ -77,7 +94,10 @@
     			let lastDay = new Date(today.getFullYear(), today.getMonth(), 0);
     			firstDay = dateFormat(firstDay);
     			lastDay = dateFormat(lastDay);
-    			list(firstDay, lastDay);
+    			pg = 1;
+				list(firstDay, lastDay, pg);
+				page(firstDay, lastDay);
+				lastPage = page(firstDay, lastDay);
     		});
     		//2달전
     		$('#month3').click(function(){
@@ -86,7 +106,10 @@
     			let lastDay = new Date(today.getFullYear(), today.getMonth()-1, 0);
     			firstDay = dateFormat(firstDay);
     			lastDay = dateFormat(lastDay);
-    			list(firstDay, lastDay);
+    			pg = 1;
+				list(firstDay, lastDay, pg);
+				page(firstDay, lastDay);
+				lastPage = page(firstDay, lastDay);
     		});
     		//3달전
     		$('#month4').click(function(){
@@ -95,7 +118,10 @@
     			let lastDay = new Date(today.getFullYear(), today.getMonth()-2, 0);
     			firstDay = dateFormat(firstDay);
     			lastDay = dateFormat(lastDay);
-    			list(firstDay, lastDay);
+    			pg = 1;
+				list(firstDay, lastDay, pg);
+				page(firstDay, lastDay);
+				lastPage = page(firstDay, lastDay);
     		});
     		//4달전
     		$('#month5').click(function(){
@@ -104,7 +130,10 @@
     			let lastDay = new Date(today.getFullYear(), today.getMonth()-3, 0);
     			firstDay = dateFormat(firstDay);
     			lastDay = dateFormat(lastDay);
-    			list(firstDay, lastDay);
+    			pg = 1;
+				list(firstDay, lastDay, pg);
+				page(firstDay, lastDay);
+				lastPage = page(firstDay, lastDay);
     		});
     		//사용자 지정
     		$('.search').click(function(){
@@ -122,14 +151,18 @@
     				alert('전체주문내역의 최대 1년치까지만 조회가능합니다.');
     				start = firstDay;
     			}
-    			list(start, end);
+    			pg = 1;
+    			list(start, end, pg);
+    			page(start, end);
+    			lastPage = page(start, end);
     			$('.on').attr('class','off');
     		});
     		
-    		function list(start, end){
+    		function list(start, end, pg){
     			let jsonData = {
     					'start' : start,
-    					'end' : end
+    					'end' : end,
+    					'pg' : pg-1
     			}
     			console.log(jsonData);
     			$.ajax({
@@ -159,6 +192,71 @@
     					}
     				}
     			});
+    		}
+    		
+    		function page(start, end){
+    			let lastPage ="0";
+    			
+    			let jsonData = {
+    					'start' : start,
+    					'end' : end
+    			}
+    			
+    			console.log(jsonData);
+    			$.ajax({
+    				url : '/Kmarket/mypage/pointCount/',
+    				method : 'POST',
+    				async:false,
+    				data : jsonData,
+    				dataType : 'JSON',
+    				success : function(data){
+    					lastPage = data.result;
+    					$('.page').empty();
+    					let tag = "<a href='#num' class='prev'></a>";
+    					$('.page').append(tag);
+    					for(let i=1; i<=data.result; i++){
+    						let num = pg == i ? 'num current' : 'num off';
+    						let tag = "<a href='#num' class='"+num+"' data-value='"+i+"'>"+i+"</a>";
+    						$('.page').append(tag);
+    					}
+    					tag = "<a href='#num' class='next'></a>";
+    					$('.page').append(tag);
+    				}
+    			});
+    			return lastPage;
+    		}
+    		
+    		$(document).on('click','.num',function(){
+    			let pg = $(this).data('value');
+    			list(firstDay, lastDay, pg);
+    			$('.current').attr('class','num off');
+    			$(this).attr('class','num current');
+    		});
+    		
+    		$(document).on('click','.prev',function(){
+    			if(pg==1){
+    				alert('첫 페이지입니다.');
+    				return false;
+    			}else{
+    				pg -= 1;
+    				list(firstDay, lastDay, pg);
+    				newCurrent();
+    			}
+    		});
+    		$(document).on('click','.next',function(){
+    			if(pg == lastPage){
+    				alert('마지막 페이지입니다.');
+    				return false;
+    			}else{
+    				pg += 1;
+    				list(firstDay, lastDay, pg);
+    				newCurrent();
+    			}
+    		});
+    		
+    		function newCurrent(){
+    			$('a.num').attr('class','num off');
+    			$('a.num').eq(pg-1).attr('class','num current');
     		}
     	});
     	</script>
@@ -212,11 +310,13 @@
                             */-->
                         </table>
                         <div class="page">
+                       		<!--/*
                             <a href="#" class="prev"></a>
                             <a href="#" class="num current">1</a>
                             <a href="#" class="num">2</a>
                             <a href="#" class="num">3</a>
                             <a href="#" class="next"></a>
+                            */-->
                         </div>
                     </div>
             </section>

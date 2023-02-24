@@ -40,6 +40,7 @@ public class MypageController {
 		
 		MemberVO info = service.selectUserinfo(uid);
 		int count = service.selectMyQnaCount(uid);
+		int ordCount = service.selectMyOrdCount(uid);
 		List<OrderItemVO> order = service.selectLastOrder(uid);
 		List<PointVO> point = service.selectLastPoint(uid);
 		List<ReviewVO> review = service.selectLastReview(uid);
@@ -47,6 +48,7 @@ public class MypageController {
 		
 		model.addAttribute("info", info);
 		model.addAttribute("count", count);
+		model.addAttribute("ordCount", ordCount);
 		model.addAttribute("order", order);
 		model.addAttribute("point", point);
 		model.addAttribute("review", review);
@@ -61,22 +63,37 @@ public class MypageController {
 		
 		MemberVO info = service.selectUserinfo(uid);
 		int count = service.selectMyQnaCount(uid);
+		int ordCount = service.selectMyOrdCount(uid);
 		
 		model.addAttribute("info", info);
 		model.addAttribute("count", count);
+		model.addAttribute("ordCount", ordCount);
 		
 		return "mypage/ordered";
 	}
 	
 	@PostMapping("mypage/orderList")
 	@ResponseBody
-	public Map<String, Object> order(Principal principal, String start, String end) {
+	public Map<String, Object> order(Principal principal, String start, String end, int pg) {
 		String uid = principal.getName();
-		List<OrderItemVO> list = service.selectMyOrder(uid, start, end);
+		List<OrderItemVO> list = service.selectMyOrder(uid, start, end, pg);
 		
 		//JSON 파싱
 		Map<String, Object> map = new HashMap<>();
 		map.put("result", list);
+		
+		return map;
+	}
+	
+	@PostMapping("mypage/orderCount")
+	@ResponseBody
+	public Map<String, Object> orderCount(Principal principal, String start, String end) {
+		String uid = principal.getName();
+		int result = service.selectOrdCount(uid, start, end);
+		
+		//JSON 파싱
+		Map<String, Object> map = new HashMap<>();
+		map.put("result", result);
 		
 		return map;
 	}
@@ -87,22 +104,37 @@ public class MypageController {
 		
 		MemberVO info = service.selectUserinfo(uid);
 		int count = service.selectMyQnaCount(uid);
+		int ordCount = service.selectMyOrdCount(uid);
 		
 		model.addAttribute("info", info);
 		model.addAttribute("count", count);
+		model.addAttribute("ordCount", ordCount);
 		
 		return "mypage/point";
 	}
 	
 	@PostMapping("mypage/pointList")
 	@ResponseBody
-	public Map<String, Object> point(Principal principal, String start, String end) {
+	public Map<String, Object> point(Principal principal, String start, String end, int pg) {
 		String uid = principal.getName();
-		List<PointVO> list = service.selectMyPoint(uid, start, end);
+		List<PointVO> list = service.selectMyPoint(uid, start, end, pg);
 		
 		//JSON 파싱
 		Map<String, Object> map = new HashMap<>();
 		map.put("result", list);
+		
+		return map;
+	}
+	
+	@PostMapping("mypage/pointCount")
+	@ResponseBody
+	public Map<String, Object> pointCount(Principal principal, String start, String end) {
+		String uid = principal.getName();
+		int result = service.selectPointCount(uid, start, end);
+		
+		//JSON 파싱
+		Map<String, Object> map = new HashMap<>();
+		map.put("result", result);
 		
 		return map;
 	}
@@ -113,10 +145,12 @@ public class MypageController {
 		
 		MemberVO info = service.selectUserinfo(uid);
 		int count = service.selectMyQnaCount(uid);
+		int ordCount = service.selectMyOrdCount(uid);
 		List<CouponVO> vo = service.selectMyCoupon(uid);
 		
 		model.addAttribute("info", info);
 		model.addAttribute("count", count);
+		model.addAttribute("ordCount", ordCount);
 		model.addAttribute("vo", vo);
 		
 		return "mypage/coupon";
@@ -128,10 +162,12 @@ public class MypageController {
 		
 		MemberVO info = service.selectUserinfo(uid);
 		int count = service.selectMyQnaCount(uid);
+		int ordCount = service.selectMyOrdCount(uid);
 		List<ReviewVO> vo = service.selectMyReview(uid);
 		
 		model.addAttribute("info", info);
 		model.addAttribute("count", count);
+		model.addAttribute("ordCount", ordCount);
 		model.addAttribute("vo", vo);
 		
 		return "mypage/review";
@@ -143,10 +179,12 @@ public class MypageController {
 		
 		MemberVO info = service.selectUserinfo(uid);
 		int count = service.selectMyQnaCount(uid);
+		int ordCount = service.selectMyOrdCount(uid);
 		List<CsVO> vo = service.selectMyQna(uid);
 		
 		model.addAttribute("info", info);
 		model.addAttribute("count", count);
+		model.addAttribute("ordCount", ordCount);
 		model.addAttribute("vo", vo);
 		
 		return "mypage/qna";
@@ -158,9 +196,11 @@ public class MypageController {
 		
 		MemberVO info = service.selectUserinfo(uid);
 		int count = service.selectMyQnaCount(uid);
+		int ordCount = service.selectMyOrdCount(uid);
 		
 		model.addAttribute("info", info);
 		model.addAttribute("count", count);
+		model.addAttribute("ordCount", ordCount);
 		
 		return "mypage/info";
 	}
