@@ -31,6 +31,12 @@
 		SELECT count(`revNo`) FROM `km_product_review` WHERE `prodNo`=#{param1} ORDER BY `revNo` DESC 
 		limit #{param2}, 10;;
 	</select>
+	<select id="selectProductByKeyword" resultType="kr.co.kmarket.vo.ProductVO">
+		SELECT * FROM `km_product` WHERE `prodName` LIKE CONCAT ('%',#{keyword},'%');
+	</select>
+	<select id="selectProductByKeywordTotal" resultType="int">
+		SELECT count(`prodNo`) FROM `km_product` WHERE `prodName` LIKE CONCAT ('%',#{keyword},'%');
+	</select>
 	
 	<!-- 장바구니 추가-->
 	<insert id="addCart">

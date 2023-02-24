@@ -34,6 +34,13 @@ public class ProductService {
 	public List<ReviewVO> selectReviews(String param1) {
 		return dao.selectReviews(param1);
 	}
+	public List<ProductVO> selectProductByKeyword(String keyword){
+		return dao.selectProductByKeyword(keyword);
+	}
+	public int selectProductByKeywordTotal(String keyword) {
+		return dao.selectProductByKeywordTotal(keyword);
+	}
+
 	
 	//장바구니 추가
 	public int addCart(CartVO cart) {

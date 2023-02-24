@@ -46,23 +46,24 @@
 			}
 			console.log(form);
 			
-			//장바구니 추가
-			$.ajax({
-				url: '/Kmarket/product/cart/add',
-				type: 'POST',
-				data: form,
-				success: function(data){
-					//1번 장바구니에 상품이 등록됨
-					console.log(data.result);
-					let answer = confirm("장바구니에 상품이 등록되었습니다.\n장바구니로 이동하시겠습니까?");
-					if(answer){
-						//장바구니로 이동
-						location.href="/Kmarket/product/cart?uid="+uid;
-					}else{
-						return false;
+				//장바구니 추가
+				$.ajax({
+					url: '/Kmarket/product/cart/add',
+					type: 'POST',
+					data: form,
+					success: function(data){
+						//1번 장바구니에 상품이 등록됨
+						console.log(data.result);
+						let answer = confirm("장바구니에 상품이 등록되었습니다.\n장바구니로 이동하시겠습니까?");
+						if(answer){
+							//장바구니로 이동
+							location.href="/Kmarket/product/cart?uid="+uid;
+						}else{
+							return false;
+						}
 					}
-				}
-			});
+				});
+			
 		});
 		
 		//바로구매
@@ -119,7 +120,7 @@
 	        </div>
 	        <div class="summary">
 	            <nav>
-	                <h1>(주)[[${prod.seller}]]</h1>
+	                <h1>(주)[[${prod.company}]]</h1>
 	                <h2>상품번호&nbsp;:&nbsp;<span>[[${prod.prodNo}]]</span></h2>
 	            </nav>
 	            <nav>

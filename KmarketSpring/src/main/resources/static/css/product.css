@@ -217,7 +217,9 @@ main > aside > .category > li > ol > li > a{
     font-weight: bold;
 }
 #product >.list > .searchTable{border: 1px solid #e2e2e2;}
-#product >.list > .searchTable tr{}
+#product >.list > .searchTable tr{
+	position: relative;
+}
 #product >.list > .searchTable tr > td{
 	padding: 5px;
 	border: 0px;
@@ -227,6 +229,35 @@ main > aside > .category > li > ol > li > a{
 	height: 26px;
 	position: relative;
 }
+#product > .list > .searchTable tr:nth-child(2) > td:first-child {
+   position: absolute;
+   top: 8px;
+}
+#product > .list > .searchTable tr:nth-child(2) > td:nth-child(2) {
+   position: absolute;
+   top: 8px;
+   left: 160px;
+}
+#product > .list > .searchTable tr:nth-child(2) > td:nth-child(3) {
+   position: absolute;
+   top: 10px;
+   left: 350px;
+}
+#product > .list > .searchTable tr:nth-child(2) > td:nth-child(4) {
+   position: absolute;
+   top: 10px;
+   left: 450px;
+}
+#product > .list > .searchTable tr:nth-child(2) > td:nth-child(5) {
+   position: absolute;
+   top: 10px;
+   left: 512px;
+}
+#product > .list > .searchTable tr:nth-child(2) > td:nth-child(6) > input:nth-child(1) {
+	position: absolute;
+    right: 153px;
+}
+#product > .list > .searchTable tr:nth-child(2) > td:nth-child(6) > input:nth-child(2) {}
 #product >.list > .searchTable tr > td > h3{
 	position: absolute;
     left: 10px;
@@ -581,7 +612,7 @@ main > aside > .category > li > ol > li > a{
     color: #777777;
 }
 
-#product > .cart .cartdelete{
+#product > .cart .cartDelete{
     margin-top: 10px;
     width: 7%;
     background: white;
