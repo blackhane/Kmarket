@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.directory.SearchResult;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.annotations.Param;
@@ -20,6 +21,7 @@ import kr.co.kmarket.vo.Cate1VO;
 import kr.co.kmarket.vo.Cate2VO;
 import kr.co.kmarket.vo.CsVO;
 import kr.co.kmarket.vo.ProductVO;
+import kr.co.kmarket.vo.SearchResultVO;
 import lombok.extern.slf4j.Slf4j;
 
 /*
@@ -208,7 +210,7 @@ public class AdminController {
 		int currentPage = service.getCurrentPage(pg);
 		int start = service.getLimitStart(currentPage);
 		
-		int total = service.selectCountTotal();
+		int total = service.selectCountQna();
 		int lastPageNum = service.getLastPageNum(total);
 		int pageStartNum = service.getPageStartNum(total, start);
 		int groups[] = service.getPageGroup(currentPage, lastPageNum);
@@ -221,8 +223,9 @@ public class AdminController {
 		model.addAttribute("pageStartNum", pageStartNum);
 		model.addAttribute("groups", groups);
 		
-		
-		
+		System.out.println("total : " + total);
+		System.out.println("lastPageNum : " + lastPageNum);
+		System.out.println("pageStartNum : " + pageStartNum);
 		
 		return "admin/cs/qna_list";
 	}
@@ -265,17 +268,33 @@ public class AdminController {
 	//관리자 CS - Qna Search
 	@ResponseBody
 	@GetMapping("admin/qna_search")
-	public List<CsVO> Search(@RequestParam("group") String group, String cate) {
+	public SearchResultVO Search(@RequestParam("group") String group, String cate, String pg) {
+
+		int currentPage = service.getCurrentPage(pg);
+		int start = service.getLimitStart(currentPage);
 		
-		System.out.println("group : " + group);
-		System.out.println("cate : " + cate);
+		List<CsVO> search = service.selectQnaSearch(group, cate, start);
 		
-		List<CsVO> search = service.selectQnaSearch(group, cate);
+		int total = service.selectCountQna2(group, cate);
+		int lastPageNum = service.getLastPageNum(total);
+		int pageStartNum = service.getPageStartNum(total, start);
+		int groups[] = service.getPageGroup(currentPage, lastPageNum);
 		
-		//Map<String, List<CsVO>> map = new HashMap<>();
-		//map.put("result", search);
+		SearchResultVO vo = new SearchResultVO();
+		vo.setCurrentPage(currentPage);
+		vo.setSearch(search);
+		vo.setLastPageNum(lastPageNum);
+		vo.setPageStartNum(pageStartNum);
+		vo.setGroups(groups);
+		vo.setGroup(group);
+		vo.setCate(cate);
 		
-		return search;
+		/*System.out.println("total : " + total);
+		System.out.println("lastPageNum : " + lastPageNum);
+		System.out.println("pageStartNum : " + pageStartNum);*/
+		
+		
+		return vo;
 	}
 	
 	//관리자 CS - Qna Delete
@@ -295,24 +314,5 @@ public class AdminController {
 		System.out.println(arr.size());
 		
 		return map;
-	}
-	
-	//관리자 CS - Qna list
-	@ResponseBody
-	@GetMapping("admin/qna_list")
-	public List<CsVO> listQna(@Param("group") String group, @Param("cate")String cate) {
-		
-		System.out.println("group : " + group);
-		System.out.println("cate : " + cate);
-		
-		if(group != null && cate != null) {
-			List<CsVO> search = service.selectQnaSearch(group, cate);
-			
-			return search;
-		}else {
-			List<CsVO> search = service.selectQnaArticles();
-			
-			return search;
-		}
 	}
 }

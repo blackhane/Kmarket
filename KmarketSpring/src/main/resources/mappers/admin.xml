@@ -4,7 +4,28 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace = mapper파일의 아이디 값 -->
 <mapper namespace="kr.co.kmarket.dao.AdminDAO">
-	<!-- 관리자 상품 -->
+
+	<!-- ADMIN PRODUCT -->
+	<select id="selectProductCate1s" resultType="kr.co.kmarket.vo.Cate1VO">
+		SELECT * FROM `km_product_cate1`;
+	</select>
+	
+	<select id="selectProductCate2s" resultType="kr.co.kmarket.vo.Cate2VO">
+		SELECT * FROM `km_product_cate2` WHERE `cate1` = #{cate1};
+	</select>
+	
+	<select id="selectAdminProductList" resultType="kr.co.kmarket.vo.ProductVO">
+		select * from `km_product` order by `rdate` desc limit #{start}, 10;
+	</select>
+	
+	<select id="selectAdminProductThumb" resultType="kr.co.kmarket.vo.ProductVO">
+		SELECT * from `km_product` WHERE `prodNo` = #{prodNo};
+	</select>
+	
+	<select id="selectCountTotal" resultType="int">
+		select COUNT(`prodNo`) from `km_product`; 
+	</select>
+	
 	<insert id="insertAdminProduct">
 		insert into `km_product` set
 										`cate1` 	= #{cate1} ,
@@ -31,41 +52,13 @@
 									
 	</insert>
 	
-	
-	<select id="selectProductCate1s" resultType="kr.co.kmarket.vo.Cate1VO">
-		SELECT * FROM `km_product_cate1`;
-	</select>
-	
-	<select id="selectProductCate2s" resultType="kr.co.kmarket.vo.Cate2VO">
-		SELECT * FROM `km_product_cate2` WHERE `cate1` = #{cate1};
-	</select>
-	
-	<select id="selectAdminProductList" resultType="kr.co.kmarket.vo.ProductVO">
-		select * from `km_product` order by `rdate` desc limit #{start}, 10;
-	</select>
-	
-	<select id="selectAdminProductThumb" resultType="kr.co.kmarket.vo.ProductVO">
-		SELECT * from `km_product` WHERE `prodNo` = #{prodNo};
-	</select>
-	
-	<select id="selectCountTotal" resultType="int">
-		select COUNT(`prodNo`) from `km_product`; 
-	</select>
-	
-	<select id="selectCountNoticeTotal" resultType="int">
-		select COUNT(`no`) from `km_cs_notice`; 
-	</select>
-	
 	<delete id="productDelete">
 		DELETE FROM `km_product` WHERE `prodNo` = #{prodNo};
 	</delete>
 	
+	<!-- ADMIN CS NOTICE -->
 	<select id="selectIndexCsNoticeList" resultType="kr.co.kmarket.vo.CsVO">
 		SELECT * FROM `km_cs_notice` ORDER BY `no` DESC LIMIT 10;
-	</select>
-	
-	<select id="selectCsQnaList" resultType="kr.co.kmarket.vo.CsVO">
-		SELECT * FROM `km_cs_qna` ORDER BY `no` DESC LIMIT 10;
 	</select>
 	
 	<select id="selectCsNoticeList" resultType="kr.co.kmarket.vo.CsVO">
@@ -74,6 +67,10 @@
 	
 	<select id="selectNoticeArticle" resultType="kr.co.kmarket.vo.CsVO">
 		SELECT * FROM `km_cs_notice` WHERE `no` = #{no};
+	</select>
+	
+	<select id="selectCountNoticeTotal" resultType="int">
+		select COUNT(`no`) from `km_cs_notice`; 
 	</select>
 	
 	<update id="updateNoticeArticle">
@@ -87,6 +84,11 @@
 		DELETE FROM `km_cs_notice` WHERE `no` = #{no};
 	</delete>
 	
+	<!-- ADMIN CS QNA -->
+	<select id="selectCsQnaList" resultType="kr.co.kmarket.vo.CsVO">
+		SELECT * FROM `km_cs_qna` ORDER BY `no` DESC LIMIT 10;
+	</select>
+	
 	<select id="selectQnaArticles" resultType="kr.co.kmarket.vo.CsVO">
 		SELECT * FROM `km_cs_qna` where `parent` = 0 ORDER BY `no` DESC LIMIT #{start},10;
 	</select>
@@ -98,6 +100,18 @@
 	
 	<select id="selectQnaArticle" resultType="kr.co.kmarket.vo.CsVO">
 		SELECT * FROM `km_cs_qna` WHERE `no` = #{no};
+	</select>
+	
+	<select id="selectQnaSearch" resultType="kr.co.kmarket.vo.CsVO">
+		SELECT * FROM `km_cs_qna`  WHERE `group` = #{group} and `cate` = #{cate} and `parent` = 0 ORDER BY `no` desc limit #{start},10;
+	</select>
+	
+	<select id="selectCountQna" resultType="int">
+		SELECT COUNT(`no`) FROM `km_cs_qna` WHERE `parent` = 0;
+	</select>
+	
+	<select id="selectCountQna2" resultType="int">
+		SELECT COUNT(`no`) FROM `km_cs_qna` WHERE `group` = #{group} AND `cate` = #{cate} AND `parent` = 0 ;
 	</select>
 	
 	<insert id="insertQnaReply">
@@ -114,10 +128,6 @@
 		WHERE `no` = #{no};
 	</update>
 	
-	<select id="selectQnaSearch" resultType="kr.co.kmarket.vo.CsVO">
-		SELECT * FROM `km_cs_qna`  WHERE `group` = #{group} and `cate` = #{cate} ORDER BY `no` desc limit 10;
-	</select>
-  
 	<delete id="deleteQnaArticle">
 		delete from `km_cs_qna` where `no` = #{no} or `parent` = #{no};		
 	</delete>	

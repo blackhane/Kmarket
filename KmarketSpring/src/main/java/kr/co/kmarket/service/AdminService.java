@@ -56,13 +56,22 @@ public class AdminService {
 		return dao.selectCountNoticeTotal();
 	}
 	
-	public int selectQnaArticleTotal() {
-		return dao.selectCountQnaTotal();
+	public int selectCountQna() {
+		return dao.selectCountQna();
+	}
+	
+	public int selectCountQna2(String group, String cate) {
+		return dao.selectCountQna2(group, cate);
 	}
 	
 	public List<ProductVO> selectAdminProductList(int start) {
 		return dao.selectAdminProductList(start);
 	}
+	
+	//관리자 상품 삭제
+	public int productDelete(int no) {
+		return dao.productDelete(no);
+	};
 	
 	//관리자 Index 공지사항 list
 	public List<CsVO> selectIndexCsNoticeList() {
@@ -120,8 +129,8 @@ public class AdminService {
 	};
 	
 	//관리자 문의하기 카테고리 검색 2023/02/21
-	public List<CsVO> selectQnaSearch (String group, String cate){
-		return dao.selectQnaSearch(group, cate);
+	public List<CsVO> selectQnaSearch (String group, String cate, int start){
+		return dao.selectQnaSearch(group, cate, start);
 	};
 	
 	//관리자 문의하기 게시글 삭제 2023/02/21
@@ -129,10 +138,9 @@ public class AdminService {
 		dao.deleteQnaArticle(no);
 	}
 	
-	//관리자 상품 삭제
-	public int productDelete(int no) {
-		return dao.productDelete(no);
-	};
+	
+	
+
 	
 	//파일 업로드
 	@Value("${spring.servlet.multipart.location}")
@@ -237,9 +245,7 @@ public class AdminService {
 		if(pg != null) {
 			currentPage = Integer.parseInt(pg);
 		}
-		
 		return currentPage;
-				
 	}
 	
 	// 페이지 시작값

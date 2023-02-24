@@ -24,6 +24,7 @@ public class CsVO {
 	private String uidMask;
 	private String reply;
 	private int status;
+	private int start;
 	
 	private String company;
 	
